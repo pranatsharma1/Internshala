@@ -1,0 +1,18 @@
+<head>
+    {% load static %}
+    <link href="{% static 'tinymce/css/prism.css' %}" rel="stylesheet">
+</head>
+
+
+<body>
+
+{% for j in jobs %}
+    <p>{{j.job_title}}</p>
+    <p>{{j.job_published}}</p>
+    <p>{{j.job_content|safe}}</p>
+    <br><br>
+{% endfor %}
+
+</body>
+
+<script src="{% static "tinymce/js/prism.js" %}"></script>
