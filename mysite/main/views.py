@@ -1,3 +1,4 @@
+from .forms import NewUserForm
 from django.shortcuts import render, redirect
 from .models import Job
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -12,7 +13,7 @@ def homepage(request):
 
 def register(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = NewUserForm(request.POST)
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
@@ -28,7 +29,7 @@ def register(request):
                           template_name = "main/register.html",
                           context={"form":form})
 
-    form = UserCreationForm
+    form = NewUserForm
     return render(request = request,
                   template_name = "main/register.html",
                   context={"form":form})    
