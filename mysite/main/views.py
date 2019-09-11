@@ -1,4 +1,4 @@
-from .forms import NewUserForm
+from .forms import NewUserForm, profileform
 from django.shortcuts import render, redirect
 from .models import Job
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -62,3 +62,15 @@ def login_request(request):
 
 def account(request):
     return render(request=request,template_name="main/account.html")
+
+
+def add_profile(request):
+    if request.method == 'POST':
+        form = profileform(request.POST)
+        if form.is_valid():
+            profile_item = form.save(commit=False)
+            profile_item.save()
+
+    else:
+        form = profileform()        
+    return render(request,"main/addprofile.html",{'form':form})

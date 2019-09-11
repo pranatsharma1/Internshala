@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 from datetime import datetime
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.core import validators
@@ -6,11 +7,65 @@ from django.utils import timezone
 
 
 # Create your models here.
-class typeofregister(models.Model):
+'''class typeofregister(models.Model):
     name= models.CharField(max_length=50)
     type_register = models.CharField(max_length=10)
+'''
+class skillcategory(models.Model):
+    profile_s = models.CharField(max_length=100)
+    Organization = models.CharField(max_length=100)
+    location_s = models.CharField(max_length=100)
+    start_date = models.DateField()
+    last_date = models.DateField()
+    Description = models.CharField(max_length=400)
+
+    def __str__(self):
+        return self.profile_s
 
 
+class profile(models.Model):
+    name_p = models.CharField(max_length=100)
+    skill_p = models.CharField(max_length=500)
+    college_p = models.CharField(max_length=100)
+    phone_no = models.CharField(max_length=10)
+    location_p = models.CharField(max_length=100)
+    intership_p = models.ForeignKey(skillcategory,default=1,on_delete=models.SET_DEFAULT)
+    company_p = models.CharField(max_length=100)
+
+
+
+
+'''
+
+TITLE_CHOICES = [
+    ('MR', 'Mr.'),
+    ('MRS', 'Mrs.'),
+    ('MS', 'Ms.'),
+]
+
+class Author(models.Model):
+    name = models.CharField(max_length=100)
+    title = models.CharField(max_length=3, choices=TITLE_CHOICES)
+    birth_date = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+class Book(models.Model):
+    name = models.CharField(max_length=100)
+    authors = models.ManyToManyField(Author)
+
+class AuthorForm(ModelForm):
+    class Meta:
+        model = Author
+        fields = ['name', 'title', 'birth_date']
+
+class BookForm(ModelForm):
+    class Meta:
+        model = Book
+        fields = ['name', 'authors']
+
+'''
 
 class Job(models.Model):
     job_title= models.CharField(max_length=200)

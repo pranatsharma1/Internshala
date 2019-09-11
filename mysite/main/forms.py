@@ -1,7 +1,16 @@
+from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.db import models
+from . models import profile,skillcategory
+from django.db import models
+
+
+class profileform(ModelForm):
+    class Meta :
+        model = profile
+        fields = ["name_p","skill_p","college_p","phone_no","location_p","company_p"]
 
 
 
