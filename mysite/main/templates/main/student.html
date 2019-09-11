@@ -1,0 +1,7 @@
+{% block content %}
+{% if user.is_authenticated %}
+
+<li><a href="/account">{{user.username|title}}</a></li>
+<li><a href="/logout">Logout</a></li>
+{% endif %}
+{% end block %}

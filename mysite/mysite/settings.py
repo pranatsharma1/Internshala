@@ -67,7 +67,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'tinymce',
 ]
-AUTH_USER_MODEL = 'main.User'
+#AUTH_USER_MODEL = 'main.User'
 
 
 MIDDLEWARE = [

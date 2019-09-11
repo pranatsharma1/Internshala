@@ -40,6 +40,7 @@ def logout_request(request):
     return redirect("main:homepage") 
 
 def login_request(request):
+    
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
         if form.is_valid():
@@ -59,3 +60,5 @@ def login_request(request):
                     template_name = "main/login.html",
                     context={"form":form})
 
+def account(request):
+    return render(request=request,template_name="main/account.html")

@@ -6,6 +6,9 @@ from django.utils import timezone
 
 
 # Create your models here.
+class typeofregister(models.Model):
+    name= models.CharField(max_length=50)
+    type_register = models.CharField(max_length=10)
 
 
 
@@ -14,12 +17,9 @@ class Job(models.Model):
     job_content= models.TextField()
     job_published= models.DateTimeField("date published",default= datetime.now())
 
-    def __str__(self
-    
-    
-    ):
+    def __str__(self):
         return self.job_title
-
+'''
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None):
         """
@@ -110,4 +110,4 @@ class User(AbstractBaseUser):
     @property
     def is_active(self):
         "Is the user active?"
-        return self.active
+        return self.active'''

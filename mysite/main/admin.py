@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Job
+from .models import Job,typeofregister
 from tinymce.widgets import TinyMCE
 from django.db import models
 # Register your models here.
@@ -16,3 +16,4 @@ class JobAdmin(admin.ModelAdmin):
     }
 
 admin.site.register(Job,JobAdmin)
+admin.site.register(typeofregister)

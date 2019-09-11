@@ -1,0 +1,28 @@
+<head>
+    <style>
+        .profile{
+            border: 5px;
+            background-color: aquamarine;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+    
+    
+    
+    </style>
+</head>
+<body>
+{% block content %}
+<div class="profile">
+    <div class="name"><p><strong>NAME:</strong > {{user.first_name}}{{user.first_name}}</p></div>
+    <div class="name">EMAIL: {{user.email}}</div>
+    <div class="name">USERNAME: {{user.username}}</div>
+    
+
+
+
+</div>
+
+{% endblock %}
+</body>
