@@ -1,0 +1,14 @@
+.navbar-brand{
+    
+    align-content: left;
+    padding-bottom: 50px;
+    padding-left: 15px;
+    width: 150px;
+    height: 30px;
+}
+.dash-img{
+    margin: 0;
+    align-content:left;
+    width:50%;
+    height: 50%;
+}
