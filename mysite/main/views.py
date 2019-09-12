@@ -70,7 +70,8 @@ def add_profile(request):
         if form.is_valid():
             profile_item = form.save(commit=False)
             profile_item.save()
+            return redirect('/')
 
     else:
         form = profileform()        
-    return render(request,"main/addprofile.html",{'form':form})
+        return render(request,"main/addprofile.html",{'form':form})

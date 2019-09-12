@@ -14,7 +14,22 @@
             </div>
             </div>
         </div>
-    {% endfor %}
+        {% endfor %}
+
+        {% for k in postjob %}
+        <div class="col s12 m6">
+            <div class="card white darken-1 hoverable">
+            <div class="card-content black-text">
+                <span class="card-title">{{k.company_name}}</span>
+                <p style="font-size: 70%">{{k.about}}</p> 
+                <br><br>
+                <p>{k.location}}</p>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
 </div>
 {% endblock %}
 

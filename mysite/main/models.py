@@ -23,14 +23,33 @@ class skillcategory(models.Model):
         return self.profile_s
 
 
+
 class profile(models.Model):
-    name_p = models.CharField(max_length=100)
-    skill_p = models.CharField(max_length=500)
-    college_p = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    skill = models.CharField(max_length=500)
+    college = models.CharField(max_length=100)
     phone_no = models.CharField(max_length=10)
-    location_p = models.CharField(max_length=100)
-    intership_p = models.ForeignKey(skillcategory,default=1,on_delete=models.SET_DEFAULT)
-    company_p = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    company_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class internship(models.Model):
+    field = models.ForeignKey(profile,on_delete=models.CASCADE)        
+
+
+class postjob(models.Model):
+    company_name = models.CharField(max_length=100)
+    about = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    Start_date = models.DateField()
+    Duration = models.CharField(max_length=10)
+    Stipend	 = models.CharField(max_length=10)
+    Posted_On = models.DateField(max_length=10)
+
+
+
 
 
 
@@ -103,6 +122,7 @@ class UserManager(BaseUserManager):
         return user
     def create_companyuser(self, email, password):
         """
+        
         Creates and saves a superuser with the given email and password.
         """
         user = self.create_user(
@@ -155,12 +175,12 @@ class User(AbstractBaseUser):
     @property
     def is_student(self):
         "Is the user a member of staff?"
-        return self.staff
+        return self.student
 
     @property
     def is_company(self):
         "Is the user a admin member?"
-        return self.admin
+        return self.company
 
     @property
     def is_active(self):

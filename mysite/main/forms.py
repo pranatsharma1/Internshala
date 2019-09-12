@@ -10,7 +10,7 @@ from django.db import models
 class profileform(ModelForm):
     class Meta :
         model = profile
-        fields = ["name_p","skill_p","college_p","phone_no","location_p","company_p"]
+        fields = ("name","skill","college","phone_no","location","company_name")
 
 
 
@@ -18,7 +18,8 @@ class NewUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
     last_name = models.CharField(max_length=50)
     first_name = models.CharField(max_length=100)
-   
+    #differ_id = forms.CharField(required=True, label="Differ_Id")
+
 
     class Meta:
         model = User
@@ -27,6 +28,7 @@ class NewUserForm(UserCreationForm):
     def save(self, commit=True):
         user = super(NewUserForm,self).save(commit=False)
         user.email = self.cleaned_data['email']
+
         if commit:
             user.save()
         return user    
