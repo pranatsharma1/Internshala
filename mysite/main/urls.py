@@ -11,5 +11,8 @@ urlpatterns = [
    path("login/", views.login_request, name="login"), 
    path("account/",views.account,name="account"),
    path("add_profile/",views.add_profile,name="add_profile"),
+   path("profile/edit/",views.edit_profile,name="edit_profile"),
+   path("change-password/",views.change_password,name="change_password"),
+
 
 ]

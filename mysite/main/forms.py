@@ -1,9 +1,13 @@
 from django.forms import ModelForm
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.db import models
-from . models import profile,skillcategory
+from . models import profile
+from django.contrib.auth.models import User
+
+#from accounts.models import UserProfile
+
+
 from django.db import models
 
 
@@ -14,23 +18,40 @@ class profileform(ModelForm):
 
 
 
+  
 class NewUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    last_name = models.CharField(max_length=50)
-    first_name = models.CharField(max_length=100)
-    #differ_id = forms.CharField(required=True, label="Differ_Id")
-
 
     class Meta:
         model = User
-        fields = ("first_name","last_name","username","email","password1","password2")
+        fields = (
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'password1',
+            'password2'
+        )
 
     def save(self, commit=True):
-        user = super(NewUserForm,self).save(commit=False)
+        user = super(NewUserForm, self).save(commit=False)
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
         user.email = self.cleaned_data['email']
 
         if commit:
             user.save()
-        return user    
+
+        return user
 
 
+class EditProfileForm(UserChangeForm):
+
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'first_name',
+            'last_name',
+            'password'
+        )    

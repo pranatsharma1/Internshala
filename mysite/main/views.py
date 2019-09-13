@@ -1,9 +1,15 @@
-from .forms import NewUserForm, profileform
+from .forms import NewUserForm, profileform,EditProfileForm
 from django.shortcuts import render, redirect
-from .models import Job
+from .models import Job,profile
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import logout, authenticate, login
 from django.contrib import messages
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
+from django.contrib.auth.models import User
+from django.urls import reverse
+from django.contrib.auth import update_session_auth_hash
+
+
 # Create your views here.
 def homepage(request):
     return render(request=request,
@@ -75,3 +81,32 @@ def add_profile(request):
     else:
         form = profileform()        
         return render(request,"main/addprofile.html",{'form':form})
+
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('accounts:view_profile'))
+    else:
+        form = EditProfileForm(instance=request.user)
+        args = {'form': form}
+        return render(request, 'main/edit.html', args)
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect(reverse('accounts:view_profile'))
+        else:
+            return redirect(reverse('accounts:change_password'))
+    else:
+        form = PasswordChangeForm(user=request.user)
+
+        args = {'form': form}
+        return render(request, 'main/change_password.html', args)
+

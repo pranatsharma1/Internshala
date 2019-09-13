@@ -33,13 +33,19 @@
     </div>
 </nav>    
 {% include 'main/includes/messaging.html' %}
+{% block body %}
+<div class="container">
+    <h1>Profile</h1>
+    <p>Username: {{ user }}</p>
+    <p>First name: {{ user.first_name }}</p>
+    <p>Last name: {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+     <!--{% if user.userprofile.image %}
+   <img src="{{ user.userprofile.image.url }}" width="240">
+    {% endif %}-->
+</div>
 
-<div class="profile" style="border:5px;">
-    <div class="name"><h3>{{user.first_name}}{{user.last_name}}</h3></div>
-    EMAIL: {{user.email}}
-    <div class="name">USERNAME: {{user.username}}</div>
-    <p>phone no: {{ profile.phone_no }} </p>
-    </div>
+{% endblock %}
 
 {% endblock %}
 </body>
