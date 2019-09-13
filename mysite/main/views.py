@@ -1,3 +1,4 @@
+# from .forms import NewUserForm, profileform
 from django.shortcuts import render, redirect
 from .models import Job
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -46,10 +47,11 @@ def register_as_employer(request):
                           template_name = "main/register.html",
                           context={"form":form})
 
+
     form = NewUserForm1
     return render(request = request,
                   template_name = "main/register.html",
-                  context={"form":form})    
+                  context={"form":form}) 
 
 def register_as_student(request):
     if request.method == "POST":
@@ -80,6 +82,7 @@ def logout_request(request):
     return redirect("main:homepage") 
 
 def login_request(request):
+    
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
         if form.is_valid():
@@ -89,7 +92,7 @@ def login_request(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}")
-                return redirect("main:student")
+                return redirect("main:homepage")
             else:
                 messages.error(request, "Invalid username or password.")
         else:
@@ -98,6 +101,7 @@ def login_request(request):
     return render(request = request,
                     template_name = "main/login.html",
                     context={"form":form})
+
 
 # def login_as_student(request):
 #     if request.method == 'POST':
@@ -119,3 +123,40 @@ def login_request(request):
 #                     template_name = "main/login.html",
 #                     context={"form":form})                    
 
+
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        #    Mahima's Code
+# =======
+# def account(request):
+#     return render(request=request,template_name="main/account.html")
+
+
+# def add_profile(request):
+#     if request.method == 'POST':
+#         form = profileform(request.POST)
+#         if form.is_valid():
+#             profile_item = form.save(commit=False)
+#             profile_item.save()
+#             return redirect('/')
+
+#     else:
+#         form = profileform()        
+#         return render(request,"main/addprofile.html",{'form':form})
+# >>>>>>> 0c068883fa2efc525150809d3d31552b94896f8d
+
+# =======
+#     form = NewUserForm
+# >>>>>>> 0c068883fa2efc525150809d3d31552b94896f8d
+   

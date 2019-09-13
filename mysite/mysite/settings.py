@@ -67,6 +67,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tinymce',
 ]
+#AUTH_USER_MODEL = 'main.User'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

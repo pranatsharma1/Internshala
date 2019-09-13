@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Job
+# from .models import Job,profile,skillcategory,postjob,internship
 from tinymce.widgets import TinyMCE
 from django.db import models
 from .models import User
@@ -19,3 +20,16 @@ class JobAdmin(admin.ModelAdmin):
 
 admin.site.register(User)
 admin.site.register(Job,JobAdmin)
+
+
+
+# admin.site.register(skillcategory)
+# admin.site.register(profile)
+# admin.site.register(postjob)
+# admin.site.register(internship)
+
+
+
+
+
+
