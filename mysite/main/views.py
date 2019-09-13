@@ -1,4 +1,3 @@
-from .forms import NewUserForm, profileform
 from django.shortcuts import render, redirect
 from .models import Job
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -13,7 +12,7 @@ def homepage(request):
 
 def register(request):
     if request.method == "POST":
-        form = NewUserForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
@@ -29,7 +28,7 @@ def register(request):
                           template_name = "main/register.html",
                           context={"form":form})
 
-    form = NewUserForm
+    form = UserCreationForm
     return render(request = request,
                   template_name = "main/register.html",
                   context={"form":form})    
@@ -40,7 +39,6 @@ def logout_request(request):
     return redirect("main:homepage") 
 
 def login_request(request):
-    
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
         if form.is_valid():
@@ -60,18 +58,3 @@ def login_request(request):
                     template_name = "main/login.html",
                     context={"form":form})
 
-def account(request):
-    return render(request=request,template_name="main/account.html")
-
-
-def add_profile(request):
-    if request.method == 'POST':
-        form = profileform(request.POST)
-        if form.is_valid():
-            profile_item = form.save(commit=False)
-            profile_item.save()
-            return redirect('/')
-
-    else:
-        form = profileform()        
-        return render(request,"main/addprofile.html",{'form':form})
