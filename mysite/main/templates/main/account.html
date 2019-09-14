@@ -8,18 +8,7 @@
                 <!-- Compiled and minified JavaScript for Materialize CSS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
             
-    <style>
-        .profile{
-            border: 5px;
-            background-color: aquamarine;
-            margin-left: auto;
-            margin-right: auto;
-            width:80%;
-            background-color:red;   
-
-        }
-
-    </style>
+    
 </head>
 <body>
 {% block content %}
@@ -33,19 +22,15 @@
     </div>
 </nav>    
 {% include 'main/includes/messaging.html' %}
-{% block body %}
-<div class="container">
-    <h1>Profile</h1>
+<h1>Profile</h1>
     <p>Username: {{ user }}</p>
     <p>First name: {{ user.first_name }}</p>
     <p>Last name: {{ user.last_name }}</p>
     <p>Email: {{ user.email }}</p>
-     <!--{% if user.userprofile.image %}
-   <img src="{{ user.userprofile.image.url }}" width="240">
-    {% endif %}-->
-</div>
-
-{% endblock %}
+    <p>Description: {{ user.userprofile.description }}</p>
+    <p>Phone: {{ user.userprofile.phone }}</p>
+    <p>City: {{ user.userprofile.city }}</p>
+    <p>Website: {{ user.userprofile.website }}</p>
 
 {% endblock %}
 </body>

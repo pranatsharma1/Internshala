@@ -1,48 +1,48 @@
 from django.forms import ModelForm
 from django import forms
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.db import models
-from . models import profile
-from django.contrib.auth.models import User
+from . models import UserProfile
+from django.contrib.auth.models import User,AbstractUser
 
-#from accounts.models import UserProfile
+User=get_user_model()
 
-
-from django.db import models
-
-
-class profileform(ModelForm):
-    class Meta :
-        model = profile
-        fields = ("name","skill","college","phone_no","location","company_name")
-
-
-
-  
-class NewUserForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-
+class NewUserForm1(UserCreationForm):
+    email= forms.EmailField(required=True)
+    last_name=models.CharField(max_length=50)
+    first_name=models.CharField(max_length=100)
+    is_employer=forms.BooleanField()
+    
     class Meta:
-        model = User
-        fields = (
-            'username',
-            'first_name',
-            'last_name',
-            'email',
-            'password1',
-            'password2'
-        )
+          model=User
+          fields=("first_name","last_name","username","is_employer","email","password1","password2")
 
-    def save(self, commit=True):
-        user = super(NewUserForm, self).save(commit=False)
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
-        user.email = self.cleaned_data['email']
-
+    def save(self,commit=True):
+        user=super(NewUserForm1,self).save(commit=False)
+        user.email=self.cleaned_data['email']
         if commit:
             user.save()
+        return user    
 
-        return user
+class NewUserForm2(UserCreationForm):
+    email= forms.EmailField(required=True)
+    last_name=models.CharField(max_length=50)
+    first_name=models.CharField(max_length=100)
+    is_student=forms.BooleanField()
+    
+
+    class Meta:
+          model=User
+          fields=("first_name","last_name","username","is_student","email","password1","password2")
+
+    def save(self,commit=True):
+        user=super(NewUserForm2,self).save(commit=False)
+        user.email=self.cleaned_data['email']
+        if commit:
+            user.save()
+        return user   
 
 
 class EditProfileForm(UserChangeForm):
@@ -55,3 +55,22 @@ class EditProfileForm(UserChangeForm):
             'last_name',
             'password'
         )    
+
+#new code
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('city', 'website', 'phone')
+
+
+
+
+
+
+
+

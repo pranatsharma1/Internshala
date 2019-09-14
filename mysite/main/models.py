@@ -1,72 +1,16 @@
 from django.db import models
 from django.forms import ModelForm
 from datetime import datetime
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
-from django.core import validators
-from django.utils import timezone
+from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 # Create your models here.
-
-
-
-class profile(models.Model):
-    name = models.CharField(max_length=100)
-    skill = models.CharField(max_length=500)
-    college = models.CharField(max_length=100)
-    phone_no = models.CharField(max_length=10)
-    location = models.CharField(max_length=100)
-    company_name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
-class postjob(models.Model):
-    company_name = models.CharField(max_length=100)
-    about = models.CharField(max_length=100)
-    location = models.CharField(max_length=100)
-    Start_date = models.DateField()
-    Duration = models.CharField(max_length=10)
-    Stipend	 = models.CharField(max_length=10)
-    Posted_On = models.DateField(max_length=10)
-
-    def __str__(self):
-        return self.company_name
-
-class internship(models.Model):
-    company_name = models.CharField(max_length=10,default=None)
-    Posted_On = models.DateField(max_length=10,default=None)
-    status = models.CharField(max_length=10,default=None)
-
-    def __str__(self):
-        return self.company_name
-
-
-
-class type_of_field(models.Model):
-    name = models.CharField(max_length=10,default=None)
-    field = models.ForeignKey(internship,on_delete=models.CASCADE)    
-
-    def __str__(self):
-        return self.name
-
-    
-class student(models.Model):
-    username = models.CharField(max_length=10,default=None)
-    Name = models.CharField(max_length=10,default=None)
-    College = models.CharField(max_length=10,default=None)
-    Skill = models.CharField(max_length=10,default=None)
-    phone_no = models.CharField(max_length=10,default=None)
-    field = models.CharField(max_length=30,default=None)
-    first_n=models.CharField(max_length=40,default=None)
-    get_intership = models.ForeignKey(type_of_field,on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.username
-
+class User(AbstractUser):
+    is_employer=models.BooleanField(default=False)
+    is_student=models.BooleanField(default=False)
 
 class Job(models.Model):
     job_title= models.CharField(max_length=200)
@@ -74,4 +18,40 @@ class Job(models.Model):
     job_published= models.DateTimeField("date published",default= datetime.now())
 
     def __str__(self):
-        return self.job_title
+        return self.job_title 
+
+class UserProfileManager(models.Manager):
+    def get_queryset(self):
+        return super(UserProfileManager, self).get_queryset().filter(city='London')
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    description = models.CharField(max_length=100, default='')
+    city = models.CharField(max_length=100, default='')
+    website = models.URLField(default='')
+    phone = models.IntegerField(default=0)
+
+    london = UserProfileManager()
+
+    def __str__(self):
+        return self.user.username
+'''
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+'''
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                     
+
