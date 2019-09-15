@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Job,UserProfile
+from .models import Job,UserProfile,post_job
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import logout, authenticate, login
 from django.contrib import messages
@@ -8,11 +8,12 @@ from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.auth import update_session_auth_hash
-from .forms import  EditProfileForm
+from .forms import  EditProfileForm,HomeForm
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
-from .forms import UserForm,ProfileForm
+from .forms import UserForm,EmployerForm,IntershipCategoryForm
 
+from django.views.generic import TemplateView
 
 
 
@@ -162,26 +163,43 @@ def view_profile(request, pk=None):
     args = {'user': user}
     return render(request, 'main/account.html', args)
 
-#new code
-'''
-@login_required
-@transaction.atomic
-def update_profile(request):
-    if request.method == 'POST':
-        user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            messages.success(request, ('Your profile was successfully updated!'))
-            return redirect('main:profile')
-        else:
-            messages.error(request, ('Please correct the error below.'))
+
+
+def postform(request):
+ 
+    if request.method == "POST":
+        form = IntershipCategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('main:homepage')
+ 
     else:
-        user_form = UserForm(instance=request.user)
-        profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'main/profile.html', {
-        'user_form': user_form,
-        'profile_form': profile_form
-    })'''
-    
+        form = IntershipCategoryForm()
+        return render(request, "main/category.html", {'form': form})
+#new
+class HomeView(TemplateView):
+    template_name= 'home.html'
+
+    def get(self,request):
+        form = HomeForm()
+        posts = post_job.objects.all()
+        context = {'form':form,'posts':posts}
+        return render(request,self.template_name,context)
+
+
+    def post(self,request):
+        form = HomeForm(request.POST)    
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.User = request.User
+            post.save()
+
+            text = form.cleaned_data['post']    
+            form = HomeForm()
+            return redirect( 'main:home')
+
+        args ={'form': form, 'text': text}  
+        return render(request, self.template_name, args)
+
+#new
+

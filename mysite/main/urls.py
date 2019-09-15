@@ -19,6 +19,8 @@ urlpatterns = [
    path("change-password/",views.change_password,name="change_password"),
    path('account/', views.view_profile, name='view_profile'),
    path('account/(?P<pk>\d+)/', views.view_profile, name='view_profile_with_pk'),
+   path('category/', views.postform, name='postform'),
+   path(r'^$', views.HomeView, name='home'),
 
 
 ]

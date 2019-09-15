@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.db import models
-from . models import UserProfile
+from . models import UserProfile,IntershipCategory,post_job
 from django.contrib.auth.models import User,AbstractUser
 
 User=get_user_model()
@@ -57,19 +57,33 @@ class EditProfileForm(UserChangeForm):
         )    
 
 #new code
+
 class UserForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ('first_name', 'last_name', 'email')
+        model = UserProfile
+        fields = ('user',  'city', 'phone', 'website')
 
-class ProfileForm(forms.ModelForm):
+
+class EmployerForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('city', 'website', 'phone')
+        fields = ('user', 'company_name','company_location', 'phone', 'website')
 
+#new 
 
+class IntershipCategoryForm(forms.ModelForm):
+    class Meta:
+        model = IntershipCategory
+        fields = ('intership_category','intership_summray')
 
-
+class HomeForm(forms.ModelForm):
+    Employer_company_name = models.CharField(max_length=100)
+    Start_date = models.DateField()
+    Duration = models.CharField(max_length=20)
+    Stipend = models.CharField(max_length=5)
+    class Meta:
+        model = post_job
+        fields = ('Employer_company_name','Start_date','Duration','Stipend')
 
 
 

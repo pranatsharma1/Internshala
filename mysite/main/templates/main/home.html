@@ -1,9 +1,9 @@
 {% extends 'main/header.html' %}
 
 {% block content %}
-
+ 
 <div class="row">
-    mahima
+   
     {% for j in jobs %}
         <div class="col s12 m6">
             <div class="card white darken-1 hoverable">
@@ -15,29 +15,25 @@
             </div>
             </div>
         </div>
-        {% endfor %}
+    {% endfor %} 
+    {% for i in post_jobs %}
+        <span >{{i.Employer_company_name}}</span>
+        <p>{{i.Stipend}}</p> 
+              
+    {% endfor %} 
+    <div class="show">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.post }}
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    {% for post in posts %}
+            <h1>{{ post.post }}</h1>
+            <p>Posted by {{ post.Employer_company_name }} on {{ post.Stipend }}</p>
+    {% endfor %} 
 
-
-
-                                              <!-- Mahima's Code-->
-        <!-- {% for k in postjob %}
-        <div class="col s12 m6">
-            <div class="card white darken-1 hoverable">
-            <div class="card-content black-text">
-                <span class="card-title">{{k.company_name}}</span>
-                <p style="font-size: 70%">{{k.about}}</p> 
-                <br><br>
-                <p>{k.location}}</p>
-            </div>
-            </div>
-        </div>
-        {% endfor %}
- -->
-
-
- 
-
-</div>
 {% endblock %}
 
 

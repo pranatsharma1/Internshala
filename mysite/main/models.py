@@ -8,6 +8,7 @@ from django.dispatch import receiver
 
 
 # Create your models here.
+
 class User(AbstractUser):
     is_employer=models.BooleanField(default=False)
     is_student=models.BooleanField(default=False)
@@ -19,6 +20,37 @@ class Job(models.Model):
 
     def __str__(self):
         return self.job_title 
+#new
+class IntershipCategory(models.Model):
+    intership_category = models.CharField(max_length=200)
+    intership_summray = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.intership_category
+
+
+class Intershiplocation(models.Model):
+    intership_location = models.CharField(max_length=20)
+    intership_category = models.ForeignKey(IntershipCategory,default='',blank=True , null=True,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.intership_location
+
+
+
+class post_job(models.Model):
+    Employer_company_name = models.CharField(max_length=100)
+    Start_date = models.DateField()
+    Duration = models.CharField(max_length=20)
+    Stipend = models.CharField(max_length=5)
+    category = models.ForeignKey(Intershiplocation,default='',blank=True , null=True,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.Employer_company_name
+
+
+#new above
+
 
 class UserProfileManager(models.Manager):
     def get_queryset(self):
@@ -30,12 +62,22 @@ class UserProfile(models.Model):
     city = models.CharField(max_length=100, default='')
     website = models.URLField(default='')
     phone = models.IntegerField(default=0)
+    company_name = models.CharField(max_length=100, default='')
+    company_location = models.CharField(max_length=100, default='')
+    #new
+    fieldname_type = models.ForeignKey(post_job,default='',blank=True , null=True,on_delete=models.CASCADE)
+    
+
 
     london = UserProfileManager()
 
     def __str__(self):
         return self.user.username
+class UserProfileManagerE(models.Manager):
+    def get_queryset(self):
+        return super(UserProfileManager, self).get_queryset().filter(company_location='delhi')
 '''
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -49,9 +91,4 @@ def save_user_profile(sender, instance, **kwargs):
                                              
                                              
                                              
-                                             
-                                             
-                                             
-                                             
-                     
-
+                    
