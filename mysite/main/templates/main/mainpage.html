@@ -1,0 +1,13 @@
+{% extends 'main/header.html' %}
+{% block content %}
+
+
+
+<form method="post">
+        {% csrf_token %}
+        mahi
+        {{ form.post }}
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

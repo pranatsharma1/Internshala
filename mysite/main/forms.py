@@ -6,6 +6,8 @@ from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.db import models
 from . models import UserProfile,IntershipCategory,post_job
 from django.contrib.auth.models import User,AbstractUser
+from .models import Category, Product
+
 
 User=get_user_model()
 
@@ -86,5 +88,17 @@ class HomeForm(forms.ModelForm):
         fields = ('Employer_company_name','Start_date','Duration','Stipend')
 
 
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ('name', )
 
 
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ('name', 'price', 'category', )
+
+    def __init__(self, user, *args, **kwargs):
+        super(ProductForm, self).__init__(*args, **kwargs)
+        self.fields['category'].queryset = Category.objects.filter(user=user)

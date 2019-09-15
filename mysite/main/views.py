@@ -12,15 +12,60 @@ from .forms import  EditProfileForm,HomeForm
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm,EmployerForm,IntershipCategoryForm
-
-from django.views.generic import TemplateView
-
-
-
-# Create your views here.
+from .forms import CategoryForm, ProductForm
+from .models import Category, Product
+from django.forms import modelformset_factory
 
 
 
+
+@login_required
+def products_list(request):
+    products = Product.objects.filter(user=request.user)
+    return render(request, 'main/products_list.html', {'products': products})
+
+
+@login_required
+def new_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.user, request.POST)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.user = request.user
+            product.save()
+            return redirect('products_list')
+    else:
+        form = ProductForm(request.user)
+    return render(request, 'main/product_form.html', {'form': form})
+
+
+@login_required
+def new_category(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.user = request.user
+            product.save()
+            return redirect('products_list')
+    else:
+        form = CategoryForm()
+    return render(request, 'main/category_form.html', {'form': form})
+
+
+@login_required
+def edit_all_products(request):
+    ProductFormSet = modelformset_factory(Product, fields=('name', 'price', 'category'), extra=0)
+    data = request.POST or None
+    formset = ProductFormSet(data=data, queryset=Product.objects.filter(user=request.user))
+    for form in formset:
+        form.fields['category'].queryset = Category.objects.filter(user=request.user)
+
+    if request.method == 'POST' and formset.is_valid():
+        formset.save()
+        return redirect('products_list')
+
+    return render(request, 'main/products_formset.html', {'formset': formset})
 def homepage(request):
     return render(request=request,
                   template_name="main/home.html",
@@ -177,8 +222,9 @@ def postform(request):
         form = IntershipCategoryForm()
         return render(request, "main/category.html", {'form': form})
 #new
+'''
 class HomeView(TemplateView):
-    template_name= 'home.html'
+    template_name= 'main/home.html' #only to remove hardcoded
 
     def get(self,request):
         form = HomeForm()
@@ -200,6 +246,6 @@ class HomeView(TemplateView):
 
         args ={'form': form, 'text': text}  
         return render(request, self.template_name, args)
-
+'''
 #new
 

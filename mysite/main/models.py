@@ -5,6 +5,8 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.forms import ModelForm
+
 
 
 # Create your models here.
@@ -52,7 +54,7 @@ class post_job(models.Model):
 #new above
 
 
-class UserProfileManager(models.Manager):
+class UserProfileManager(models.Manager):     #this is for managing the data like filter here make it in function
     def get_queryset(self):
         return super(UserProfileManager, self).get_queryset().filter(city='London')
 
@@ -69,13 +71,14 @@ class UserProfile(models.Model):
     
 
 
-    london = UserProfileManager()
+    london = UserProfileManager()   #userprofile.london.all() same as it 
 
     def __str__(self):
         return self.user.username
 class UserProfileManagerE(models.Manager):
     def get_queryset(self):
         return super(UserProfileManager, self).get_queryset().filter(company_location='delhi')
+
 '''
 
 @receiver(post_save, sender=User)
@@ -88,7 +91,17 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 '''
                                              
-                                             
-                                             
+class Category(models.Model):
+    name = models.CharField(max_length=30)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
+class Product(models.Model):
+    name = models.CharField(max_length=30)
+    price = models.DecimalField(decimal_places=2, max_digits=10)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)                                             
+    def __str__(self):
+        return self.name                               
                                              
                     

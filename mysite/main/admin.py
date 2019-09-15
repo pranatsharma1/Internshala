@@ -2,7 +2,7 @@ from tinymce.widgets import TinyMCE
 from django.db import models
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
-from .models import UserProfile,Job,User,post_job,Intershiplocation,IntershipCategory
+from .models import UserProfile,Job,User,post_job,Intershiplocation,IntershipCategory,Product,Category
 
 
 class UserProfileAdmin(admin.ModelAdmin):
@@ -37,6 +37,8 @@ admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(post_job)
 admin.site.register(Intershiplocation)
 admin.site.register(IntershipCategory)
+admin.site.register(Category)
+admin.site.register(Product)
 
 
 

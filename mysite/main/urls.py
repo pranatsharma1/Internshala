@@ -1,6 +1,8 @@
 
 from django.urls import path
 from . import views
+from .views import HomeView
+from django.conf.urls import url
 
 app_name="main"
 
@@ -20,7 +22,12 @@ urlpatterns = [
    path('account/', views.view_profile, name='view_profile'),
    path('account/(?P<pk>\d+)/', views.view_profile, name='view_profile_with_pk'),
    path('category/', views.postform, name='postform'),
-   path(r'^$', views.HomeView, name='home'),
+   path('home/', HomeView.as_view()),
+   #new code
+   url('products/new/new/', views.new_product, name='new_product'),
+   url('products/edit_all/pro/', views.edit_all_products, name='edit_all_products'),
+   url('products/pro/pro/', views.products_list, name='products_list'),
+   url('products/categories/new/', views.new_category, name='new_category'),
 
 
 ]

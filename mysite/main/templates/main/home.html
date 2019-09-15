@@ -1,7 +1,13 @@
 {% extends 'main/header.html' %}
 
 {% block content %}
- 
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+    </form>
+    
 <div class="row">
    
     {% for j in jobs %}
@@ -21,14 +27,7 @@
         <p>{{i.Stipend}}</p> 
               
     {% endfor %} 
-    <div class="show">
-        <form method="post">
-            {% csrf_token %}
-            {{ form.post }}
-            <br>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
+    
     {% for post in posts %}
             <h1>{{ post.post }}</h1>
             <p>Posted by {{ post.Employer_company_name }} on {{ post.Stipend }}</p>
