@@ -1,21 +1,72 @@
+#A model is the single, definitive source of information about your data. 
+#It contains the essential fields and behaviors of the data you’re storing. 
+#Generally, each model maps to a single database table.
+
+
 from django.db import models
 from django.forms import ModelForm
 from datetime import datetime
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-class User(AbstractUser):
-    is_employer=models.BooleanField(default=False)
-    is_student=models.BooleanField(default=False)
+class User(AbstractUser):                                               
+    is_employer=models.BooleanField(default=False)                      #a boolean field to check whether the registered user is employer?
+    is_student=models.BooleanField(default=False)                       #a boolean field to check whether the registered user is student?
 
-class Job(models.Model):
-    job_title= models.CharField(max_length=200)
-    job_content= models.TextField()
-    job_published= models.DateTimeField("date published",default= datetime.now())
+# model for Job
 
-    def __str__(self):
-        return self.job_title    
+class Job(models.Model):      
+    job_title= models.CharField(max_length=200)                                         #field1: Job Title
+    job_content= models.TextField()                                                     #field2: Job Content
+    job_published= models.DateTimeField("date published",default= datetime.now())       #Date and time of Job Published
+    job_stipend=models.CharField(max_length=200)
 
+                        #https://www.quora.com/What-does-def-str__-self-method-does-in-Django
+
+    def __str__(self):              #__str__(self): is used to define how you want to provide string output of your class.
+        return self.job_title       #display the job title as heading for the objects of Job model
+
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
                                              
                                              
                                              

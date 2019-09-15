@@ -11,6 +11,7 @@ class JobAdmin(admin.ModelAdmin):
 
     fieldsets= [
         ("Title/Date", {"fields": ["job_title","job_published"] }),
+        ("Stipend",{"fields":["job_stipend"] }),
         ("Content", {"fields": ["job_content"]}),
     ]
     
@@ -18,8 +19,8 @@ class JobAdmin(admin.ModelAdmin):
         models.TextField: {'widget': TinyMCE()}
     }
 
-admin.site.register(User)
-admin.site.register(Job,JobAdmin)
+admin.site.register(User)                                   #registering the User in Admin
+admin.site.register(Job,JobAdmin)                           #registering the Job in Admin
 
 
 

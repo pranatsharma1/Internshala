@@ -1,12 +1,20 @@
 from django.forms import ModelForm
 
 from django import forms
+from datetime import datetime
+from .models import Job
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
 from django.db import models
 
 User=get_user_model()
+
+class Job_Post(ModelForm):
+
+    class Meta:
+          model=Job
+          fields=("job_title","job_content","job_published","job_stipend")
 
 class NewUserForm1(UserCreationForm):
     email= forms.EmailField(required=True)

@@ -58,7 +58,7 @@ TINYMCE_DEFAULT_CONFIG = {
 # Application definition
 
 INSTALLED_APPS = [
-    'main',
+    'main',                                                      #installed our app called 'main'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -150,4 +150,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL='main.User'
+AUTH_USER_MODEL='main.User'                                       #using the user authentication model of main.User
+
+
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'youremail@gmail.com'
+# EMAIL_HOST_PASSWORD = 'yourpassword'
+# EMAIL_PORT = 587

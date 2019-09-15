@@ -1,16 +1,23 @@
+
+
+<!--Basically it displays the jobs in Card form-->
+
 {% extends 'main/header.html' %}
 
 {% block content %}
 
+<a href="/post">Post a Job</a>
 <div class="row">
     {% for j in jobs %}
         <div class="col s12 m6">
             <div class="card white darken-1 hoverable">
             <div class="card-content black-text">
                 <span class="card-title">{{j.job_title}}</span>
-                <p style="font-size: 70%">{{j.job_published}}</p> 
+                <p style="font-size: 80%">{{j.job_published}}</p>
                 <br><br>
-                <p>{{j.job_content|safe}}</p>
+                <p>Stipend: {{j.job_stipend|safe}}</p> 
+                <br>
+                <p>Details: {{j.job_content|safe}}</p>
             </div>
             </div>
         </div>
@@ -34,7 +41,7 @@
  -->
 
 
- 
+
 
 </div>
 {% endblock %}
