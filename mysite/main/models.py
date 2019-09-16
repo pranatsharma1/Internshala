@@ -9,17 +9,20 @@ from datetime import datetime
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-class User(AbstractUser):                                               
+class User(AbstractUser):      
     is_employer=models.BooleanField(default=False)                      #a boolean field to check whether the registered user is employer?
     is_student=models.BooleanField(default=False)                       #a boolean field to check whether the registered user is student?
 
 # model for Job
 
 class Job(models.Model):      
-    job_title= models.CharField(max_length=200)                                         #field1: Job Title
+    job_title= models.CharField(max_length=200) 
+    job_location=models.CharField(max_length=200)
+    job_duration=models.CharField(max_length=200)                                        #field1: Job Title
     job_content= models.TextField()                                                     #field2: Job Content
     job_published= models.DateTimeField("date published",default= datetime.now())       #Date and time of Job Published
     job_stipend=models.CharField(max_length=200)
+    username=models.ForeignKey(User,default=1,on_delete=models.SET_DEFAULT,null=True)
 
                         #https://www.quora.com/What-does-def-str__-self-method-does-in-Django
 

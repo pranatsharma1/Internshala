@@ -10,7 +10,8 @@ from django.contrib.auth.admin import UserAdmin
 class JobAdmin(admin.ModelAdmin):
 
     fieldsets= [
-        ("Title/Date", {"fields": ["job_title","job_published"] }),
+        ("Title/Date", {"fields": ["job_title","username","job_published"] }),
+        ("Job_Time",{"fields":["job_location","job_duration"]}),
         ("Stipend",{"fields":["job_stipend"] }),
         ("Content", {"fields": ["job_content"]}),
     ]

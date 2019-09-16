@@ -11,10 +11,9 @@ from django.db import models
 User=get_user_model()
 
 class Job_Post(ModelForm):
-
     class Meta:
           model=Job
-          fields=("job_title","job_content","job_published","job_stipend")
+          fields=("job_title","job_location","job_duration","job_content","job_published","job_stipend")
 
 class NewUserForm1(UserCreationForm):
     email= forms.EmailField(required=True)
@@ -22,6 +21,7 @@ class NewUserForm1(UserCreationForm):
     first_name=models.CharField(max_length=100)
     is_employer=forms.BooleanField()
     
+
     class Meta:
           model=User
         #   fields='__all__'

@@ -13,29 +13,6 @@ from .forms import Job_Post
 from .forms import NewUserForm1
 from .forms import NewUserForm2
 
-# from django.http import HttpResponse
-# from django.shortcuts import render, redirect
-# from django.contrib.auth import login, authenticate
-# from django.contrib.sites.shortcuts import get_current_site
-# from django.utils.encoding import force_bytes, force_text
-# from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-# from django.template.loader import render_to_string
-# from .tokens import account_activation_token
-# from django.contrib.auth.models import User
-# from django.core.mail import EmailMessage
-# Create your views here.
-
-# def add_profile(request):
-#     if request.method == 'POST':
-#         form = profileform(request.POST)
-#         if form.is_valid():
-#             profile_item = form.save(commit=False)
-#             profile_item.save()
-#             return redirect('/')
-
-#     else:
-#         form = profileform()        
-#         return render(request,"main/addprofile.html",{'form':form})
 
 def post_a_job(request):                                      
     if request.method == "POST":                                                #if user hits the sign up button
@@ -87,46 +64,6 @@ def employer(request):
                   context={"jobs":Job.objects.all()}
                 )
 
-# def register_as_employer(request):
-#     if request.method == 'POST':
-#         form = NewUserForm1(request.POST)
-#         if form.is_valid():
-#             user = form.save(commit=False)
-#             user.is_active = False
-#             user.save()
-#             current_site = get_current_site(request)
-#             mail_subject = 'Activate your blog account.'
-#             message = render_to_string('main/acc_active_email.html', {
-#                 'user': user,
-#                 'domain': current_site.domain,
-#                 'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-#                 'token':account_activation_token.make_token(user),
-#             })
-#             to_email = form.cleaned_data.get('email')
-#             email = EmailMessage(
-#                         mail_subject, message, to=[to_email]
-#             )
-#             email.send()
-#             return HttpResponse('Please confirm your email address to complete the registration')
-#     else:
-#         form = NewUserForm1()
-#     return render(request, 'main/signup.html', {'form': form})
-
-
-# def activate_account(request, uidb64, token):
-#     try:
-#         uid = force_text(urlsafe_base64_decode(uidb64))
-#         user = User.objects.get(pk=uid)
-#     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-#         user = None
-#     if user is not None and account_activation_token.check_token(user, token):
-#         user.is_active = True
-#         user.save()
-#         login(request, user)
-#         # return redirect('home')
-#         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
-#     else:
-#         return HttpResponse('Activation link is invalid!')
 
  #function for register as employer page
 
@@ -200,7 +137,10 @@ def login_request(request):
             if user is not None:                                             #basically means "if user is true i.e. if user is successfully authenticated"
                 login(request, user)                                         #log the user into the session
                 messages.info(request, f"You are now logged in as {username}")    #display a message that user is logged in
-                return redirect("main:homepage")                             
+                if user.is_student:
+                  return redirect("main:student")
+                else:
+                  return redirect("main:employer")                               
             else:                                                            #if it fails to authenticate
                 messages.error(request, "Invalid username or password.")     #display an error message
 
@@ -215,6 +155,76 @@ def login_request(request):
 
 
 
+
+
+
+# from django.http import HttpResponse
+# from django.shortcuts import render, redirect
+# from django.contrib.auth import login, authenticate
+# from django.contrib.sites.shortcuts import get_current_site
+# from django.utils.encoding import force_bytes, force_text
+# from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+# from django.template.loader import render_to_string
+# from .tokens import account_activation_token
+# from django.contrib.auth.models import User
+# from django.core.mail import EmailMessage
+# Create your views here.
+
+# def add_profile(request):
+#     if request.method == 'POST':
+#         form = profileform(request.POST)
+#         if form.is_valid():
+#             profile_item = form.save(commit=False)
+#             profile_item.save()
+#             return redirect('/')
+
+#     else:
+#         form = profileform()        
+#         return render(request,"main/addprofile.html",{'form':form})
+
+
+
+
+# def register_as_employer(request):
+#     if request.method == 'POST':
+#         form = NewUserForm1(request.POST)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             user.is_active = False
+#             user.save()
+#             current_site = get_current_site(request)
+#             mail_subject = 'Activate your blog account.'
+#             message = render_to_string('main/acc_active_email.html', {
+#                 'user': user,
+#                 'domain': current_site.domain,
+#                 'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+#                 'token':account_activation_token.make_token(user),
+#             })
+#             to_email = form.cleaned_data.get('email')
+#             email = EmailMessage(
+#                         mail_subject, message, to=[to_email]
+#             )
+#             email.send()
+#             return HttpResponse('Please confirm your email address to complete the registration')
+#     else:
+#         form = NewUserForm1()
+#     return render(request, 'main/signup.html', {'form': form})
+
+
+# def activate_account(request, uidb64, token):
+#     try:
+#         uid = force_text(urlsafe_base64_decode(uidb64))
+#         user = User.objects.get(pk=uid)
+#     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+#         user = None
+#     if user is not None and account_activation_token.check_token(user, token):
+#         user.is_active = True
+#         user.save()
+#         login(request, user)
+#         # return redirect('home')
+#         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+#     else:
+#         return HttpResponse('Activation link is invalid!')
 
 
 
