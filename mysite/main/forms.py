@@ -13,7 +13,7 @@ User=get_user_model()
 class Job_Post(ModelForm):
     class Meta:
           model=Job
-          fields=("job_title","job_location","job_duration","job_content","job_published","job_stipend")
+          fields=("job_title","job_location","job_duration","username","job_content","job_published","job_stipend")
 
 class NewUserForm1(UserCreationForm):
     email= forms.EmailField(required=True)
