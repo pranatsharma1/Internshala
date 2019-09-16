@@ -8,14 +8,19 @@ from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.auth import update_session_auth_hash
-from .forms import  EditProfileForm,HomeForm
+from .forms import  EditProfileForm,LocationForm
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm,EmployerForm,IntershipCategoryForm
 from .forms import CategoryForm, ProductForm
-from .models import Category, Product
+from .models import Category, Product,Location
 from django.forms import modelformset_factory
 
+
+@login_required
+def Studentprofile(request):
+    products = Product.objects.all()
+    return render(request, 'main/student_profile.html', {'products': products})
 
 
 
@@ -33,11 +38,24 @@ def new_product(request):
             product = form.save(commit=False)
             product.user = request.user
             product.save()
-            return redirect('products_list')
+            return products_list(request)
     else:
         form = ProductForm(request.user)
     return render(request, 'main/product_form.html', {'form': form})
 
+
+@login_required
+def new_Location(request):
+    if request.method == 'POST':
+        form = LocationForm(request.POST)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.user = request.user
+            product.save()
+            return products_list(request)
+    else:
+        form = LocationForm()
+    return render(request, 'main/location_form.html', {'form': form})
 
 @login_required
 def new_category(request):
@@ -47,7 +65,7 @@ def new_category(request):
             product = form.save(commit=False)
             product.user = request.user
             product.save()
-            return redirect('products_list')
+            return products_list(request)
     else:
         form = CategoryForm()
     return render(request, 'main/category_form.html', {'form': form})
@@ -55,22 +73,75 @@ def new_category(request):
 
 @login_required
 def edit_all_products(request):
-    ProductFormSet = modelformset_factory(Product, fields=('name', 'price', 'category'), extra=0)
+    ProductFormSet = modelformset_factory(Product, fields=('name', 'Start_date', 'Duration','Stipend','category','location'), extra=0)
     data = request.POST or None
     formset = ProductFormSet(data=data, queryset=Product.objects.filter(user=request.user))
     for form in formset:
         form.fields['category'].queryset = Category.objects.filter(user=request.user)
+        form.fields['location'].queryset = Location.objects.filter(user=request.user)
+
 
     if request.method == 'POST' and formset.is_valid():
         formset.save()
-        return redirect('products_list')
+        return products_list(request)
 
     return render(request, 'main/products_formset.html', {'formset': formset})
+    #new
+'''  
+@login_required
+def internship_list(request):
+    products = internship_post.objects.filter(user=request.user)
+    return render(request, 'main/internship_list.html', {'products': products})
+
+
+@login_required
+def new_internship(request):
+    if request.method == 'POST':
+        form = PostForm(request.user, request.POST)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.user = request.user
+            product.save()
+            return internship_list(request)
+    else:
+        form = PostForm(request.user)
+    return render(request, 'main/internship_form.html', {'form': form})
+
+
+@login_required
+def internship_new_category(request):
+    if request.method == 'POST':
+        form = CategoriesForm(request.POST)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.user = request.user
+            product.save()
+            return internship_list(request)
+    else:
+        form = CategoriesForm()
+    return render(request, 'main/internship_category_form.html', {'form': form})
+
+
+@login_required
+def edit_all_internship(request):
+    PostFormSet = modelformset_factory(internship_post, fields=('name','Start_date','Duration','Stipend','category', 'location'), extra=0)
+    data = request.POST or None
+    formset = PostFormSet(data=data, queryset=internship_post.objects.filter(user=request.user))
+    for form in formset:
+        form.fields['internship_post'].queryset = internship_post.objects.filter(user=request.user)
+
+    if request.method == 'POST' and formset.is_valid():
+        formset.save()
+        return internship_list(request)
+
+    return render(request, 'main/internship_formset.html', {'formset': formset})
+    '''
+#new
 def homepage(request):
     return render(request=request,
                   template_name="main/home.html",
                   context={"jobs":Job.objects.all()})
-#new
+
 def student_profile(request):
     return render(request=request,
                   template_name="main/student_profile.html",
@@ -103,7 +174,7 @@ def register_as_employer(request):
             messages.success(request, f"New account created: {username}")
             login(request, user)
             # user.is_staff=True
-            return redirect("main:company_profile")
+            return redirect("main:products_list")
 
         else:
             for msg in form.error_messages:
@@ -130,7 +201,7 @@ def register_as_student(request):
             username = form.cleaned_data.get('username')
             messages.success(request, f"New account created: {username}")
             login(request, user)
-            return redirect("main:student_profile")
+            return Studentprofile(request)
 
         else:
             for msg in form.error_messages:
@@ -161,7 +232,10 @@ def login_request(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}")
-                return redirect("main:homepage")
+                if user.is_student:
+                    return redirect("main:student_profile")
+                else:
+                    return redirect("main:products_list")    
             else:
                 messages.error(request, "Invalid username or password.")
         else:
@@ -194,7 +268,7 @@ def edit_profile(request):
 
         if form.is_valid():
             form.save()
-            return redirect(reverse('main:view_profile'))
+            return view_profile(request)
     else:
         form = EditProfileForm(instance=request.user)
         args = {'form': form}

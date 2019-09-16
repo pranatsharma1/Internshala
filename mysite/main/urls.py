@@ -1,7 +1,6 @@
 
 from django.urls import path
 from . import views
-from .views import HomeView
 from django.conf.urls import url
 
 app_name="main"
@@ -22,12 +21,20 @@ urlpatterns = [
    path('account/', views.view_profile, name='view_profile'),
    path('account/(?P<pk>\d+)/', views.view_profile, name='view_profile_with_pk'),
    path('category/', views.postform, name='postform'),
-   path('home/', HomeView.as_view()),
+   #path('home/', HomeView.as_view()),
    #new code
-   url('products/new/new/', views.new_product, name='new_product'),
-   url('products/edit_all/pro/', views.edit_all_products, name='edit_all_products'),
-   url('products/pro/pro/', views.products_list, name='products_list'),
-   url('products/categories/new/', views.new_category, name='new_category'),
+   path('products/all/pro/', views.Studentprofile, name='Studentprofile'),
+
+   path('products/new/new/', views.new_product, name='new_product'),
+   path('products/edit_all/pro/', views.edit_all_products, name='edit_all_products'),
+   path('products/pro/pro/', views.products_list, name='products_list'),
+   path('products/categories/new/', views.new_category, name='new_category'),
+   path('products/location/new/', views.new_Location, name='new_location'),
+
+   #path('internship/new/new/', views.new_internship, name='new_internship'),
+   #path('internship/edit_all/pro/', views.edit_all_internship, name='edit_all_internship'),
+   #path('internship/pro/pro/', views.internship_list, name='internship_list'),
+   #path('internship/categories/new/', views.internship_new_category, name='internship_new_category'),
 
 
 ]

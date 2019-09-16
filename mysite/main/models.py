@@ -79,18 +79,11 @@ class UserProfileManagerE(models.Manager):
     def get_queryset(self):
         return super(UserProfileManager, self).get_queryset().filter(company_location='delhi')
 
-'''
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-'''
-                                             
+class Location(models.Model):
+    name = models.CharField(max_length=30)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name                                     
 class Category(models.Model):
     name = models.CharField(max_length=30)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -98,10 +91,33 @@ class Category(models.Model):
         return self.name
 class Product(models.Model):
     name = models.CharField(max_length=30)
-    price = models.DecimalField(decimal_places=2, max_digits=10)
+    Start_date = models.DateField()
+    Duration = models.CharField(max_length=20)
+    Stipend = models.CharField(max_length=5)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
+    location = models.ForeignKey(Location,on_delete=models.CASCADE)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)                                           
+    def __str__(self):
+        return self.name  
+
+'''
+
+class Categories(models.Model):
+    name = models.CharField(max_length=30)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name        
+
+class internship_post(models.Model):
+    name = models.CharField(max_length=30)
+    Start_date = models.DateField()
+    Duration = models.CharField(max_length=20)
+    Stipend = models.CharField(max_length=5)
+    category = models.ForeignKey(Categories,on_delete=models.CASCADE)
+    location = models.ForeignKey(location, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)                                             
     def __str__(self):
-        return self.name                               
-                                             
-                    
+        return self.name                                             
+  '''                  

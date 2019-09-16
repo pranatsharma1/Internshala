@@ -1,13 +1,8 @@
-{% extends 'main/header.html' %}
-<h1>student profile</h1>
 {% block content %}
   <h1>Products</h1>
   <p>
-    <a href="/products/new/new">New product</a>
-    <a href="/products/categories/new">New category</a>
-
-    <a href="/products/location/new">New location</a>
-
+    <a href="/internship/new/new">New product</a>
+    <a href="/internship/categories/new">New category</a>
     <a href="/logout">Log out</a>
   </p>
   <table border="1">
@@ -19,11 +14,11 @@
         <th>Stipend</th>
         <th>Category</th>
         <th>location</th>
-
       </tr>
     </thead>
+
     <tbody>
-      {% for product in products %}
+      {% for product in internship %}
         <tr>
           <td>{{ product.name }}</td>
           <td>{{ product.Start_date}}</td>
@@ -36,7 +31,7 @@
         {% if forloop.last %}
           <tr>
             <td colspan="6">
-              <a href="/products/edit_all/pro">Edit all products</a>
+              <a href="/internship/edit_all/pro">Edit all products</a>
             </td>
           </tr>
         {% endif %}

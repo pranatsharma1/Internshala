@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.db import models
 from . models import UserProfile,IntershipCategory,post_job
 from django.contrib.auth.models import User,AbstractUser
-from .models import Category, Product
+from .models import Category, Product,Location
 
 
 User=get_user_model()
@@ -92,13 +92,41 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ('name', )
+        
 
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ('name', 'price', 'category', )
+        fields = ('name', 'category', 'Start_date', 'Duration','Stipend','location')
 
     def __init__(self, user, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
         self.fields['category'].queryset = Category.objects.filter(user=user)
+
+
+class LocationForm(forms.ModelForm):
+    class Meta:
+        model = Location 
+        fields = ('name',)  
+'''
+class CategoriesForm(forms.ModelForm):
+    class Meta:
+        model = Categories
+        fields = ('name',)
+
+    def __init__(self, user, *args, **kwargs):
+        super(CategoriesForm, self).__init__(*args, **kwargs)
+        self.fields['location'].queryset = Category.objects.filter(user=user)
+
+
+
+class PostForm(forms.ModelForm):    #intership form
+    class Meta:
+        model = internship_post
+        fields = ('name','Start_date','Duration','Stipend','category', 'location',)
+
+    def __init__(self, user, *args, **kwargs):
+        super(PostForm, self).__init__(*args, **kwargs)
+        self.fields['category'].queryset = location.objects.filter(user=user)        
+        self.fields['location'].queryset = Categories.objects.filter(user=user)        '''

@@ -1,5 +1,17 @@
-{% extends 'main/header.html' %}
 {% block content %}
-<p>student profile page</p>
 
-{% endblock%}
+<p>student profile page</p>
+{% for product in products %}
+    {{ product.name }}
+    {{ product.Start_date}}
+    {{ product.Duration }}
+    {{ product.Stipend }}
+    {{ product.category.name }}
+    {{ product.location.name }}
+    {{ product.user }}
+
+
+{% endfor %}   
+{% endblock %}
+
+        
