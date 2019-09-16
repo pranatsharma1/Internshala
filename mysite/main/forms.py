@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.db import models
 from . models import UserProfile,IntershipCategory,post_job
 from django.contrib.auth.models import User,AbstractUser
-from .models import Category, Product,Location
+from .models import Category, Products,Location
 
 
 User=get_user_model()
@@ -97,7 +97,7 @@ class CategoryForm(forms.ModelForm):
 
 class ProductForm(forms.ModelForm):
     class Meta:
-        model = Product
+        model = Products
         fields = ('name', 'category', 'Start_date', 'Duration','Stipend','location')
 
     def __init__(self, user, *args, **kwargs):

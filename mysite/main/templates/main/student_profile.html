@@ -1,17 +1,29 @@
-{% block content %}
+{% extends 'main/header.html' %}
 
-<p>student profile page</p>
-{% for product in products %}
-    {{ product.name }}
-    {{ product.Start_date}}
-    {{ product.Duration }}
-    {{ product.Stipend }}
-    {{ product.category.name }}
-    {{ product.location.name }}
-    {{ product.user }}
+<html>
+<head>
+    <title>products</title>
+</head>
+<body>
+    <p>student profile</p>
+    {% if Products %}
+    <ol>
+        {% for product in Products %}
+        <li>
+                {{ product.name }}
+                {{ product.Start_date}}
+                {{ product.Duration }}
+                {{ product.Stipend }}
+                {{ product.category.name }}
+                {{ product.location.name }}
+                {{ product.user }}
+            
+        </li>
+        {% endfor %}   
+
+    </ol>
+    {% endif %}
+</body>
 
 
-{% endfor %}   
-{% endblock %}
-
-        
+</html>

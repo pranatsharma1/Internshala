@@ -23,7 +23,8 @@ urlpatterns = [
    path('category/', views.postform, name='postform'),
    #path('home/', HomeView.as_view()),
    #new code
-   path('products/all/pro/', views.Studentprofile, name='Studentprofile'),
+   #path('products/all/pro/', views.Studentprofile, name='Studentprofile'),
+   #path('products/all/all/', views.Products, name='Products'),
 
    path('products/new/new/', views.new_product, name='new_product'),
    path('products/edit_all/pro/', views.edit_all_products, name='edit_all_products'),

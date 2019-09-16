@@ -13,20 +13,23 @@ from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm,EmployerForm,IntershipCategoryForm
 from .forms import CategoryForm, ProductForm
-from .models import Category, Product,Location
+from .models import Category, Products,Location
 from django.forms import modelformset_factory
-
+'''
 
 @login_required
+def Products(request):
+    return render(request,'main/allpost.html', {})
+
 def Studentprofile(request):
-    products = Product.objects.all()
-    return render(request, 'main/student_profile.html', {'products': products})
+    products_li = Products.objects.all()
+    return render(request, 'main/student_profile.html', {'Products': products_li})
 
 
-
+'''
 @login_required
 def products_list(request):
-    products = Product.objects.filter(user=request.user)
+    products = Products.objects.filter(user=request.user)
     return render(request, 'main/products_list.html', {'products': products})
 
 
@@ -73,9 +76,9 @@ def new_category(request):
 
 @login_required
 def edit_all_products(request):
-    ProductFormSet = modelformset_factory(Product, fields=('name', 'Start_date', 'Duration','Stipend','category','location'), extra=0)
+    ProductFormSet = modelformset_factory(Products, fields=('name', 'Start_date', 'Duration','Stipend','category','location'), extra=0)
     data = request.POST or None
-    formset = ProductFormSet(data=data, queryset=Product.objects.filter(user=request.user))
+    formset = ProductFormSet(data=data, queryset=Products.objects.filter(user=request.user))
     for form in formset:
         form.fields['category'].queryset = Category.objects.filter(user=request.user)
         form.fields['location'].queryset = Location.objects.filter(user=request.user)
@@ -201,7 +204,7 @@ def register_as_student(request):
             username = form.cleaned_data.get('username')
             messages.success(request, f"New account created: {username}")
             login(request, user)
-            return Studentprofile(request)
+            return render(request, 'main/student_profile.html')
 
         else:
             for msg in form.error_messages:

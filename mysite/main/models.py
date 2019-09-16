@@ -89,7 +89,7 @@ class Category(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
-class Product(models.Model):
+class Products(models.Model):
     name = models.CharField(max_length=30)
     Start_date = models.DateField()
     Duration = models.CharField(max_length=20)
