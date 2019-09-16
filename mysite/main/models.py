@@ -22,7 +22,7 @@ class Job(models.Model):
     job_content= models.TextField()                                                     #field2: Job Content
     job_published= models.DateTimeField("date published",default= datetime.now())       #Date and time of Job Published
     job_stipend=models.CharField(max_length=200)
-    username=models.ForeignKey(User,default=1,on_delete=models.SET_DEFAULT,null=True)
+    username=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)
 
                         #https://www.quora.com/What-does-def-str__-self-method-does-in-Django
 

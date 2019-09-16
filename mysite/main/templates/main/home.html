@@ -3,51 +3,7 @@
 <!--Basically it displays the jobs in Card form-->
 
 {% extends 'main/header.html' %}
-
 {% block content %}
-
-<a href="/post">Post a Job</a>
-<div class="row">
-    {% for j in jobs %}
-        <div class="col s12 m6" >
-            <div class="card white darken-1 hoverable">
-            <div class="card-content black-text" style="background-color: #c2c0bc">
-                <span class="card-title">{{j.job_title}}</span>
-                <p>{{j.username}}</p>
-                <p style="font-size: 80%">{{j.job_published}}</p>
-                <br><br>
-                <p>Location: {{j.job_location}}</p>
-                <br>
-                <p>Duration: {{j.duration}}</p>
-                <p>Stipend: {{j.job_stipend|safe}}</p> 
-                <br>
-                <p>Details: {{j.job_content|safe}}</p>
-            </div>
-            </div>
-        </div>
-        {% endfor %}
-
-
-
-                                              <!-- Mahima's Code-->
-        <!-- {% for k in postjob %}
-        <div class="col s12 m6">
-            <div class="card white darken-1 hoverable">
-            <div class="card-content black-text">
-                <span class="card-title">{{k.company_name}}</span>
-                <p style="font-size: 70%">{{k.about}}</p> 
-                <br><br>
-                <p>{k.location}}</p>
-            </div>
-            </div>
-        </div>
-        {% endfor %}
- -->
-
-
-
-
-</div>
+<p style="color: black">HELLO</p>
 {% endblock %}
-
 

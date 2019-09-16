@@ -52,7 +52,7 @@ def homepage(request):
 
 def student(request):                                                
     return render(request=request,
-                  template_name="main/index1.html",
+                  template_name="main/student_profile.html",
                   context={"jobs":Job.objects.all()}
                 )
 
@@ -60,7 +60,7 @@ def student(request):
 
 def employer(request):                                              
     return render(request=request,
-                  template_name="main/index2.html",
+                  template_name="main/employer_profile.html",
                   context={"jobs":Job.objects.all()}
                 )
 
