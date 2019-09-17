@@ -29,10 +29,16 @@ class Job(models.Model):
     def __str__(self):              #__str__(self): is used to define how you want to provide string output of your class.
         return self.job_title       #display the job title as heading for the objects of Job model
 
+class Intern(models.Model):
+    intern_college=models.CharField(max_length=200)
+    intern_skills=models.TextField()
+    intern_city=models.CharField(max_length=200)
+    intern_study_year=models.CharField(max_length=200)
+    username=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)                                             
                                              
                                              
-                                             
-                                             
+class Location(models.Model):
+    location=models.CharField(max_length=200)                                                 
                                              
                                              
                                              

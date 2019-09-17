@@ -9,9 +9,58 @@ from .models import Job
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import logout, authenticate, login
 from django.contrib import messages
-from .forms import Job_Post
+from .forms import Job_Post,Apply_Job,Location
 from .forms import NewUserForm1
 from .forms import NewUserForm2
+
+def add_location(request):
+    if request.method== "POST":
+        form = Location(request.POST)
+        if form.is_valid():
+            loc= form.save(commit=False)
+            loc.save()
+            location = form.cleaned_data.get('location')                     #getting the username from the form   
+            messages.success(request, f"New Location {location} created")
+
+            return redirect("main:employer")
+        else:                                                 #if form is not valid or not filled properly               
+            for msg in form.error_messages:                   
+                messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
+
+            return render(request = request,
+                          template_name = "main/location.html",
+                          context={"form":form})
+
+
+    form = Location()
+    return render(request = request,
+                  template_name = "main/location.html",
+                  context={"form":form}) 
+
+
+def apply_for_job(request):
+    if request.method== "POST":
+        form = Apply_Job(request.POST)
+        if form.is_valid():
+            intern_profile= form.save(commit=False)
+            intern_profile.save()
+            username = form.cleaned_data.get('username')                     #getting the username from the form   
+            messages.success(request, f"{username} has succesully applied for this job")
+
+            return redirect("main:student")
+        else:                                                 #if form is not valid or not filled properly               
+            for msg in form.error_messages:                   
+                messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
+
+            return render(request = request,
+                          template_name = "main/apply_for_job.html",
+                          context={"form":form})
+
+
+    form = Apply_Job()
+    return render(request = request,
+                  template_name = "main/apply_for_job.html",
+                  context={"form":form}) 
 
 
 def post_a_job(request):                                      
@@ -25,7 +74,7 @@ def post_a_job(request):
             
             # now after signing up we automatically logs in the user 
             # login(request, user)                                             #login(HttpResponse,User)
-            return redirect("/")
+            return redirect("main:employer")
         
         else:                                                 #if form is not valid or not filled properly               
             for msg in form.error_messages:                   
@@ -77,7 +126,10 @@ def register_as_employer(request):
             
             # now after signing up we automatically logs in the user 
             login(request, user)                                             #login(HttpResponse,User)
-            return redirect("main:homepage")
+            if user.is_student:
+                return redirect("main:student")
+            else:
+                return redirect("main:employer")  
         
         else:                                                 #if form is not valid or not filled properly               
             for msg in form.error_messages:                   

@@ -7,16 +7,18 @@
         <div class="col s12 m6" >
             <div class="card white darken-1 hoverable">
             <div class="card-content black-text" style="background-color: #c2c0bc">
-                <span class="card-title">{{j.job_title}}</span>
-                <p>{{j.username}}</p>
+                <span class="card-title">{{j.username}}</span>
+                <p style="font-size: 100%">{{j.job_title}}</p>
                 <p style="font-size: 80%">{{j.job_published}}</p>
                 <br><br>
                 <p>Location: {{j.job_location}}</p>
                 <br>
-                <p>Duration: {{j.duration}}</p>
+                <p>Duration: {{j.job_duration}}</p>
                 <p>Stipend: {{j.job_stipend|safe}}</p> 
                 <br>
                 <p>Details: {{j.job_content|safe}}</p>
+                <br><br>
+                <a href="/apply" style="color: black">Apply for a Job</a>
             </div>
             </div>
         </div>

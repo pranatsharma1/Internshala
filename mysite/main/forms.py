@@ -2,13 +2,23 @@ from django.forms import ModelForm
 
 from django import forms
 from datetime import datetime
-from .models import Job
+from .models import Job,Intern,Location
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
 from django.db import models
 
 User=get_user_model()
+
+class Location(ModelForm):
+    class Meta:
+        model=Location
+        fields=("location",)
+
+class Apply_Job(ModelForm):
+    class Meta:
+          model=Intern
+          fields=("username","intern_college","intern_skills","intern_city","intern_study_year")
 
 class Job_Post(ModelForm):
     class Meta:
@@ -18,7 +28,7 @@ class Job_Post(ModelForm):
 class NewUserForm1(UserCreationForm):
     email= forms.EmailField(required=True)
     last_name=models.CharField(max_length=50)
-    first_name=models.CharField(max_length=100)
+    first_name=models.CharField(max_length=100) 
     is_employer=forms.BooleanField()
     
 

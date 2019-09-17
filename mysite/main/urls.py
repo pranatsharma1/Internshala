@@ -14,6 +14,9 @@ urlpatterns = [
    path("student_profile/",views.student,name="student"),
    path("employer_profile/",views.employer,name="employer"),
    path("post/",views.post_a_job,name="post_a_job"),
+   path("apply/",views.apply_for_job,name="apply_for_job"),
+   path("add_location/",views.add_location,name="add_location"),
+   
 
 #    url(r'^$', views.homepage, name='homepage'),
 #    url(r'^signup/$', views.register_as_employer, name='register_as_employer'),
