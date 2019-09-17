@@ -83,6 +83,7 @@ class UserProfileManagerE(models.Manager):
 
 
 #
+
 class Location(models.Model):
     name = models.CharField(max_length=30)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -93,6 +94,15 @@ class Category(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
+
+class StudentApply(models.Model):
+    username = models.CharField(max_length=20)
+    name = models.CharField(max_length=30)
+    phone_no = models.CharField(max_length=10)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.username
+        
 class Products(models.Model):
     name = models.CharField(max_length=30)
     Start_date = models.DateField()
@@ -100,6 +110,7 @@ class Products(models.Model):
     Stipend = models.CharField(max_length=5)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     location = models.ForeignKey(Location,on_delete=models.CASCADE)
+    student = models.ForeignKey(StudentApply,on_delete=models.CASCADE)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)                                           
     def __str__(self):

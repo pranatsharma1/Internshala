@@ -12,8 +12,8 @@ from .forms import  EditProfileForm,LocationForm
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm,EmployerForm,IntershipCategoryForm
-from .forms import CategoryForm, ProductForm
-from .models import Category, Products,Location
+from .forms import CategoryForm, ProductForm,StudentApplyForm
+from .models import Category, Products,Location,StudentApply
 from django.forms import modelformset_factory
 from django.db.models import Value
 
@@ -75,16 +75,29 @@ def new_category(request):
         form = CategoryForm()
     return render(request, 'main/category_form.html', {'form': form})
 
+@login_required
+def student_apply(request):
+    if request.method == 'POST':
+        form = StudentApplyForm(request.POST)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.user = request.user
+            product.save()
+            return products_list(request)
+    else:
+        form = CategoryForm()
+    return render(request, 'main/apply_form.html', {'form': form})
+
 
 @login_required
 def edit_all_products(request):
-    ProductFormSet = modelformset_factory(Products, fields=('name', 'Start_date', 'Duration','Stipend','category','location'), extra=0)
+    ProductFormSet = modelformset_factory(Products, fields=('name', 'Start_date', 'Duration','Stipend','category','location','student'), extra=0)
     data = request.POST or None
     formset = ProductFormSet(data=data, queryset=Products.objects.filter(user=request.user))
     for form in formset:
         form.fields['category'].queryset = Category.objects.filter(user=request.user)
         form.fields['location'].queryset = Location.objects.filter(user=request.user)
-
+        form.fields['student'].queryset = StudentApply.objects.filter(user=request.user)
 
     if request.method == 'POST' and formset.is_valid():
         formset.save()

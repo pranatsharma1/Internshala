@@ -23,7 +23,6 @@ urlpatterns = [
    path('category/', views.postform, name='postform'),
    path("category/list/", views.list_of_category, name="list_of_category"), 
 
-   #path('home/', HomeView.as_view()),
    #new code
    path('products/all/pro/', views.Studentprofile, name='Studentprofile'),
    #path('products/all/all/', views.Products, name='Products'),
@@ -33,6 +32,7 @@ urlpatterns = [
    path('products/pro/pro/', views.products_list, name='products_list'),
    path('products/categories/new/', views.new_category, name='new_category'),
    path('products/location/new/', views.new_Location, name='new_location'),
+   path('products/student/new/', views.student_apply, name='student_apply'),
 
 
    #path('internship/new/new/', views.new_internship, name='new_internship'),

@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.db import models
 from . models import UserProfile,IntershipCategory,post_job
 from django.contrib.auth.models import User,AbstractUser
-from .models import Category, Products,Location
+from .models import Category, Products,Location,StudentApply
 
 
 User=get_user_model()
@@ -94,15 +94,24 @@ class CategoryForm(forms.ModelForm):
         fields = ('name', )
 
 
+class StudentApplyForm(forms.ModelForm):
+    class Meta:
+        model = StudentApply
+        fields = ('username','name','phone_no')        
+
+
+
 #new
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Products
-        fields = ('name', 'category', 'Start_date', 'Duration','Stipend','location')
+        fields = ('name', 'category', 'Start_date', 'Duration','Stipend','location','student')
 
     def __init__(self, user, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
         self.fields['category'].queryset = Category.objects.filter(user=user)
+        self.fields['location'].queryset = Location.objects.filter(user=user)
+
 
 
 class LocationForm(forms.ModelForm):
