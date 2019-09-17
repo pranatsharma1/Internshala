@@ -1,14 +1,9 @@
 {% extends 'main/header.html' %}
-
-<html>
-<head>
-    <title>products</title>
-</head>
-<body>
+    {% block student %}
     <p>student profile</p>
-    {% if Products %}
+    {% if products %}
     <ol>
-        {% for product in Products %}
+        {% for product in products %}
         <li>
                 {{ product.name }}
                 {{ product.Start_date}}
@@ -17,13 +12,15 @@
                 {{ product.category.name }}
                 {{ product.location.name }}
                 {{ product.user }}
-            
-        </li>
+                </li>
         {% endfor %}   
-
     </ol>
     {% endif %}
-</body>
-
-
-</html>
+    {% if category %}
+    <ol>
+        {% for categorys in category %}
+            <a href="#"> {{ categorys.name }}</a>
+        {% endfor %}   
+    </ol>
+    {% endif %}
+    {% endblock %}

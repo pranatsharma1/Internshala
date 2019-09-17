@@ -1,3 +1,4 @@
+<html>
 <head>
     {% load static %}
     <link href="{% static 'tinymce/css/prism.css' %}" rel="stylesheet">
@@ -33,7 +34,12 @@
 <div class="container">
 {% block content %}
 {% endblock %}
+
 </div>
+{% block student %}
+{% endblock %}
+
 </body>
 
 <script src="{% static "tinymce/js/prism.js" %}"></script>
+</html>

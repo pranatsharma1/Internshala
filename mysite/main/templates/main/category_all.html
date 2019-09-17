@@ -1,0 +1,12 @@
+{% extends 'main/header.html' %}
+    {% block student %}
+    <p>category list!</p>
+   
+    {% if category %}
+    <ol>
+        {% for categorys in category %}
+            <a href="#"> {{ categorys.name }}</a>
+        {% endfor %}   
+    </ol>
+    {% endif %}
+    {% endblock %}

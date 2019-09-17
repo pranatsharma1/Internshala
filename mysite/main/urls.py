@@ -21,9 +21,11 @@ urlpatterns = [
    path('account/', views.view_profile, name='view_profile'),
    path('account/(?P<pk>\d+)/', views.view_profile, name='view_profile_with_pk'),
    path('category/', views.postform, name='postform'),
+   path("category/list/", views.list_of_category, name="list_of_category"), 
+
    #path('home/', HomeView.as_view()),
    #new code
-   #path('products/all/pro/', views.Studentprofile, name='Studentprofile'),
+   path('products/all/pro/', views.Studentprofile, name='Studentprofile'),
    #path('products/all/all/', views.Products, name='Products'),
 
    path('products/new/new/', views.new_product, name='new_product'),
@@ -31,6 +33,7 @@ urlpatterns = [
    path('products/pro/pro/', views.products_list, name='products_list'),
    path('products/categories/new/', views.new_category, name='new_category'),
    path('products/location/new/', views.new_Location, name='new_location'),
+
 
    #path('internship/new/new/', views.new_internship, name='new_internship'),
    #path('internship/edit_all/pro/', views.edit_all_internship, name='edit_all_internship'),

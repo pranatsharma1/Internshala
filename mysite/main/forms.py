@@ -92,9 +92,9 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ('name', )
-        
 
 
+#new
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Products
@@ -109,24 +109,3 @@ class LocationForm(forms.ModelForm):
     class Meta:
         model = Location 
         fields = ('name',)  
-'''
-class CategoriesForm(forms.ModelForm):
-    class Meta:
-        model = Categories
-        fields = ('name',)
-
-    def __init__(self, user, *args, **kwargs):
-        super(CategoriesForm, self).__init__(*args, **kwargs)
-        self.fields['location'].queryset = Category.objects.filter(user=user)
-
-
-
-class PostForm(forms.ModelForm):    #intership form
-    class Meta:
-        model = internship_post
-        fields = ('name','Start_date','Duration','Stipend','category', 'location',)
-
-    def __init__(self, user, *args, **kwargs):
-        super(PostForm, self).__init__(*args, **kwargs)
-        self.fields['category'].queryset = location.objects.filter(user=user)        
-        self.fields['location'].queryset = Categories.objects.filter(user=user)        '''

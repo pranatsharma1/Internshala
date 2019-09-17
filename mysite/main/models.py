@@ -79,6 +79,10 @@ class UserProfileManagerE(models.Manager):
     def get_queryset(self):
         return super(UserProfileManager, self).get_queryset().filter(company_location='delhi')
 
+#new
+
+
+#
 class Location(models.Model):
     name = models.CharField(max_length=30)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

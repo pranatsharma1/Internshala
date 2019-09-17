@@ -15,18 +15,20 @@ from .forms import UserForm,EmployerForm,IntershipCategoryForm
 from .forms import CategoryForm, ProductForm
 from .models import Category, Products,Location
 from django.forms import modelformset_factory
-'''
+from django.db.models import Value
 
-@login_required
-def Products(request):
-    return render(request,'main/allpost.html', {})
+
+def list_of_category(request):
+    category = Category.objects.values('name').distinct()
+    print(category)
+    return render(request, 'main/category_all.html', {'category': category})
 
 def Studentprofile(request):
-    products_li = Products.objects.all()
-    return render(request, 'main/student_profile.html', {'Products': products_li})
+    products = Products.objects.all()
+    #"category":Category.objects.all()
+    print(products)
+    return render(request, 'main/student_profile.html', {'products': products})
 
-
-'''
 @login_required
 def products_list(request):
     products = Products.objects.filter(user=request.user)
@@ -141,10 +143,9 @@ def edit_all_internship(request):
     '''
 #new
 def homepage(request):
-    return render(request=request,
-                  template_name="main/home.html",
-                  context={"jobs":Job.objects.all()})
-
+    return render(request=request, template_name="main/home.html", 
+    context={"jobs":Job.objects.all(),"location":Location.objects.values('name').distinct(),"category":Category.objects.values('name').distinct()})
+#distinct is using for showing the distinct field not duplicates
 def student_profile(request):
     return render(request=request,
                   template_name="main/student_profile.html",
@@ -177,7 +178,7 @@ def register_as_employer(request):
             messages.success(request, f"New account created: {username}")
             login(request, user)
             # user.is_staff=True
-            return redirect("main:products_list")
+            return redirect("main:homepage")
 
         else:
             for msg in form.error_messages:
@@ -204,7 +205,8 @@ def register_as_student(request):
             username = form.cleaned_data.get('username')
             messages.success(request, f"New account created: {username}")
             login(request, user)
-            return render(request, 'main/student_profile.html')
+            return Studentprofile(request)
+            #render(request, 'main/student_profile.html')
 
         else:
             for msg in form.error_messages:
@@ -236,9 +238,10 @@ def login_request(request):
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}")
                 if user.is_student:
-                    return redirect("main:student_profile")
+                    return Studentprofile(request)
+                    # redirect("main:student_profile")
                 else:
-                    return redirect("main:products_list")    
+                    return redirect("main:homepage")    
             else:
                 messages.error(request, "Invalid username or password.")
         else:
