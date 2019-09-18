@@ -3,13 +3,14 @@
 
 {% block content %}
 <div class="row">
+    
     {% for j in intern %}
         <div class="col s12 m6" >
             <div class="card white darken-1 hoverable">
             <div class="card-content black-text" style="background-color: #c2c0bc">
                 <span class="card-title">{{j.intern_name}}</span>
+                <p>Username: {{j.username}}</p>
                 <p style="font-size: 100%">College: {{j.intern_college}}</p>
-                <p style="font-size: 80%">{{j.intern_skills}}</p>
                 <br><br>
                 <p>Skills: {{j.intern_skills}}</p>
                 <br>

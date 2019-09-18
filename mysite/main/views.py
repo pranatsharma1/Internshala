@@ -43,9 +43,10 @@ def apply_for_job(request):
         form = Apply_Job(request.POST)
         if form.is_valid():
             intern_profile= form.save(commit=False)
+            intern_profile.username=request.user
             intern_profile.save()
-            username = form.cleaned_data.get('username')                     #getting the username from the form   
-            messages.success(request, f"{username} has succesully applied for this job")
+            #username = form.cleaned_data.get('intern_profile.username')                     #getting the username from the form   
+            messages.success(request, f"{intern_profile.username} has succesully applied for this job")
 
             return redirect("main:student")
         else:                                                 #if form is not valid or not filled properly               
@@ -67,7 +68,8 @@ def post_a_job(request):
     if request.method == "POST":                                                #if user hits the sign up button
         form = Job_Post(request.POST)                                #mapping the submitted form to user creation form
         if form.is_valid():                                                     #if the form filled is valid
-            job_profile = form.save(commit=False)    
+            job_profile = form.save(commit=False)  
+            job_profile.username=request.user  
             job_profile.save()                                       #basically save the user(since user is a part of form,thus we save the form)
             username = form.cleaned_data.get('job_title')                     #getting the username from the form   
             messages.success(request, f"New Job created: {username}")    #displaying the message that new account has been created
