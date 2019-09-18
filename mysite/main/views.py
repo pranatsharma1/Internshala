@@ -5,7 +5,7 @@
 
 
 from django.shortcuts import render, redirect
-from .models import Job
+from .models import Job,Intern,Location
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import logout, authenticate, login
 from django.contrib import messages
@@ -19,8 +19,8 @@ def add_location(request):
         if form.is_valid():
             loc= form.save(commit=False)
             loc.save()
-            location = form.cleaned_data.get('location')                     #getting the username from the form   
-            messages.success(request, f"New Location {location} created")
+            username = form.cleaned_data.get('location')                     #getting the username from the form   
+            messages.success(request, f"New Location {username} created")
 
             return redirect("main:employer")
         else:                                                 #if form is not valid or not filled properly               
@@ -113,6 +113,10 @@ def employer(request):
                   context={"jobs":Job.objects.all()}
                 )
 
+def jobs_posted(request):
+    return render(request=request,
+                  template_name="main/jobs_posted.html",
+                  context={"intern":Intern.objects.all()})
 
  #function for register as employer page
 
@@ -153,7 +157,10 @@ def register_as_student(request):                                           #fun
             username = form.cleaned_data.get('username')
             messages.success(request, f"New account created: {username}")
             login(request, user)
-            return redirect("main:homepage")
+            if user.is_student:
+                return redirect("main:student")
+            else:
+                return redirect("main:employer")
 
         else:
             for msg in form.error_messages:

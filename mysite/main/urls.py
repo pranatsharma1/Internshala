@@ -16,7 +16,7 @@ urlpatterns = [
    path("post/",views.post_a_job,name="post_a_job"),
    path("apply/",views.apply_for_job,name="apply_for_job"),
    path("add_location/",views.add_location,name="add_location"),
-   
+   path("jobs_posted/",views.jobs_posted,name="jobs_posted"),
 
 #    url(r'^$', views.homepage, name='homepage'),
 #    url(r'^signup/$', views.register_as_employer, name='register_as_employer'),
