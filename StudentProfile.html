@@ -13,10 +13,8 @@
 </head>
 <body>
         <nav class="navbar navbar-light" style="background-color:#DCDCDC;">
-          <div class="container">
-             
-               <a class="navbar-brand" href="#"> 
-                <img src="internshala_logo.svg" alt="">
+               <a class="navbar-brand" href="HomePage.html"> 
+                <img width="150px" height="25px" src="internshala_logo.svg" alt="">
                 </a>
                     <div class="btn-group">
                         <button type="button" class="btn "> MY PROFILE </button>
@@ -26,7 +24,7 @@
                         <div class="dropdown-menu">
                             <a href="#" class="dropdown-item"> Name </a>
                             <a href="#" class="dropdown-item"> email id </a>
-                            <a href="#" class="dropdown-item"> Edit Profile </a>
+                            <a href="std-edit.html" class="dropdown-item"> Edit Profile </a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item"> logout </a>
                         </div>
@@ -42,11 +40,26 @@
                             </div>
                         </li>
                     </ul> -->
-          </div>
+          
         </nav>
         <!-- <img src="std-profile/StudentProfile.svg" class="rounded float-left" alt="..."> -->
-        <object class="dash-img" type="image/svg+xml" data="std-profile/StudentProfile.svg">
-        </object>
-        
-</body>
+        <div class="row">
+          <div class="col-md-7">
+           <object class="dash-img" type="image/svg+xml" data="std-profile/StudentProfile.svg">
+           </object>
+          </div>
+          <div class="col-md-5 personal-info" style="padding-top:3%">
+            <h3 id="profile-head">Personal info</h3>
+            <hr>
+
+            <h4><u> Username: </u></h4> <h5> John Carter </h5>
+            <h4><u> Location: </u></h4> <h5> New York </h5>
+            <h4><u> Education Qualification: </u></h4> 
+            <h5> ............... </h5>
+          </div>
+        </div>
+        <div clas="apply-btn" style="margin-left: 45%">
+          <button class="button"><span>Apply for Internship </span></button>
+        </div>
+    </body>
 </html>

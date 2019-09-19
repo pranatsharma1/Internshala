@@ -9,20 +9,25 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="#">
+    <link rel="stylesheet" type="text/css" href="std.css">
 </head>
 <body>
+        <nav class="navbar navbar-light navbar-expand-lg static-top" style="background-color:#DCDCDC;">
+            <a class="navbar-brand" href="#">
+              <span id="logo">
+               <img width="200px" height="35px" src="internshala_logo.svg" alt="" >
+              </span>
+            </a>
+              
+       </nav>
         <div class="container">
-                <h1>Edit Profile</h1>
+                <h2 id="std-head">Edit Profile</h2>
                   <hr>
                 <div class="row">
                   <!-- left column -->
                   <div class="col-md-3">
                     <div class="text-center">
-                      <img src="std-profile/user.png" >
-                      
-                      
-                      
+                      <img src="std-profile/student.png" width="65%" height="65%" > 
                     </div>
                   </div>
                   
@@ -34,13 +39,13 @@
                       <div class="form-group">
                         <label class="col-lg-3 control-label">First name:</label>
                         <div class="col-lg-8">
-                          <input class="form-control" type="text" value="John">
+                          <input class="form-control" type="text" placeholder="John">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-lg-3 control-label">Last name:</label>
                         <div class="col-lg-8">
-                          <input class="form-control" type="text" value="Bishop">
+                          <input class="form-control" type="text" placeholder="Bishop">
                         </div>
                       </div>
                       <div class="form-group">
@@ -52,13 +57,15 @@
                       <div class="form-group">
                             <label class="col-lg-3 control-label">Education Qualification:</label>
                             <div class="col-lg-8 ">
-                              <input class="form-control" type="text" value="">
+                              <input class="form-control-1" type="text" value="">
+                              <a href="#"> +add qualification </a>
                             </div>
                           </div>
                        <div class="form-group">
-                                <label class="col-lg-3 control-label">Add Skills:</label>
+                                <label class="col-lg-3 control-label"> Skills/Interest:</label>
                                 <div class="col-lg-8 ">
                                   <input class="form-control" type="text" value="">
+                                  <a href="#"> +add skills </a>
                                 </div>
                         </div>
                       <div class="form-group">
@@ -91,6 +98,6 @@
                   </div>
               </div>
             </div>
-            <hr>
+      
 </body>
 </html>
