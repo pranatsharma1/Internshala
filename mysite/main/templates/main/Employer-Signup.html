@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -9,14 +11,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="std.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'main/std.css' %}">
 </head>
 <body>
         <nav class="navbar navbar-light navbar-expand-lg static-top" style="background-color:#DCDCDC;">
           <div class="web-logo">
             <a class="navbar-brand" href="#">
               <span id="logo">
-               <img width="200px" height="35px" src="internshala_logo.svg" alt="" >
+               <img width="200px" height="35px" src="{% static 'main/internshala_logo.svg' %}" alt="" >
               </span>
             </a>
           </div>
@@ -31,7 +33,7 @@
           <div class="row text-center">
             <div class="col-sm-4 ">
               <!-- <div class="signup-text-center"> -->
-                    <img src="emp-profile/Sign_up_icon.svg" width="50%" height="50%" > 
+                    <img src="{% static 'main/emp-profile/Sign_up_icon.svg' %}" width="50%" height="50%" > 
                     <h4> SIGN UP </h4>
                     <h5 style="font-size: 15px;color:darkgray">Get started by creating your account</h5>
                 <!-- </div> -->
@@ -39,7 +41,7 @@
             <div class="col-sm-4 ">
                 <!-- <div class="signup-text-center"> -->
                   <!-- style="margin-left:25%" -->
-                    <img src="emp-profile/Post-icon.svg" width="45%" height="45%"  > 
+                    <img src="{% static 'main/emp-profile/Post-icon.svg' %}" width="45%" height="45%"  > 
                     <div class="icon-text" style="padding-top: 12px">
                     <h4> POST </h4>
                     <h5 style="font-size: 15px;color:darkgray">Post internships for any profile and location</h5>
@@ -50,7 +52,7 @@
                 <!-- <div class="signup-text-center"> -->
                     <!-- style="margin-left:50%" -->
                     
-                    <img src="emp-profile/Hire-icon.svg" width="50%" height="50%" style="padding-bottom: 5px" > 
+                    <img src="{% static 'main/emp-profile/Hire-icon.svg' %}" width="50%" height="50%" style="padding-bottom: 5px" > 
                     <div class="icon-text" >
                      <h4> HIRE THE BEST </h4>
                      <h5 style="font-size: 15px;color:darkgray ">Screen and hire at your fingertips</h5>
@@ -66,13 +68,24 @@
                     <hr>
                     <!-- <h6>More than 50 brands trust Internshala for hiring interns.</h6>
                     <h6>Find interns across 10+ profiles round the year.And it's free!</h6> -->
-               <img src="emp-profile/emp-sign.svg" class="img-responsive" style="float:left; margin-bottom:60px;" width="65%" height="65%" > 
+               <img src="{% static 'main/emp-profile/emp-sign.svg' %}" class="img-responsive" style="float:left; margin-bottom:60px;" width="65%" height="65%" > 
                 
             </div>   
             <div class="col-md-6 Sign Up" style="padding-left: 10%;">
               <h4 style="padding-left: 10px;"> Start hiring now! </h4>
 
-              <form class="form-horizontal" role="form">
+            <div class="container">
+                  <form method="POST">
+                      {% csrf_token %}
+                      {{form.as_p}}
+                  
+                      <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Sign Up</button>
+                  </form>
+                  
+                      If you already have an account <a href="/login" target="blank"><strong>login</strong></a> instead.
+            </div>
+
+              <!-- <form class="form-horizontal" role="form">
                   <div class="form-group col-lg-8">
                     <label class="">Official Email ID:</label>
                     <input class="form-control" type="text" placeholder="name@email.com">
@@ -91,7 +104,7 @@
                   <div class="form-group col-lg-8">
                   <input type="button" class="btn btn-primary" style="align-content: center;" value="Sign Up">
                   </div>
-              </form>
+              </form> -->
 
             </div>
 

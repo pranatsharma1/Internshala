@@ -14,6 +14,7 @@ from .forms import Job_Post,Apply_Job,Location,Category
 from .forms import NewUserForm1
 from .forms import NewUserForm2
 
+
 def add_category(request):
     if request.method== "POST":
         form = Category(request.POST)
@@ -179,13 +180,13 @@ def register_as_employer(request):
                 messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
 
             return render(request = request,
-                          template_name = "main/register.html",
+                          template_name = "main/Employer-Signup.html",
                           context={"form":form})
 
 
     form = NewUserForm1
     return render(request = request,
-                  template_name = "main/register.html",
+                  template_name = "main/Employer-Signup.html",
                   context={"form":form})
 
  #function for register as student page
