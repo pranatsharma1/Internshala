@@ -36,6 +36,15 @@
      
                      <div class="collapse navbar-collapse" id="myNavbar">
                        <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}            <!--When the user is logged in-->
+                            <li><a href="/account">{{user.username|title}}</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                       </ul>     
+                       {% else %}             <!--When the user is not logged in-->
+
+
+                       <!--Registration Buttons-->
+                       <ul class="nav navbar-nav navbar-right">
                          <li class="dropdown">
                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up <span class="caret"></span>
                            </a>
@@ -44,38 +53,12 @@
                                <li><a href="/register_as_employer" class="dropdown-item"> Employer </a></li>
                            </ul>
                          </li>
-     
-                         <li><a class="popup-window" data-toggle="modal" data-target="#popupModal" href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                         <div class="modal" id="popupModal" tableindex="-1">
-                           <div class="modal-dialog" role="document">
-                             <div class="modal-content">
-                               <div clas="modal-header">
-                                 <h4 class="modal-title">Sign In</h4>
-                               </div>
-                               
-                               <div class="modal-body">
-                                 <form>
-                                   <div class="form-group">
-                                     <h5>Username</h5>
-                                   <input type="email" name="inputEmail" placeholder="Email" class="form-control">
-                                   <h5> Password </h5>
-                                     <input type="password" name="inputPassword" placeholder="********" class="form-control">
-                                   </div>
-                                   <div class="form-group">
-                                     <button class="btn btn-primary btn-group-justified"> Log In </button>
-                                   </div>
-                                 </form>
-                               </div>
-                                   <div class="modal-footer">
-                                     <span> Need an account? <a href="#"> Sign Up </a></span>
-                                   </div>
-                                   
-                                 </form>
-                               </div>
-                             </div>
-                           </div>   
-                         </div>
+
+                         <!--Login Button-->
+                         <li><a href="/login"><span class="glyphicon glyphicon-log-in">&nbspLogin</span></a></li>
+
                        </ul>
+                       {% endif %}
                    </div>
                  </div> 
         </nav>  
@@ -88,4 +71,4 @@
 
 </body>
 
-<script src="{% static "tinymce/js/prism.js" %}"></script>
+<script src="{% static 'tinymce/js/prism.js' %}"></script>

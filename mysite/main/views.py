@@ -208,12 +208,12 @@ def register_as_student(request):
                 messages.error(request, f"{msg}: {form.error_messages[msg]}")
 
             return render(request = request,
-                          template_name = "main/register.html",
+                          template_name = "main/Student-Signup.html",
                           context={"form":form})
 
     form = NewUserForm2
     return render(request = request,
-                  template_name = "main/register.html",
+                  template_name = "main/Student-Signup.html",
                   context={"form":form})                      
 
 

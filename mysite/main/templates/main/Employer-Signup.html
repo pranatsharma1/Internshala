@@ -1,5 +1,5 @@
 {% load static %}
-
+{% include 'main/includes/messaging.html' %}
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -74,6 +74,8 @@
             <div class="col-md-6 Sign Up" style="padding-left: 10%;">
               <h4 style="padding-left: 10px;"> Start hiring now! </h4>
 
+
+            <!--Backend wala form-->  
             <div class="container">
                   <form method="POST">
                       {% csrf_token %}
@@ -84,7 +86,10 @@
                   
                       If you already have an account <a href="/login" target="blank"><strong>login</strong></a> instead.
             </div>
+ 
 
+
+            <!--Vibhu wala form-->
               <!-- <form class="form-horizontal" role="form">
                   <div class="form-group col-lg-8">
                     <label class="">Official Email ID:</label>
