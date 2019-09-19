@@ -1,4 +1,3 @@
-<html>
 <head>
     {% load static %}
     <link href="{% static 'tinymce/css/prism.css' %}" rel="stylesheet">
@@ -9,11 +8,12 @@
 
     <style>
         body{
-            background-color: 32FC63;
+            background-color: white;
         }
         .nav-wrapper{
             background-color: blueviolet;
         }
+
     </style>
 </head>
 
@@ -34,12 +34,7 @@
 <div class="container">
 {% block content %}
 {% endblock %}
-
 </div>
-{% block student %}
-{% endblock %}
-
 </body>
 
 <script src="{% static "tinymce/js/prism.js" %}"></script>
-</html>

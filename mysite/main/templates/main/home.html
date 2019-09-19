@@ -1,40 +1,18 @@
+
+
+<!--Basically it displays the jobs in Card form-->
+
 {% extends 'main/header.html' %}
-
 {% block content %}
-homepage!
+
+<h1 style="color: black ; text-align: center">Welcome to Internshala 
 {% if user.is_authenticated %}
-
-<div class="apply_post" style="list-style-type: none; width: 100%; height: 50px; background-color: azure; margin-left: auto;margin-right: auto;">
     {% if user.is_employer %}
-        <li align='center'><a href="/products/pro/pro">post a intership</a></li>
+        <li align='center'><a href="/internship/list">post a intership</a></li>
     {% else %}
-        <li><a href="/products/student/new">Apply for internship</a></li>
+        <li><a href="#">Apply for internship</a></li>
     {% endif %}
-
-
-    </div> 
-
-<div class='location' style="list-style-type: none;padding-left:20px; width: 100%; height: auto;background-color: azure; margin-left: auto;margin-right: auto; margin-top: 20px;" >
-    location! 
-    {% if location %}
-    <ol>
-        {% for locations in location %}
-            <a href="/category/list"> {{ locations.name }}</a>
-        {% endfor %}   
-    </ol>
-    {% endif %}   
-</div>
-<div class='category' style="list-style-type: none; width: 100%; height: 100px;background-color: azure; margin-left: auto;margin-right: auto; margin-top: 20px;" >
-    category!
-    {% if category %}
-    <ol>
-        {% for categorys in category %}
-            <a href="#"> {{ categorys.name }}</a>
-        {% endfor %}   
-    </ol>
-    {% endif %}
-</div>
-
 {% endif %}
 
 {% endblock %}
+

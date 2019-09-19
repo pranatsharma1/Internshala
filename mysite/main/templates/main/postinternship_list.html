@@ -1,0 +1,51 @@
+{% extends 'main/header.html' %}
+<h1>student profile</h1>
+{% block content %}
+<a href="#" style="margin-left:auto;margin-right:auto; background-color:bisque;">Student list for Applied internship!</a>
+
+  <h3>Posted Internship!</h3>
+  <p>
+    <a href="/internship/post_a_job">New Internship!</a>
+    <a href="/add_category">New category</a>
+   <a href="/add_location">New location</a>
+  </p>
+
+  <table border="1">
+    <thead>
+      <tr> 
+
+        <th>job_title</th>
+        <th>category</th>
+        <th>location</th>
+        <th>job_content</th>
+        <th>job_published</th>
+        <th>job_stipend</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in internship %}
+        <tr>
+          <td>{{ product.job_title }}</td>
+          <td>{{ product.category}}</td>
+          <td>{{ product.location }}</td>
+          <td>{{ product.job_content }}</td>
+          <td>{{ product.job_published }}</td>
+          <td>{{ product.job_stipend }}</td>
+
+        </tr>
+        {% if forloop.last %}
+          <tr>
+            <td colspan="6">
+              <a href="/internship/edit_all">Edit all products</a>
+            </td>
+          </tr>
+        {% endif %}
+      {% empty %}
+        <tr>
+          <td colspan="6">No product</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

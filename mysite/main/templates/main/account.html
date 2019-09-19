@@ -8,7 +8,18 @@
                 <!-- Compiled and minified JavaScript for Materialize CSS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
             
-    
+    <style>
+        .profile{
+            border: 5px;
+            background-color: aquamarine;
+            margin-left: auto;
+            margin-right: auto;
+            width:80%;
+            background-color:red;   
+
+        }
+
+    </style>
 </head>
 <body>
 {% block content %}
@@ -22,22 +33,13 @@
     </div>
 </nav>    
 {% include 'main/includes/messaging.html' %}
-<h1>Profile</h1>
-    <p>Username: {{ user }}</p>
-    <p>First name: {{ user.first_name }}</p>
-    <p>Last name: {{ user.last_name }}</p>
-    <p>Email: {{ user.email }}</p>
-    {% if user.is_student %}
-        <p>as a: Student</p>
-    {% else %}
-        <p>as a: Employer</p>
-    {% endif %}    
-    
+
+<div class="profile" style="border:5px;">
+    <div class="name"><h3>{{user.first_name}}{{user.last_name}}</h3></div>
+    EMAIL: {{user.email}}
+    <div class="name">USERNAME: {{user.username}}</div>
+    <p>phone no: {{ profile.phone_no }} </p>
+    </div>
+
 {% endblock %}
-<div class="show_intership_apply" style="width: 90%; height:200px; background-color:pink; margin-left: auto; margin-right: auto;">
-    <h5 align=center>Applied Internship</h5>
-
-
-
-</div>
 </body>

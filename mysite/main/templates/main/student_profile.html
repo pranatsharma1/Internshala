@@ -1,28 +1,8 @@
 {% extends 'main/header.html' %}
-    {% block student %}
-    <p>student profile</p>
-    {% if products %}
-    <ol>
-        {% for product in products %}
-        <li>
-                {{ product.name }}
-                {{ product.Start_date}}
-                {{ product.Duration }}
-                {{ product.Stipend }}
-                {{ product.category.name }}
-                {{ product.location.name }}
-                {{ product.user }}
-                <li><a href="/products/student/new">Apply for internship</a></li>
+{% block content %}
 
-                </li>
-        {% endfor %}   
-    </ol>
-    {% endif %}
-    {% if category %}
-    <ol>
-        {% for categorys in category %}
-            <a href="#"> {{ categorys.name }}</a>
-        {% endfor %}   
-    </ol>
-    {% endif %}
-    {% endblock %}
+<h3><a href="/jobs_list">Apply for Jobs</a></h3>
+
+
+
+{% endblock %}

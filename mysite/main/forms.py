@@ -1,24 +1,50 @@
 from django.forms import ModelForm
+from django.contrib.auth.forms import UserCreationForm,UserChangeForm
+
 from django import forms
+from datetime import datetime
+from .models import Job,Intern,Location,Category
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.db import models
-from . models import UserProfile,IntershipCategory,post_job
-from django.contrib.auth.models import User,AbstractUser
-from .models import Category, Products,Location,StudentApply
-
 
 User=get_user_model()
+
+class Category(ModelForm):
+    class Meta:
+        model=Category
+        fields=("category",)
+
+class Location(ModelForm):
+    class Meta:
+        model=Location
+        fields=("location",)
+
+class Apply_Job(ModelForm):
+    class Meta:
+          model=Intern
+          fields=("intern_name","job_title","intern_college","intern_skills","intern_city","intern_study_year")
+
+class Job_Post(ModelForm):
+    class Meta:
+          model=Job
+          fields=("category","job_title","location","job_duration","job_content","job_published","job_stipend")
+    def __init__(self, user, *args, **kwargs):
+        super(Job_Post, self).__init__(*args, **kwargs)
+        
+
 
 class NewUserForm1(UserCreationForm):
     email= forms.EmailField(required=True)
     last_name=models.CharField(max_length=50)
-    first_name=models.CharField(max_length=100)
+    first_name=models.CharField(max_length=100) 
     is_employer=forms.BooleanField()
     
+
     class Meta:
           model=User
+        #   fields='__all__'
           fields=("first_name","last_name","username","is_employer","email","password1","password2")
 
     def save(self,commit=True):
@@ -58,63 +84,56 @@ class EditProfileForm(UserChangeForm):
             'password'
         )    
 
-#new code
-
-class UserForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ('user',  'city', 'phone', 'website')
-
-
-class EmployerForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ('user', 'company_name','company_location', 'phone', 'website')
-
-#new 
-
-class IntershipCategoryForm(forms.ModelForm):
-    class Meta:
-        model = IntershipCategory
-        fields = ('intership_category','intership_summray')
-
-class HomeForm(forms.ModelForm):
-    Employer_company_name = models.CharField(max_length=100)
-    Start_date = models.DateField()
-    Duration = models.CharField(max_length=20)
-    Stipend = models.CharField(max_length=5)
-    class Meta:
-        model = post_job
-        fields = ('Employer_company_name','Start_date','Duration','Stipend')
-
-
-class CategoryForm(forms.ModelForm):
-    class Meta:
-        model = Category
-        fields = ('name', )
-
-
-class StudentApplyForm(forms.ModelForm):
-    class Meta:
-        model = StudentApply
-        fields = ('username','name','phone_no')        
 
 
 
-#new
-class ProductForm(forms.ModelForm):
-    class Meta:
-        model = Products
-        fields = ('name', 'category', 'Start_date', 'Duration','Stipend','location','student')
-
-    def __init__(self, user, *args, **kwargs):
-        super(ProductForm, self).__init__(*args, **kwargs)
-        self.fields['category'].queryset = Category.objects.filter(user=user)
-        self.fields['location'].queryset = Location.objects.filter(user=user)
 
 
 
-class LocationForm(forms.ModelForm):
-    class Meta:
-        model = Location 
-        fields = ('name',)  
+
+
+
+
+
+
+
+ 
+                                                    # Mahima's Code
+
+# =======
+# from django import forms
+# from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.models import User
+# from django.db import models
+# from . models import profile,skillcategory
+# from django.db import models
+
+
+# class profileform(ModelForm):
+#     class Meta :
+#         model = profile
+#         fields = ("name","skill","college","phone_no","location","company_name")
+
+
+
+# class NewUserForm(UserCreationForm):
+#     email = forms.EmailField(required=True)
+#     last_name = models.CharField(max_length=50)
+#     first_name = models.CharField(max_length=100)
+#     #differ_id = forms.CharField(required=True, label="Differ_Id")
+
+
+#     class Meta:
+#         model = User
+#         fields = ("first_name","last_name","username","email","password1","password2")
+
+#     def save(self, commit=True):
+#         user = super(NewUserForm,self).save(commit=False)
+#         user.email = self.cleaned_data['email']
+
+#         if commit:
+#             user.save()
+#         return user    
+
+
+# >>>>>>> 0c068883fa2efc525150809d3d31552b94896f8d

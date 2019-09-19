@@ -1,5 +1,9 @@
+#A view function, or “view” for short, is simply a Python function that takes a web request 
+#and returns a web response. This response can be the HTML contents of a Web page, or a redirect,
+#or a 404 error, or an XML document, or an image, etc. Example: You use view to create web pages, 
+#note that you need to associate a view to a URL to see it as a web page.
+
 from django.shortcuts import render, redirect
-from .models import Job,UserProfile,post_job
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import logout, authenticate, login
 from django.contrib import messages
@@ -8,194 +12,185 @@ from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.auth import update_session_auth_hash
-from .forms import  EditProfileForm,LocationForm
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
-from .forms import UserForm,EmployerForm,IntershipCategoryForm
-from .forms import CategoryForm, ProductForm,StudentApplyForm
-from .models import Category, Products,Location,StudentApply
 from django.forms import modelformset_factory
 from django.db.models import Value
-
-
-def list_of_category(request):
-    category = Category.objects.values('name').distinct()
-    print(category)
-    return render(request, 'main/category_all.html', {'category': category})
-
-def Studentprofile(request):
-    products = Products.objects.all()
-    #"category":Category.objects.all()
-    print(products)
-    return render(request, 'main/student_profile.html', {'products': products})
-
+from django.http import Http404
+from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import logout, authenticate, login
+from django.contrib import messages
+from django.contrib.auth.models import User
+from .forms import Job_Post,Apply_Job,Location,Category
+from .forms import NewUserForm1,EditProfileForm
+from .forms import NewUserForm2
+from . models import Job
 @login_required
-def products_list(request):
-    products = Products.objects.filter(user=request.user)
-    return render(request, 'main/products_list.html', {'products': products})
-
-
-@login_required
-def new_product(request):
-    if request.method == 'POST':
-        form = ProductForm(request.user, request.POST)
+def add_category(request):
+    if request.method== "POST":
+        form = Category(request.POST)
         if form.is_valid():
-            product = form.save(commit=False)
-            product.user = request.user
-            product.save()
-            return products_list(request)
+            cat= form.save(commit=False)
+            cat.save()
+            user = form.cleaned_data.get('category')                     #getting the username from the form   
+            messages.success(request, f"New Category {user} created")
+            return internship_list(request)
     else:
-        form = ProductForm(request.user)
-    return render(request, 'main/product_form.html', {'form': form})
+        form = Category()
+    return render(request,"main/category_form.html",{"form":form}) 
 
 
-@login_required
-def new_Location(request):
-    if request.method == 'POST':
-        form = LocationForm(request.POST)
+def add_location(request):
+    if request.method== "POST":
+        form = Location(request.POST)
         if form.is_valid():
-            product = form.save(commit=False)
-            product.user = request.user
-            product.save()
-            return products_list(request)
-    else:
-        form = LocationForm()
-    return render(request, 'main/location_form.html', {'form': form})
+            loc= form.save(commit=False)
+            loc.save()
+            username = form.cleaned_data.get('location')                     #getting the username from the form   
+            messages.success(request, f"New Location {username} created")
 
-@login_required
-def new_category(request):
-    if request.method == 'POST':
-        form = CategoryForm(request.POST)
+            return internship_list(request)
+        else:                                                 #if form is not valid or not filled properly               
+            for msg in form.error_messages:                   
+                messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
+
+            return render(request = request,
+                          template_name = "main/location.html",
+                          context={"form":form})
+
+
+    form = Location()
+    return render(request = request,
+                  template_name = "main/location.html",
+                  context={"form":form}) 
+
+
+def apply_for_job(request):
+    if request.method== "POST":
+        form = Apply_Job(request.POST)
         if form.is_valid():
-            product = form.save(commit=False)
-            product.user = request.user
-            product.save()
-            return products_list(request)
-    else:
-        form = CategoryForm()
-    return render(request, 'main/category_form.html', {'form': form})
+            intern_profile= form.save(commit=False)
+            #intern_profile.job_title=form.cleaned_data.get('job_title')
+            intern_profile.username=request.user
+            intern_profile.save()
+            #username = form.cleaned_data.get('intern_profile.username')                     #getting the username from the form   
+            messages.success(request, f"{intern_profile.username} has succesully applied for this job")
 
-@login_required
-def student_apply(request):
-    if request.method == 'POST':
-        form = StudentApplyForm(request.POST)
-        if form.is_valid():
-            product = form.save(commit=False)
-            product.user = request.user
-            product.save()
-            return products_list(request)
-    else:
-        form = CategoryForm()
-    return render(request, 'main/apply_form.html', {'form': form})
+            return redirect("main:student")
+        else:                                                 #if form is not valid or not filled properly               
+            for msg in form.error_messages:                   
+                messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
+
+            return render(request = request,
+                          template_name = "main/apply_for_job.html",
+                          context={"form":form})
 
 
-@login_required
-def edit_all_products(request):
-    ProductFormSet = modelformset_factory(Products, fields=('name', 'Start_date', 'Duration','Stipend','category','location','student'), extra=0)
-    data = request.POST or None
-    formset = ProductFormSet(data=data, queryset=Products.objects.filter(user=request.user))
-    for form in formset:
-        form.fields['category'].queryset = Category.objects.filter(user=request.user)
-        form.fields['location'].queryset = Location.objects.filter(user=request.user)
-        form.fields['student'].queryset = StudentApply.objects.filter(user=request.user)
+    form = Apply_Job()
+    return render(request = request,
+                  template_name = "main/apply_for_job.html",
+                  context={"form":form}) 
+#
 
-    if request.method == 'POST' and formset.is_valid():
-        formset.save()
-        return products_list(request)
-
-    return render(request, 'main/products_formset.html', {'formset': formset})
-    #new
-'''  
 @login_required
 def internship_list(request):
-    products = internship_post.objects.filter(user=request.user)
-    return render(request, 'main/internship_list.html', {'products': products})
-
-
-@login_required
-def new_internship(request):
-    if request.method == 'POST':
-        form = PostForm(request.user, request.POST)
-        if form.is_valid():
-            product = form.save(commit=False)
-            product.user = request.user
-            product.save()
-            return internship_list(request)
-    else:
-        form = PostForm(request.user)
-    return render(request, 'main/internship_form.html', {'form': form})
-
-
-@login_required
-def internship_new_category(request):
-    if request.method == 'POST':
-        form = CategoriesForm(request.POST)
-        if form.is_valid():
-            product = form.save(commit=False)
-            product.user = request.user
-            product.save()
-            return internship_list(request)
-    else:
-        form = CategoriesForm()
-    return render(request, 'main/internship_category_form.html', {'form': form})
-
+    internship = Job.objects.filter(user=request.user)
+    return render(request, 'main/postinternship_list.html', {'internship': internship})
+    
+#new
 
 @login_required
 def edit_all_internship(request):
-    PostFormSet = modelformset_factory(internship_post, fields=('name','Start_date','Duration','Stipend','category', 'location'), extra=0)
+    ProductFormSet = modelformset_factory(Job, fields=('job_title', 'category', 'location','job_duration','job_content','job_published','job_stipend'), extra=0)
     data = request.POST or None
-    formset = PostFormSet(data=data, queryset=internship_post.objects.filter(user=request.user))
-    for form in formset:
-        form.fields['internship_post'].queryset = internship_post.objects.filter(user=request.user)
-
+    formset = ProductFormSet(data=data, queryset=Job.objects.filter(user=request.user))
+    
     if request.method == 'POST' and formset.is_valid():
         formset.save()
         return internship_list(request)
 
-    return render(request, 'main/internship_formset.html', {'formset': formset})
-    '''
-#new
-def homepage(request):
-    return render(request=request, template_name="main/home.html", 
-    context={"jobs":Job.objects.all(),"location":Location.objects.values('name').distinct(),"category":Category.objects.values('name').distinct()})
-#distinct is using for showing the distinct field not duplicates
-def student_profile(request):
+    return render(request, 'main/postinternship_formset.html', {'formset': formset})
+
+@login_required
+def post_a_job(request):                                      
+    if request.method == "POST":                                                #if user hits the sign up button
+        form = Job_Post(request.user,request.POST)                                #mapping the submitted form to user creation form
+        if form.is_valid():                                                     #if the form filled is valid
+            job_profile = form.save(commit=False)  
+            job_profile.user=request.user  
+            job_profile.save()                                       #basically save the user(since user is a part of form,thus we save the form)
+            user = form.cleaned_data.get('job_title')                     #getting the username from the form   
+            messages.success(request, f"New Job created: {user}")    #displaying the message that new account has been created
+            
+            # now after signing up we automatically logs in the user 
+            # login(request, user)                                             #login(HttpResponse,User)
+            return internship_list(request)
+        
+    form = Job_Post(request.user)
+    return render(request = request,
+                  template_name = "main/postinternship_form.html",
+                  context={"form":form}) 
+
+ #view function for homepage 
+
+def homepage(request):                                              
+    return render(request=request,
+                  template_name="main/home.html",
+                  context={"jobs":Job.objects.all()})
+
+
+
+#view function to display the jobs posted by the company
+def jobs_list(request):
+    # jobs=Job.objects.filter(user=request.user)
+    return render(request=request,
+                  template_name="main/jobs_list.html",
+                  context={"jobs":Job.objects.all()}
+                )                
+
+#view function for student's profile
+
+def student(request):                                                
     return render(request=request,
                   template_name="main/student_profile.html",
-                  context={"jobs":Job.objects.all()})
-
-def company_profile(request):
-    return render(request=request,
-                  template_name="main/company_profile.html",
-                  context={"jobs":Job.objects.all()})
-
-def student(request):
-    return render(request=request,
-                  template_name="main/index1.html",
                   context={"jobs":Job.objects.all()}
                 )
 
-def employer(request):
+ #view function for employer's profile
+
+def employer(request):                                              
     return render(request=request,
-                  template_name="main/index2.html",
+                  template_name="main/employer_profile.html",
                   context={"jobs":Job.objects.all()}
                 )
 
+def interns_applied(request):
+    return render(request=request,
+                  template_name="main/jobs_posted.html",
+                  context={"intern":Intern.objects.all()})
 
-def register_as_employer(request):
-    if request.method == "POST":
-        form = NewUserForm1(request.POST)
-        if form.is_valid():
-            user = form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f"New account created: {username}")
-            login(request, user)
-            # user.is_staff=True
-            return redirect("main:homepage")
+ #function for register as employer page
 
-        else:
-            for msg in form.error_messages:
-                messages.error(request, f"{msg}: {form.error_messages[msg]}")
+def register_as_employer(request):                                       
+    if request.method == "POST":                                                #if user hits the sign up button
+        form = NewUserForm1(request.POST)                                #mapping the submitted form to user creation form
+        if form.is_valid():                                                     #if the form filled is valid
+            user = form.save()                                           #basically save the user(since user is a part of form,thus we save the form)
+            username = form.cleaned_data.get('username')                     #getting the username from the form   
+            messages.success(request, f"New account created: {username}")    #displaying the message that new account has been created
+            
+            # now after signing up we automatically logs in the user 
+            login(request, user)                                             #login(HttpResponse,User)
+            if user.is_student:
+                return redirect("main:student")
+            else:
+                return redirect("main:employer")  
+        
+        else:                                                 #if form is not valid or not filled properly               
+            for msg in form.error_messages:                   
+                messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
 
             return render(request = request,
                           template_name = "main/register.html",
@@ -205,12 +200,10 @@ def register_as_employer(request):
     form = NewUserForm1
     return render(request = request,
                   template_name = "main/register.html",
-                  context={"form":form}) 
+                  context={"form":form})
 
-
-
-
-def register_as_student(request):
+ #function for register as student page
+def register_as_student(request):                                          
     if request.method == "POST":
         form = NewUserForm2(request.POST)
         if form.is_valid():
@@ -218,8 +211,7 @@ def register_as_student(request):
             username = form.cleaned_data.get('username')
             messages.success(request, f"New account created: {username}")
             login(request, user)
-            return Studentprofile(request)
-            #render(request, 'main/student_profile.html')
+            return redirect("main:homepage")
 
         else:
             for msg in form.error_messages:
@@ -234,37 +226,42 @@ def register_as_student(request):
                   template_name = "main/register.html",
                   context={"form":form})                      
 
+
+#function for logging the user out of the current session
+
 def logout_request(request):
     logout(request)
     messages.info(request, "Logged out successfully!")
     return redirect("main:homepage") 
 
-def login_request(request):
+#fucntion for logging in the user
+
+def login_request(request):                                                            
     
-    if request.method == 'POST':
+    if request.method == 'POST':                                             #if user hits the login button
         form = AuthenticationForm(request=request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.info(request, f"You are now logged in as {username}")
-                if user.is_student:
-                    return Studentprofile(request)
-                    # redirect("main:student_profile")
-                else:
-                    return redirect("main:homepage")    
-            else:
-                messages.error(request, "Invalid username or password.")
-        else:
-            messages.error(request, "Invalid username or password.")
+        if form.is_valid():                                                  #if the form is valid
+            username = form.cleaned_data.get('username')                     #saving the username form the form
+            password = form.cleaned_data.get('password')                     #saving the password from the form
+            user = authenticate(username=username, password=password)        #authenticating the user i.e. username and passwords match simultaneously with a user's profile in database
+            if user is not None:                                             #basically means "if user is true i.e. if user is successfully authenticated"
+                login(request, user)                                         #log the user into the session
+                messages.info(request, f"You are now logged in as {username}")    #display a message that user is logged in
+                #if user.is_student:
+                  #return redirect("main:student")
+                #else:
+                return redirect("main:homepage")                               
+            else:                                                            #if it fails to authenticate
+                messages.error(request, "Invalid username or password.")     #display an error message
+
+        else:                                                                #if the form is not valid
+            messages.error(request, "Invalid username or password.")         #display the error message
+
     form = AuthenticationForm()
     return render(request = request,
                     template_name = "main/login.html",
                     context={"form":form})
-
-
+@login_required
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(data=request.POST, user=request.user)
@@ -281,6 +278,7 @@ def change_password(request):
         args = {'form': form}
         return render(request, 'main/change_password.html', args)
 
+@login_required
 def edit_profile(request):
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=request.user)
@@ -299,46 +297,14 @@ def view_profile(request, pk=None):
     else:
         user = request.user
     args = {'user': user}
-    return render(request, 'main/account.html', args)
-
-
-
-def postform(request):
- 
-    if request.method == "POST":
-        form = IntershipCategoryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('main:homepage')
- 
-    else:
-        form = IntershipCategoryForm()
-        return render(request, "main/category.html", {'form': form})
-#new
-'''
-class HomeView(TemplateView):
-    template_name= 'main/home.html' #only to remove hardcoded
-
-    def get(self,request):
-        form = HomeForm()
-        posts = post_job.objects.all()
-        context = {'form':form,'posts':posts}
-        return render(request,self.template_name,context)
-
-
-    def post(self,request):
-        form = HomeForm(request.POST)    
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.User = request.User
-            post.save()
-
-            text = form.cleaned_data['post']    
-            form = HomeForm()
-            return redirect( 'main:home')
-
-        args ={'form': form, 'text': text}  
-        return render(request, self.template_name, args)
-'''
-#new
-
+    return render(request, 'main/home.html', args)
+                         
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+         

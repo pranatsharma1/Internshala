@@ -1,3 +1,5 @@
+                                        <!--It displays the Login Page-->
+
 {% extends 'main/header.html' %}
 
 {% block content %}
@@ -8,7 +10,6 @@
         {{form.as_p}}
             <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Login</button>
         </form>
-        Don't have an account?  <li><a href="/register_as_employer">Register as Employer</a></li>
-        <li><a href="/register_as_student">Register as Student</a></li></a>
+        Don't have an account? <a href="/register" target="blank"><strong>register here</strong></a>!
     </div>
 {% endblock %}
