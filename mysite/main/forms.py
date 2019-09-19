@@ -2,13 +2,18 @@ from django.forms import ModelForm
 
 from django import forms
 from datetime import datetime
-from .models import Job,Intern,Location
+from .models import Job,Intern,Location,Category
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
 from django.db import models
 
 User=get_user_model()
+
+class Category(ModelForm):
+    class Meta:
+        model=Category
+        fields=("category",)
 
 class Location(ModelForm):
     class Meta:
@@ -18,12 +23,12 @@ class Location(ModelForm):
 class Apply_Job(ModelForm):
     class Meta:
           model=Intern
-          fields=("intern_name","intern_college","intern_skills","intern_city","intern_study_year")
+          fields=("intern_name","job_title","intern_college","intern_skills","intern_city","intern_study_year")
 
 class Job_Post(ModelForm):
     class Meta:
           model=Job
-          fields=("job_title","location","job_duration","job_content","job_published","job_stipend")
+          fields=("category","job_title","location","job_duration","job_content","job_published","job_stipend")
     
 
 

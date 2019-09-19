@@ -19,12 +19,17 @@ class Location(models.Model):
     def __str__(self):
         return self.location                                         
                                              
-                                 
+class Category(models.Model):
+    category=models.CharField(max_length=200,default='Development')   
+
+    def __str__(self):
+        return self.category                              
 
 # model for Job
 
 class Job(models.Model):      
-    job_title= models.CharField(max_length=200) 
+    job_title= models.CharField(max_length=200)
+    category=models.ForeignKey(Category,default="Development",on_delete=models.SET_DEFAULT,null=True) 
     location=models.ForeignKey(Location,default='Delhi',on_delete=models.SET_DEFAULT,null=True)
     job_duration=models.CharField(max_length=200)                                        #field1: Job Title
     job_content= models.TextField()                                                     #field2: Job Content
@@ -44,7 +49,7 @@ class Intern(models.Model):
     intern_city=models.CharField(max_length=200)
     intern_study_year=models.CharField(max_length=200)
     username=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)      
-    job_title=models.ForeignKey(Job,default=2,on_delete=models.SET_DEFAULT,null=True)                            
+    job_title=models.ForeignKey(Job,default=1,on_delete=models.SET_DEFAULT,null=True)                            
 
     def __str__(self):
         return self.intern_name                                        

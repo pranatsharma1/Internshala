@@ -12,10 +12,12 @@ urlpatterns = [
    path("logout/", views.logout_request, name="logout"), 
    path("login/", views.login_request, name="login"),
    path("student_profile/",views.student,name="student"),
+   path("jobs_list/",views.jobs_list,name="jobs_list"),
    path("employer_profile/",views.employer,name="employer"),
    path("post/",views.post_a_job,name="post_a_job"),
    path("apply/",views.apply_for_job,name="apply_for_job"),
    path("add_location/",views.add_location,name="add_location"),
+   path("add_category/",views.add_category,name="add_category"),
    path("jobs_posted/",views.jobs_posted,name="jobs_posted"),
 
 #    url(r'^$', views.homepage, name='homepage'),

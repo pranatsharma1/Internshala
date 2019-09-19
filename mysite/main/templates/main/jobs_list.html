@@ -1,37 +1,11 @@
 {% extends 'main/header.html' %}
-
-
 {% block content %}
-<div class="row">
-    
-    {% for j in intern %}
-        <div class="col s12 m6" >
-            <div class="card white darken-1 hoverable">
-            <div class="card-content black-text" style="background-color: #c2c0bc">
-                <span class="card-title">{{j.intern_name}}</span>
-                <p>Username: {{j.username}}</p>
-                <p>Applied for: {{j.job_title}}</p>
-                <p style="font-size: 100%">College: {{j.intern_college}}</p>
-                <br><br>
-                <p>Skills: {{j.intern_skills}}</p>
-                <br>
-                <p>City: {{j.intern_city}}</p>
-                <p>Year of Study: {{j.intern_study_year}}</p> 
-                
-            </div>
-            </div>
-        </div>
-        {% endfor %}
-
-
-
-
-
-{% endblock %}
 
 <!-- <a href="/post">Post a Job</a> -->
-<!-- <div class="row">
+<div class="row">
+
     {% for j in jobs %}
+             
         <div class="col s12 m6" >
             <div class="card white darken-1 hoverable">
             <div class="card-content black-text" style="background-color: #c2c0bc">
@@ -46,11 +20,12 @@
                 <br>
                 <p>Details: {{j.job_content|safe}}</p>
                 <br><br>
-                <h3><a href="/apply" style="color: black">Apply</a></h3>
+                <!-- <h3><a href="/apply" style="color: black">Apply</a></h3> -->
             </div>
             </div>
         </div>
-        {% endfor %} -->
+         
+    {% endfor %}
 
 
 
@@ -68,3 +43,9 @@
         </div>
         {% endfor %}
  -->
+
+
+
+
+</div>
+{% endblock %}

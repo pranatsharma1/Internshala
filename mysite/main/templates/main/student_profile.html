@@ -1,48 +1,8 @@
 {% extends 'main/header.html' %}
 {% block content %}
 
-<!-- <a href="/post">Post a Job</a> -->
-<div class="row">
-    {% for j in jobs %}
-        <div class="col s12 m6" >
-            <div class="card white darken-1 hoverable">
-            <div class="card-content black-text" style="background-color: #c2c0bc">
-                <span class="card-title">{{j.username}}</span>
-                <p style="font-size: 100%">{{j.job_title}}</p>
-                <p style="font-size: 80%">{{j.job_published}}</p>
-                <br><br>
-                <p>Location: {{j.location}}</p>
-                <br>
-                <p>Duration: {{j.job_duration}}</p>
-                <p>Stipend: {{j.job_stipend|safe}}</p> 
-                <br>
-                <p>Details: {{j.job_content|safe}}</p>
-                <br><br>
-                <h3><a href="/apply" style="color: black">Apply</a></h3>
-            </div>
-            </div>
-        </div>
-        {% endfor %}
+<h3><a href="/jobs_list">Apply for Jobs</a></h3>
 
 
 
-                                              <!-- Mahima's Code-->
-        <!-- {% for k in postjob %}
-        <div class="col s12 m6">
-            <div class="card white darken-1 hoverable">
-            <div class="card-content black-text">
-                <span class="card-title">{{k.company_name}}</span>
-                <p style="font-size: 70%">{{k.about}}</p> 
-                <br><br>
-                <p>{k.location}}</p>
-            </div>
-            </div>
-        </div>
-        {% endfor %}
- -->
-
-
-
-
-</div>
 {% endblock %}

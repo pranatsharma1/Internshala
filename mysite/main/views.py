@@ -5,13 +5,39 @@
 
 
 from django.shortcuts import render, redirect
-from .models import Job,Intern,Location
+from .models import Job,Intern,Location,Category
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import logout, authenticate, login
 from django.contrib import messages
-from .forms import Job_Post,Apply_Job,Location
+from django.contrib.auth.models import User
+from .forms import Job_Post,Apply_Job,Location,Category
 from .forms import NewUserForm1
 from .forms import NewUserForm2
+
+def add_category(request):
+    if request.method== "POST":
+        form = Category(request.POST)
+        if form.is_valid():
+            cat= form.save(commit=False)
+            cat.save()
+            username = form.cleaned_data.get('category')                     #getting the username from the form   
+            messages.success(request, f"New Category {username} created")
+
+            return redirect("main:employer")
+        else:                                                 #if form is not valid or not filled properly               
+            for msg in form.error_messages:                   
+                messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
+
+            return render(request = request,
+                          template_name = "main/category.html",
+                          context={"form":form})
+
+
+    form = Category()
+    return render(request = request,
+                  template_name = "main/category.html",
+                  context={"form":form}) 
+
 
 def add_location(request):
     if request.method== "POST":
@@ -43,6 +69,7 @@ def apply_for_job(request):
         form = Apply_Job(request.POST)
         if form.is_valid():
             intern_profile= form.save(commit=False)
+            #intern_profile.job_title=form.cleaned_data.get('job_title')
             intern_profile.username=request.user
             intern_profile.save()
             #username = form.cleaned_data.get('intern_profile.username')                     #getting the username from the form   
@@ -106,6 +133,13 @@ def student(request):
                   template_name="main/student_profile.html",
                   context={"jobs":Job.objects.all()}
                 )
+
+def jobs_list(request):
+    # jobs=Job.objects.filter(user=request.user)
+    return render(request=request,
+                  template_name="main/jobs_list.html",
+                  context={"jobs":Job.objects.all()}
+                )                
 
  #view function for employer's profile
 
