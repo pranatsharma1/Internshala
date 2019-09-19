@@ -126,6 +126,16 @@ def homepage(request):
                   template_name="main/home.html",
                   context={"jobs":Job.objects.all()})
 
+
+
+#view function to display the jobs posted by the company
+def jobs_list(request):
+    # jobs=Job.objects.filter(user=request.user)
+    return render(request=request,
+                  template_name="main/jobs_list.html",
+                  context={"jobs":Job.objects.all()}
+                )                
+
 #view function for student's profile
 
 def student(request):                                                
@@ -133,13 +143,6 @@ def student(request):
                   template_name="main/student_profile.html",
                   context={"jobs":Job.objects.all()}
                 )
-
-def jobs_list(request):
-    # jobs=Job.objects.filter(user=request.user)
-    return render(request=request,
-                  template_name="main/jobs_list.html",
-                  context={"jobs":Job.objects.all()}
-                )                
 
  #view function for employer's profile
 
@@ -149,7 +152,7 @@ def employer(request):
                   context={"jobs":Job.objects.all()}
                 )
 
-def jobs_posted(request):
+def interns_applied(request):
     return render(request=request,
                   template_name="main/jobs_posted.html",
                   context={"intern":Intern.objects.all()})
@@ -183,9 +186,10 @@ def register_as_employer(request):
     form = NewUserForm1
     return render(request = request,
                   template_name = "main/register.html",
-                  context={"form":form}) 
+                  context={"form":form})
 
-def register_as_student(request):                                           #function for register as student page
+ #function for register as student page
+def register_as_student(request):                                          
     if request.method == "POST":
         form = NewUserForm2(request.POST)
         if form.is_valid():
