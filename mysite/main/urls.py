@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 from django.conf.urls import url
 
+
 app_name="main"
 
 urlpatterns = [
@@ -19,6 +20,7 @@ urlpatterns = [
    path("add_location/",views.add_location,name="add_location"),
    path("add_category/",views.add_category,name="add_category"),
    path("interns_applied/",views.interns_applied,name="interns_applied"),
+   
 
 #    url(r'^$', views.homepage, name='homepage'),
 #    url(r'^signup/$', views.register_as_employer, name='register_as_employer'),

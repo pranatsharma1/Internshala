@@ -15,6 +15,9 @@ from .forms import NewUserForm1
 from .forms import NewUserForm2
 
 
+
+
+# view function for adding a category
 def add_category(request):
     if request.method== "POST":
         form = Category(request.POST)
@@ -40,6 +43,9 @@ def add_category(request):
                   context={"form":form}) 
 
 
+
+
+# view function for adding a location
 def add_location(request):
     if request.method== "POST":
         form = Location(request.POST)
@@ -65,6 +71,10 @@ def add_location(request):
                   context={"form":form}) 
 
 
+
+
+
+# view function for form for applying for an internship
 def apply_for_job(request):
     if request.method== "POST":
         form = Apply_Job(request.POST)
@@ -92,6 +102,9 @@ def apply_for_job(request):
                   context={"form":form}) 
 
 
+
+
+# view function for posting a job
 def post_a_job(request):                                      
     if request.method == "POST":                                                #if user hits the sign up button
         form = Job_Post(request.POST)                                #mapping the submitted form to user creation form
@@ -120,12 +133,16 @@ def post_a_job(request):
                   template_name = "main/post_job.html",
                   context={"form":form}) 
 
- #view function for homepage 
 
+
+
+#view function for homepage 
 def homepage(request):                                              
     return render(request=request,
                   template_name="main/home.html",
-                  context={"jobs":Job.objects.all()})
+                )
+
+
 
 
 
@@ -137,13 +154,18 @@ def jobs_list(request):
                   context={"jobs":Job.objects.all()}
                 )                
 
-#view function for student's profile
 
+
+
+#view function for student's profile
 def student(request):                                                
     return render(request=request,
-                  template_name="main/student_profile.html",
-                  context={"jobs":Job.objects.all()}
+                  template_name="main/StudentProfile.html",
+                  context={"intern":Job.objects.all()}
                 )
+
+
+
 
  #view function for employer's profile
 
@@ -153,13 +175,39 @@ def employer(request):
                   context={"jobs":Job.objects.all()}
                 )
 
+
+
+
+# view function for showing which students have applied for the internship
 def interns_applied(request):
     return render(request=request,
                   template_name="main/jobs_posted.html",
                   context={"intern":Intern.objects.all()})
 
- #function for register as employer page
 
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            current_site = get_current_site(request)
+            subject = 'Activate Your MySite Account'
+            message = render_to_string('acc_active_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+            user.email_user(subject, message)
+            return redirect('account_activation_sent')
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
+
+
+ #function for register as employer page
 def register_as_employer(request):                                       
     if request.method == "POST":                                                #if user hits the sign up button
         form = NewUserForm1(request.POST)                                #mapping the submitted form to user creation form
@@ -189,6 +237,9 @@ def register_as_employer(request):
                   template_name = "main/Employer-Signup.html",
                   context={"form":form})
 
+
+
+
  #function for register as student page
 def register_as_student(request):                                          
     if request.method == "POST":
@@ -217,15 +268,18 @@ def register_as_student(request):
                   context={"form":form})                      
 
 
-#function for logging the user out of the current session
 
+
+#function for logging the user out of the current session
 def logout_request(request):
     logout(request)
     messages.info(request, "Logged out successfully!")
     return redirect("main:homepage") 
 
-#fucntion for logging in the user
 
+
+
+#fucntion for logging in the user
 def login_request(request):                                                            
     
     if request.method == 'POST':                                             #if user hits the login button

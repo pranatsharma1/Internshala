@@ -12,6 +12,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):      
     is_employer=models.BooleanField(default=False)                      #a boolean field to check whether the registered user is employer?
     is_student=models.BooleanField(default=False)                       #a boolean field to check whether the registered user is student?
+    
 
 class Location(models.Model):
     location=models.CharField(max_length=200,default='Delhi')                                                 
@@ -49,7 +50,9 @@ class Intern(models.Model):
     intern_city=models.CharField(max_length=200)
     intern_study_year=models.CharField(max_length=200)
     username=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)      
-    job_title=models.ForeignKey(Job,default=1,on_delete=models.SET_DEFAULT,null=True)                            
+    job_title=models.ForeignKey(Job,default=1,on_delete=models.SET_DEFAULT,null=True)    
+    is_accept=models.BooleanField(default=False)
+    is_reject=models.BooleanField(default=False)                        
 
     def __str__(self):
         return self.intern_name                                        

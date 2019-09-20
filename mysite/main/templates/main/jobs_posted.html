@@ -3,21 +3,23 @@
 
 {% block content %}
 <div class="row">
-    
+
     {% for j in intern %}
-        <div class="col s12 m6" >
-            <div class="card white darken-1 hoverable">
-            <div class="card-content black-text" style="background-color: #c2c0bc">
-                <span class="card-title">{{j.intern_name}}</span>
-                <p>Username: {{j.username}}</p>
-                <p>Applied for: {{j.job_title}}</p>
-                <p style="font-size: 100%">College: {{j.intern_college}}</p>
-                <br><br>
-                <p>Skills: {{j.intern_skills}}</p>
+        <div class="card text-white bg-warning" >
+                <div class="card-body">
+            
+                <h1>{{j.intern_name}}</h1>
+                <h4>Username: {{j.username}}</h4>
+                <h4>Applied for: {{j.job_title}}</h4>
+                <h4 style="font-size: 100%">College: {{j.intern_college}}</h4>
                 <br>
-                <p>City: {{j.intern_city}}</p>
-                <p>Year of Study: {{j.intern_study_year}}</p> 
-                
+                <h4>Skills: {{j.intern_skills}}</h4>
+                <br>
+                <h4>City: {{j.intern_city}}</h4>
+                <h4>Year of Study: {{j.intern_study_year}}</h4> 
+                <a href="/jobs_posted1">Accept</a>
+                <br>
+                <a href="/jobs_posted2">Reject</a>
             </div>
             </div>
         </div>
