@@ -2,29 +2,29 @@
 from django.urls import path
 from . import views
 from django.conf.urls import url
-
+from main.views import homepage,jobs_list,student_profile,employer_profile,logout_request,add_category,add_location,apply_for_job
+from main.views import post_a_job,interns_applied,register_as_employer,register_as_student,login_request
 app_name="main"
 
 urlpatterns = [
-   path("",views.homepage,name="homepage"),
-   path("register_as_employer/", views.register_as_employer, name="register_as_employer"), 
-   path("register_as_student/", views.register_as_student, name="register_as_student"), 
-   path("logout/", views.logout_request, name="logout"), 
-   path("login/", views.login_request, name="login"),
-   path("student_profile/",views.student,name="student"),
-   path("jobs_list/",views.jobs_list,name="jobs_list"),
-   path("employer_profile/",views.employer,name="employer"),
-   path("post/",views.post_a_job,name="post_a_job"),
-   path("apply/",views.apply_for_job,name="apply_for_job"),
-   path("add_location/",views.add_location,name="add_location"),
-   path("add_category/",views.add_category,name="add_category"),
-   path("interns_applied/",views.interns_applied,name="interns_applied"),
-   path('internship/post_a_job/', views.post_a_job, name='post_a_job'),
-   path('internship/edit_all/', views.edit_all_internship, name='edit_all_internship'),
-   path('internship/list/', views.internship_list, name='internship_list'),
+   path("",homepage.as_view(),name="homepage"),
+   path("register_as_employer/",register_as_employer.as_view(), name="register_as_employer"), 
+   path("register_as_student/", register_as_student.as_view(), name="register_as_student"), 
+   path("logout/", logout_request.as_view(), name="logout"), 
+   path("login/",login_request.as_view(), name="login"),
+   path("student_profile/",student_profile.as_view(),name="student"),
+   path("jobs_list/",jobs_list.as_view(),name="jobs_list"),
+   path("employer_profile/",employer_profile.as_view(),name="employer"),
+   path("post/",post_a_job.as_view(),name="post_a_job"),
+   path("apply/",apply_for_job.as_view(),name="apply_for_job"),
+   path("add_location/",add_location.as_view(),name="add_location"),
+   path("add_category/",add_category.as_view(),name="add_category"),
+   path("interns_applied/",interns_applied.as_view(),name="interns_applied"),
    path("profile/edit/",views.edit_profile,name="edit_profile"),
    path("change-password/",views.change_password,name="change_password"),
  
+
+
 
 #    url(r'^$', views.homepage, name='homepage'),
 #    url(r'^signup/$', views.register_as_employer, name='register_as_employer'),

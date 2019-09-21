@@ -1,15 +1,17 @@
 from django.forms import ModelForm
-from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 
 from django import forms
 from datetime import datetime
 from .models import Job,Intern,Location,Category
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
 from django.db import models
 
 User=get_user_model()
+
+
+
 
 class Category(ModelForm):
     class Meta:
@@ -30,9 +32,7 @@ class Job_Post(ModelForm):
     class Meta:
           model=Job
           fields=("category","job_title","location","job_duration","job_content","job_published","job_stipend")
-    def __init__(self, user, *args, **kwargs):
-        super(Job_Post, self).__init__(*args, **kwargs)
-        
+    
 
 
 class NewUserForm1(UserCreationForm):
@@ -73,6 +73,7 @@ class NewUserForm2(UserCreationForm):
         return user   
 
 
+
 class EditProfileForm(UserChangeForm):
 
     class Meta:
@@ -83,6 +84,7 @@ class EditProfileForm(UserChangeForm):
             'last_name',
             'password'
         )    
+
 
 
 

@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <title> Main Page </title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="jquery.fittext.js"></script>
+    
+      </head>
+    <body>
+          <nav class="navbar navbar navbar-light navbar-expand-lg static-top" style="background-color:#DCDCDC">
+            <!-- <span id="logo">
+            <a  class="navbar-brand" href="#">
+                <span id="logo">
+                   <img  width="200px" height="35px" src="internshala_logo.svg" alt="" >
+                   </span>
+           </a>  -->
+           <div class="container-fluid"> 
+                <div class="navbar-header"> 
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" >
+                    <span class="icon-bar" style="background-color:rgb(142, 199, 248)"></span>
+                    <span class="icon-bar" style="background-color:rgb(142, 199, 248)"></span>
+                    <span class="icon-bar" style="background-color:rgb(142, 199, 248)"></span>                        
+                  </button>
+                  <div style="padding-top:0px">
+                   <a class="navbar-brand" href="#">
+                      <img width="150px" height="25px" src="internshala_logo.svg" alt="">
+                  </a> 
+                  </div>
+                </div>
+                
+
+                <div class="collapse navbar-collapse" id="myNavbar">
+                  <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu">
+                          <li><a href="Student-Signup.html" class="dropdown-item"> Student </a></li>
+                          <li><a href="Employer-Signup.html" class="dropdown-item"> Employer </a></li>
+                      </ul>
+                    </li>
+
+                    <li><a class="popup-window" data-toggle="modal" data-target="#popupModal" href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <div class="modal" id="popupModal" tableindex="-1">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div clas="modal-header">
+                            <h4 class="modal-title">Sign In</h4>
+                          </div>
+                          
+                          <div class="modal-body">
+                            <form>
+                              <div class="form-group">
+                                <h5>Username</h5>
+                              <input type="email" name="inputEmail" placeholder="Email" class="form-control">
+                              <h5> Password </h5>
+                                <input type="password" name="inputPassword" placeholder="********" class="form-control">
+                              </div>
+                              <div class="form-group">
+                                <button class="btn btn-primary btn-group-justified"> Log In </button>
+                              </div>
+                            </form>
+                          </div>
+                              <div class="modal-footer">
+                                <span> Need an account? <a href="#"> Sign Up </a></span>
+                              </div>
+                              
+                            </form>
+                          </div>
+                        </div>
+                      </div>   
+                    </div>
+                  </ul>
+              </div>
+            </div> 
+            </nav>
+        
+          <object class="home-img" type="image/svg+xml" data="main-page.svg">
+          </object>
+
+          <h1 id="centre-head"> Select the One Which Suits you Best </h1> 
+                 
+          <div class="row">
+              <div class="column">
+                <h3 id="in-head"> INTERNSHIP IN TOP CITIES </h3>
+                <div class="card">
+                  <img src="home-img/Delhi-Internships.svg" width="50px" alt="" class="clip-circle" >
+                  <h3> Delhi/NCR </h3>
+                  <img src="home-img/Mumbai-Internships.svg" width="50px" alt="" class="clip-circle">
+                  <h3> Mumbai </h3>
+                  <img src="home-img/Chennai-Internships.svg" width="50px" alt="" class="clip-circle">
+                  <h3> Chennai </h3>
+                  <img src="home-img/Bangalore-Internships.svg" width="50px" alt="" class="clip-circle">
+                  <h3> Bangalore </h3>
+                </div>
+              </div>
+            
+              <div class="column">
+                <h3 id="in-head"> INTERNSHIP BY INTEREST </h3>
+                <div class="card">
+                    <img src="home-img/it-internships.png" width="50px" alt="" class="clip-circle">
+                    <h3> Developer </h3>
+                    <img src="home-img/eng-internships.png" width="50px" alt="" class="clip-circle">
+                    <h3> Engineering </h3>
+                    <img src="home-img/design-internships.png" width="50px" alt="" class="clip-circle">
+                    <h3> Designing </h3>
+                    <img src="home-img/teaching.png" width="50px" alt="" class="clip-circle">
+                    <h3> Teaching </h3>
+                </div>
+              </div>           
+          
+    </body>
+</html>

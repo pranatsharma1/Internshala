@@ -153,6 +153,8 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL='main.User'                                       #using the user authentication model of main.User
 
 
+
+
 # EMAIL_USE_TLS = True
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_HOST_USER = 'youremail@gmail.com'

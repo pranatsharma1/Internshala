@@ -1,40 +1,75 @@
+{% load static %}
+
 <head>
-    {% load static %}
-    <link href="{% static 'tinymce/css/prism.css' %}" rel="stylesheet">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript for Materialize CSS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    <style>
-        body{
-            background-color: white;
-        }
-        .nav-wrapper{
-            background-color: blueviolet;
-        }
-
-    </style>
+           
+        <title> Main Page </title>
+        
+        <link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <!-- <script src="jquery.fittext.js"></script> -->
+    
 </head>
 
 
 <body>
 
-<nav>
-    <div class="nav-wrapper">
-        <div style="margin-left:10px">
-    <a href="https://internshala.com/" target="_blank" class="brand-logo">INTERNSHALA</a></div>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-                {% include 'main/includes/navbaritems.html' %}
-        </ul>
-    </div>
-</nav>    
-{% include 'main/includes/messaging.html' %}
+        <nav class="navbar navbar navbar-light navbar-expand-lg static-top" style="background-color:#DCDCDC">
+             
+                <div class="container-fluid"> 
+                     <div class="navbar-header"> 
+                       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" >
+                         <span class="icon-bar" style="background-color:rgb(142, 199, 248)"></span>
+                         <span class="icon-bar" style="background-color:rgb(142, 199, 248)"></span>
+                         <span class="icon-bar" style="background-color:rgb(142, 199, 248)"></span>                        
+                       </button>
+                       <div style="padding-top:0px">
+                        <a class="navbar-brand" href="https://internshala.com/" target="_blank">
+                           <img width="150px" height="25px" src="{% static 'main/internshala_logo.svg' %}" alt="">
+                       </a> 
+                       </div>
+                     </div>
+                     
+                    
+                     <div class="collapse navbar-collapse" id="myNavbar">
+                       <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/">Home</a></li>
+                        {% if user.is_authenticated %}            <!--When the user is logged in-->
+                            <li><a href="/account">{{user.username|title}}</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                       </ul>     
+                       {% else %}             <!--When the user is not logged in-->
 
-<div class="container">
+
+                       <!--Registration Buttons-->
+                       <ul class="nav navbar-nav navbar-right">
+                         <li class="dropdown">
+                           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up <span class="caret"></span>
+                           </a>
+                           <ul class="dropdown-menu">
+                               <li><a href="/register_as_student" class="dropdown-item"> Student </a></li>
+                               <li><a href="/register_as_employer" class="dropdown-item"> Employer </a></li>
+                           </ul>
+                         </li>
+
+                         <!--Login Button-->
+                         <li><a href="/login"><span class="glyphicon glyphicon-log-in">&nbspLogin</span></a></li>
+
+                       </ul>
+                       {% endif %}
+                   </div>
+                 </div> 
+        </nav>  
 {% block content %}
 {% endblock %}
-</div>
+
+{% include 'main/includes/messaging.html' %}
+
+
+
 </body>
 
-<script src="{% static "tinymce/js/prism.js" %}"></script>
+<script src="{% static 'tinymce/js/prism.js' %}"></script>

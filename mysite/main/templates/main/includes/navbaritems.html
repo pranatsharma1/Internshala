@@ -3,17 +3,14 @@
 <li><a href="/">Home</a></li>
 <!-- <li><a href="https://internshala.com/">INTERNSHALA</a></li> -->
 {% if user.is_authenticated %}
-    {% if user.is_employer %}
-        <li><a href="/account">{{user.username|title}}-'E'</a></li>
-    {% else %} 
-        <li><a href="/account">{{user.username|title}}-'S'</a></li>
-   
-    {% endif %}
-    <li><a href="/profile/edit">edit</a></li>
-    <li><a href="/change-password">change-password</a></li>
-    <li><a href="/logout">Logout</a></li>
+     <li><a href="/account">{{user.username|title}}</a></li>
+     <li><a href="/logout">Logout</a></li>
+     <!-- <li><a href="/add_profile">Add profile</a></li> -->
+
 {% else %}
     <li><a href="/login">Login</a></li>
     <li><a href="/register_as_employer">Register as Employer</a></li>
     <li><a href="/register_as_student">Register as Student</a></li>
 {% endif %}
+
+

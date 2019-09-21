@@ -1,0 +1,69 @@
+/* body{
+    overflow: hidden;
+} */
+.dash-img{
+    margin: 0;
+    align-content:left;
+    width:80%;
+    height: 80%;
+}
+#logo{
+    padding-left: 20px;
+    padding-bottom: 30px;
+}
+.button {
+    border-radius: 30px;
+    background-color:#DCDCDC;
+    border: none;
+    color: rgb(165, 215, 238)134, 134, 148);
+    text-align: center;
+    font-size: 15px;
+    padding: 20px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin-bottom:2%;
+  }
+  
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .button:hover span {
+    padding-right: 25px;
+  }
+  
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+.login-button{
+float: right;
+margin-left: 70%;;
+
+}
+#std-head{
+    text-align: left;
+    font-family: Montserrat;
+}
+.form-control-1{
+    width: 100%;
+    padding-top:10%;
+}
+#signup-head{
+    font-family: Montserrat;
+    text-align: center;
+    color: rgb(72, 204, 236);
+}
