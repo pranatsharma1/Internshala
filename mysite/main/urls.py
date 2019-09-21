@@ -7,6 +7,7 @@ from main.views import post_a_job,interns_applied,register_as_employer,register_
 app_name="main"
 
 urlpatterns = [
+   #path("job_in_delhi/",views.job_delhi,name="job_delhi"),
    path("",homepage.as_view(),name="homepage"),
    path("register_as_employer/",register_as_employer.as_view(), name="register_as_employer"), 
    path("register_as_student/", register_as_student.as_view(), name="register_as_student"), 
@@ -15,14 +16,19 @@ urlpatterns = [
    path("student_profile/",student_profile.as_view(),name="student"),
    path("jobs_list/",jobs_list.as_view(),name="jobs_list"),
    path("employer_profile/",employer_profile.as_view(),name="employer"),
-   path("post/",post_a_job.as_view(),name="post_a_job"),
+   #path("post/",post_a_job.as_view(),name="post_a_job"),
    path("apply/",apply_for_job.as_view(),name="apply_for_job"),
    path("add_location/",add_location.as_view(),name="add_location"),
    path("add_category/",add_category.as_view(),name="add_category"),
    path("interns_applied/",interns_applied.as_view(),name="interns_applied"),
    path("profile/edit/",views.edit_profile,name="edit_profile"),
    path("change-password/",views.change_password,name="change_password"),
- 
+   path("apply/",apply_for_job.as_view(),name="apply_for_job"),
+   path('internship/post_a_job/', views.post_a_job, name='post_a_job'),
+   path('internship/edit_all/', views.edit_all_internship, name='edit_all_internship'),
+   path('internship/list/', views.internship_list, name='internship_list'),
+   
+
 
 
 

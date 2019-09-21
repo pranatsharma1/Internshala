@@ -33,7 +33,9 @@ class Job_Post(ModelForm):
           model=Job
           fields=("category","job_title","location","job_duration","job_content","job_published","job_stipend")
     
-
+    def __init__(self, user, *args, **kwargs):
+        super(Job_Post, self).__init__(*args, **kwargs)
+        
 
 class NewUserForm1(UserCreationForm):
     email= forms.EmailField(required=True)

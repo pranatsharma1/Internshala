@@ -1,0 +1,23 @@
+{% block content %}
+{% for j in job %}
+<div class="card text-white bg-warning" >
+    <div class="card-header">
+        <h1>{{j.username}}</h1>
+    
+    <h4>{{j.job_title}}</h4>
+    <h4 style="font-size: 80%">{{j.job_published}}</h4>
+    <br>
+    <h4>Location: {{j.location}}</h4>
+    <br>
+    <h4>Duration: {{j.job_duration}}</h4>
+    <h4>Stipend: {{j.job_stipend|safe}}</h4> 
+    <br>
+    <h4>Details: {{j.job_content|safe}}</h4>
+    <br>
+    <h3><a href="apply/" style="color: black">Apply</a></h3>
+
+        </div>
+
+{% endfor %}
+
+{% endblock %}

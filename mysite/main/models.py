@@ -36,7 +36,7 @@ class Job(models.Model):
     job_content= models.TextField()                                                     #field2: Job Content
     job_published= models.DateTimeField("date published",default= datetime.now())       #Date and time of Job Published
     job_stipend=models.CharField(max_length=200)
-    username=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)
+    user=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)
 
                         #https://www.quora.com/What-does-def-str__-self-method-does-in-Django
 
@@ -265,24 +265,3 @@ class Intern(models.Model):
 #         "Does the user have a specific permission?"
 #         # Simplest possible answer: Yes, always
 #         return True
-
-#     def has_module_perms(self, app_label):
-#         "Does the user have permissions to view the app `app_label`?"
-#         # Simplest possible answer: Yes, always
-#         return True
-
-#     @property
-#     def is_student(self):
-#         "Is the user a member of staff?"
-#         return self.student
-
-#     @property
-#     def is_company(self):
-#         "Is the user a admin member?"
-#         return self.company
-
-#     @property
-#     def is_active(self):
-#         "Is the user active?"
-#         return self.active'''
-# >>>>>>> 0c068883fa2efc525150809d3d31552b94896f8d

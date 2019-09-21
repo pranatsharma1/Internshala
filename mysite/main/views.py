@@ -11,7 +11,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.urls import reverse
-
+from django.forms import modelformset_factory
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import Job_Post,Apply_Job,Location,Category
@@ -19,8 +19,6 @@ from .forms import NewUserForm1
 from .forms import NewUserForm2,EditProfileForm
 
 from django.contrib.auth.decorators import login_required
-
-
 
 #view for homepage 
 class homepage(View):
@@ -47,7 +45,12 @@ class interns_applied(View):
 class jobs_list(View):
     def get(self,request):
         return render(request=request,template_name="main/jobs_list.html",context={"jobs":Job.objects.all()})                
+'''
 
+class job_detail(View):
+    def get(self,request,job_id):
+        return render(request=request,template_name="main/job_detail.html",context={"job":Job.objects.get(job_id)})
+'''
 # view for adding category
 class add_category(View):
     form_class=Category
@@ -109,6 +112,8 @@ class apply_for_job(View):
     template_name="main/apply_for_job.html"
 
     def get(self,request):
+        #job = Job.objects.get(pk=job_id)
+        #print(job)
         form=self.form_class(initial=self.initial)
         return render(request,self.template_name,{'form':form})
 
@@ -116,7 +121,6 @@ class apply_for_job(View):
         form=self.form_class(request.POST)
         if form.is_valid():
             intern_profile= form.save(commit=False)
-            
             intern_profile.username=request.user
             intern_profile.save()
             #username = form.cleaned_data.get('intern_profile.username')                     #getting the username from the form   
@@ -131,8 +135,8 @@ class apply_for_job(View):
             return render(request ,self.template_name,{'form':form})
 
 
-# view for posting a job
-class post_a_job(View):
+# view for posting a job` 
+'''class post_a_job(View):
     form_class=Job_Post
     initial={'key':'value'}
     template_name="main/post_job.html"
@@ -160,6 +164,45 @@ class post_a_job(View):
 
             form=self.form_class(initial=self.initial)
             return render(request ,self.template_name,{'form':form})
+'''
+
+@login_required
+def internship_list(request):
+    internship = Job.objects.filter(user=request.user)
+    return render(request, 'main/postinternship_list.html', {'internship': internship})
+    
+#new
+
+@login_required
+def edit_all_internship(request):
+    ProductFormSet = modelformset_factory(Job, fields=('job_title', 'category', 'location','job_duration','job_content','job_published','job_stipend'), extra=0)
+    data = request.POST or None
+    formset = ProductFormSet(data=data, queryset=Job.objects.filter(user=request.user))
+    
+    if request.method == 'POST' and formset.is_valid():
+        formset.save()
+        return internship_list(request)
+
+    return render(request, 'main/postinternship_formset.html', {'formset': formset})
+
+def post_a_job(request):                                      
+    if request.method == "POST":                                                #if user hits the sign up button
+        form = Job_Post(request.user,request.POST)                                #mapping the submitted form to user creation form
+        if form.is_valid():                                                     #if the form filled is valid
+            job_profile = form.save(commit=False)  
+            job_profile.user=request.user  
+            job_profile.save()                                       #basically save the user(since user is a part of form,thus we save the form)
+            user = form.cleaned_data.get('job_title')                     #getting the username from the form   
+            messages.success(request, f"New Job created: {user}")    #displaying the message that new account has been created
+            
+            # now after signing up we automatically logs in the user 
+            # login(request, user)                                             #login(HttpResponse,User)
+            return internship_list(request)
+        
+    form = Job_Post(request.user)
+    return render(request = request,
+                  template_name = "main/postinternship_form.html",
+                  context={"form":form}) 
 
 # view for signup page of employer
 class register_as_employer(View):

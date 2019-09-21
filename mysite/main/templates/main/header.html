@@ -37,8 +37,12 @@
                      <div class="collapse navbar-collapse" id="myNavbar">
                        <ul class="nav navbar-nav navbar-right">
                             <li><a href="/">Home</a></li>
-                        {% if user.is_authenticated %}            <!--When the user is logged in-->
-                            <li><a href="/account">{{user.username|title}}</a></li>
+                        {% if user.is_authenticated %}  
+                          {% if is_student %}          <!--When the user is logged in-->
+                            <li><a href="/student_profile">{{user.username|title}}-"S"</a></li>
+                          {% else %}  
+                            <li><a href="/student_profile">{{user.username|title}}-"E"</a></li>
+                          {% endif %}
                             <li><a href="/logout">Logout</a></li>
                        </ul>     
                        {% else %}             <!--When the user is not logged in-->
