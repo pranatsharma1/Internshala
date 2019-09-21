@@ -1,4 +1,6 @@
 {% load static %}
+
+
 <!DOCTYPE HTML>
 <html style="width: 100%;
 height: 100%;
@@ -21,6 +23,7 @@ height: 100%;
 margin: 0px;
 padding: 0px;
 overflow-x: hidden; ">
+{% if user.is_student %}
         <nav class="navbar navbar-light" style="background-color:#DCDCDC;">
                <a class="navbar-brand" href="https://internshala.com/"> 
                 <img width="150px" height="25px" src="{% static 'main/internshala_logo.svg' %}" alt="">
@@ -55,20 +58,25 @@ overflow-x: hidden; ">
         <!-- <img src="std-profile/StudentProfile.svg" class="rounded float-left" alt="..."> -->
         <div class="row">
           <div class="col-md-7">
-           <object class="dash-img" type="image/svg+xml" data="{% static 'main/std-profile/StudentProfile.svg' %}">
+           <object class="dash-img" type="image/svg+xml" data="{% static 'main/std-profile/StudentProfile1.svg' %}">
            </object>
           </div>
           <div class="col-md-5 personal-info" style="padding-top:3%">
             <h3 id="profile-head">Personal info</h3>
             <hr>
             <h4><u> Username: </u></h4> <h5>{{user.username}} </h5>
-            <h4><u> College: </u></h4> <h5></h5>
+            <h4><u> Image: </u></h4> <img src="/media/{{user.image}}" style="width: 50%; height:50%">
             <h4><u> Skills: </u></h4> 
             <h5>  </h5>  
           </div>
         </div>
         <div clas="apply-btn" style="margin-left: 45%">
-          <button class="button"><span><a href="/jobs_list">Apply for Internship</a></span></button>
+          <button class="button"><span><a href="/jobs_in_Delhi">Apply for Internship</a></span></button>
         </div>
+        {% elif user.is_employer %}
+        <h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>
+        <h2 style="text-align:center">Click on <a style="color:crimson" href="/employer_profile">this</a> to go to back to employer's profile</h2>
+        
+        {% endif%}
     </body>
 </html>

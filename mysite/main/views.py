@@ -5,12 +5,12 @@
 
 from django.views import View
 from django.shortcuts import render, redirect
-from .models import Job,Intern,Location,Category
+from .models import Job,Intern
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import logout, authenticate, login
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import Job_Post,Apply_Job,Location,Category
+from .forms import Job_Post,Apply_Job
 from .forms import NewUserForm1
 from .forms import NewUserForm2
 
@@ -18,7 +18,7 @@ from django.contrib.auth.decorators import login_required
 
 
 
-#view for homepage 
+#view for homepage of our website
 class homepage(View):
    def get(self,request):                                              
         return render(request=request,template_name="main/home.html",)
@@ -29,10 +29,10 @@ class student_profile(View):
         return render(request=request,template_name="main/StudentProfile.html",context={"intern":Job.objects.all()} )   
 
 
- #view for employer's profile
+#view for employer's profile
 class employer_profile(View):
     def get(self,request):                                              
-        return render(request=request,template_name="main/employer_profile.html",context={"jobs":Job.objects.all()})
+        return render(request=request,template_name="main/Employer-Profile.html",context={"jobs":Job.objects.all()})
 
 #view to display the details of interns applied for the internship
 class interns_applied(View):
@@ -40,61 +40,100 @@ class interns_applied(View):
         return render(request=request,template_name="main/jobs_posted.html",context={"intern":Intern.objects.all()})
 
 #view to display the jobs posted by the company
-class jobs_list(View):
+class jobs_in_Delhi(View):
     def get(self,request):
-        return render(request=request,template_name="main/jobs_list.html",context={"jobs":Job.objects.all()})                
+        d=Job.objects.filter(location='Delhi')
+        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})   
 
+#view to display the jobs posted by the company
+class jobs_in_Mumbai(View):
+    def get(self,request):
+        d=Job.objects.filter(location='Mumbai')
+        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})     
+
+#view to display the jobs posted by the company
+class jobs_in_Chennai(View):
+    def get(self,request):
+        d=Job.objects.filter(location='Chennai')
+        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})       
+
+#view to display the jobs posted by the company
+class jobs_in_Bangalore(View):
+    def get(self,request):
+        d=Job.objects.filter(location='Bangalore')
+        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})                
+
+
+class web_developer_internship(View):
+    def get(self,request):
+        d=Job.objects.filter(category='Web Development')
+        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})
+
+class android_developer_internship(View):
+    def get(self,request):
+        d=Job.objects.filter(category='Android Development')
+        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})
+
+class photographer_internship(View):
+    def get(self,request):
+        d=Job.objects.filter(category='Photography')
+        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})
+
+class video_editor_internship(View):
+    def get(self,request):
+        d=Job.objects.filter(category='Video Editing')
+        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})                        
 # view for adding category
-class add_category(View):
-    form_class=Category
-    initial={'key':'value'}
-    template_name="main/category.html"
+# class add_category(View):
+#     form_class=Category
+#     initial={'key':'value'}
+#     template_name="main/category.html"
 
-    def get(self,request):
-        form=self.form_class(initial=self.initial)
-        return render(request,self.template_name,{'form':form})
+#     def get(self,request):
+#         form=self.form_class(initial=self.initial)
+#         return render(request,self.template_name,{'form':form})
 
-    def post(self,request):
-        form=self.form_class(request.POST)
-        if form.is_valid():
-           cat= form.save(commit=False)
-           cat.save()
-           username = form.cleaned_data.get('category')                     #getting the username from the form   
-           messages.success(request, f"New Category {username} created")
-           return redirect("main:employer")   
+#     def post(self,request):
+#         form=self.form_class(request.POST)
+#         if form.is_valid():
+#            cat= form.save(commit=False)
+#            cat.save()
+#            username = form.cleaned_data.get('category')                     #getting the username from the form   
+#            messages.success(request, f"New Category {username} created")
+#            return redirect("main:employer")   
 
-        else:                                                 #if form is not valid or not filled properly               
-            for msg in form.error_messages:                   
-                messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
-            form=self.form_class(initial=self.initial)
-            return render(request ,self.template_name,{'form':form})
+#         else:                                                 #if form is not valid or not filled properly               
+#             for msg in form.error_messages:                   
+#                 messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
+#             form=self.form_class(initial=self.initial)
+#             return render(request ,self.template_name,{'form':form})
 
 
 
 # view for adding location
-class add_location(View):
-    form_class=Location
-    initial={'key':'value'}
-    template_name="main/location.html"
+# class add_location(View):
+#     form_class=Location
+#     initial={'key':'value'}
+#     template_name="main/location.html"
     
-    def get(self,request):
-        form=self.form_class(initial=self.initial)
-        return render(request,self.template_name,{'form':form})
+#     def get(self,request):
+#         form=self.form_class(initial=self.initial)
+#         return render(request,self.template_name,{'form':form})
 
-    def post(self,request):
-        form=self.form_class(request.POST)
-        if form.is_valid():
-           loc= form.save(commit=False)
-           loc.save()
-           username = form.cleaned_data.get('location')                     #getting the username from the form   
-           messages.success(request, f"New Location {username} created")
-           return redirect("main:employer")
-        else:
-            for msg in form.error_messages:                   
-                messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
+#     def post(self,request):
+#         form=self.form_class(request.POST)
+#         if form.is_valid():
+#            loc= form.save(commit=False)
+#            loc.save()
+#            username = form.cleaned_data.get('location')                     #getting the username from the form   
+#            messages.success(request, f"New Location {username} created")
+#            return redirect("main:employer")
+#         else:
+#             for msg in form.error_messages:                   
+#                 messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
 
-            form=self.form_class(initial=self.initial)
-            return render(request ,self.template_name,{'form':form})
+#             form=self.form_class(initial=self.initial)
+#             return render(request ,self.template_name,{'form':form})
 
 
 
@@ -168,7 +207,7 @@ class register_as_employer(View):
         return render(request,self.template_name,{'form':form})
     
     def post(self,request):
-        form=self.form_class(request.POST)
+        form=self.form_class(request.POST or None,request.FILES or None)
         if form.is_valid():                                                     #if the form filled is valid
             user = form.save()                                           #basically save the user(since user is a part of form,thus we save the form)
             username = form.cleaned_data.get('username')                     #getting the username from the form   
@@ -177,9 +216,9 @@ class register_as_employer(View):
             # now after signing up we automatically logs in the user 
             login(request, user)                                             #login(HttpResponse,User)
             if user.is_student:
-                return redirect("main:student")
+                return redirect("main:student_profile")
             else:
-                return redirect("main:employer")  
+                return redirect("main:employer_profile")  
         
         else:                                                 #if form is not valid or not filled properly               
             for msg in form.error_messages:                   
@@ -200,7 +239,7 @@ class register_as_student(View):
         return render(request,self.template_name,{'form':form})
     
     def post(self,request):
-        form=self.form_class(request.POST)
+        form=self.form_class(request.POST or None,request.FILES or None)
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
@@ -261,6 +300,16 @@ class login_request(View):
             form=self.form_class(initial=self.initial)
             return render(request ,self.template_name,{'form':form})
 
+
+
+
+
+
+
+
+
+
+
 #fucntion for logging in the user
 # def login_request(request):                                                            
     
@@ -287,16 +336,6 @@ class login_request(View):
 #     return render(request = request,
 #                     template_name = "main/login.html",
 #                     context={"form":form})
-
-
-
-
-
-
-
-
-
-
 
 
 #function for register as student page

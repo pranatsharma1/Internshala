@@ -2,7 +2,7 @@ from django.forms import ModelForm
 
 from django import forms
 from datetime import datetime
-from .models import Job,Intern,Location,Category
+from .models import Job,Intern
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
@@ -13,15 +13,15 @@ User=get_user_model()
 
 
 
-class Category(ModelForm):
-    class Meta:
-        model=Category
-        fields=("category",)
+# class Category(ModelForm):
+#     class Meta:
+#         model=Category
+#         fields=("category",)
 
-class Location(ModelForm):
-    class Meta:
-        model=Location
-        fields=("location",)
+# class Location(ModelForm):
+#     class Meta:
+#         model=Location
+#         fields=("location",)
 
 class Apply_Job(ModelForm):
     class Meta:
@@ -45,7 +45,7 @@ class NewUserForm1(UserCreationForm):
     class Meta:
           model=User
         #   fields='__all__'
-          fields=("first_name","last_name","username","is_employer","email","password1","password2")
+          fields=("first_name","last_name","username","is_employer","email","image","password1","password2")
 
     def save(self,commit=True):
         user=super(NewUserForm1,self).save(commit=False)
@@ -59,11 +59,11 @@ class NewUserForm2(UserCreationForm):
     last_name=models.CharField(max_length=50)
     first_name=models.CharField(max_length=100)
     is_student=forms.BooleanField()
-    
+    image=forms.ImageField()
 
     class Meta:
           model=User
-          fields=("first_name","last_name","username","is_student","email","password1","password2")
+          fields=("first_name","last_name","username","is_student","email","image","password1","password2")
 
     def save(self,commit=True):
         user=super(NewUserForm2,self).save(commit=False)

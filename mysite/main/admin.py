@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Job,Intern,Location,Category
+from .models import Job,Intern
 # from .models import Job,profile,skillcategory,postjob,internship
 from tinymce.widgets import TinyMCE
 from django.db import models
@@ -10,7 +10,7 @@ from django.contrib.auth.admin import UserAdmin
 class JobAdmin(admin.ModelAdmin):
 
     fieldsets= [
-        ("Title/Date", {"fields": ["job_title","username","job_published"] }),
+        ("Title/Date", {"fields": ["job_title","category","username","job_published"] }),
         ("Job_Time",{"fields":["location","job_duration"]}),
         ("Stipend",{"fields":["job_stipend"] }),
         ("Content", {"fields": ["job_content"]}),
@@ -22,8 +22,8 @@ class JobAdmin(admin.ModelAdmin):
 
 admin.site.register(User)                                   #registering the User in Admin
 admin.site.register(Intern)
-admin.site.register(Location)
-admin.site.register(Category)
+# admin.site.register(Location)
+# admin.site.register(Category)
 admin.site.register(Job,JobAdmin)                           #registering the Job in Admin
 
 

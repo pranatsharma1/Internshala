@@ -12,26 +12,28 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):      
     is_employer=models.BooleanField(default=False)                      #a boolean field to check whether the registered user is employer?
     is_student=models.BooleanField(default=False)                       #a boolean field to check whether the registered user is student?
-    
+    image=models.ImageField(upload_to='pics',default="")
 
-class Location(models.Model):
-    location=models.CharField(max_length=200,default='Delhi')                                                 
+# class Location(models.Model):
+#     location=models.CharField(max_length=200,default='Delhi')                                                 
                                              
-    def __str__(self):
-        return self.location                                         
+#     def __str__(self):
+#         return self.location                                         
                                              
-class Category(models.Model):
-    category=models.CharField(max_length=200,default='Development')   
+# class Category(models.Model):
+#     category=models.CharField(max_length=200,default='Development')   
 
-    def __str__(self):
-        return self.category                              
+#     def __str__(self):
+#         return self.category                              
 
 # model for Job
 
 class Job(models.Model):      
     job_title= models.CharField(max_length=200)
-    category=models.ForeignKey(Category,default="Development",on_delete=models.SET_DEFAULT,null=True) 
-    location=models.ForeignKey(Location,default='Delhi',on_delete=models.SET_DEFAULT,null=True)
+    # category=models.ForeignKey(Category,default="Development",on_delete=models.SET_DEFAULT,null=True) 
+    category=models.CharField(max_length=200,default="")
+    location=models.CharField(max_length=200,default="")
+    # location=models.ForeignKey(Location,default='Delhi',on_delete=models.SET_DEFAULT,null=True)
     job_duration=models.CharField(max_length=200)                                        #field1: Job Title
     job_content= models.TextField()                                                     #field2: Job Content
     job_published= models.DateTimeField("date published",default= datetime.now())       #Date and time of Job Published
