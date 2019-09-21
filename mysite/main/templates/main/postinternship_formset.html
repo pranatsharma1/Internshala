@@ -1,0 +1,10 @@
+
+{% block content %}
+  <h1>Edit all internship</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ formset.as_p }}
+    <input type="submit" value="save all products">
+    <a href="/internship/list">cancel</a>
+  </form>
+{% endblock %}
