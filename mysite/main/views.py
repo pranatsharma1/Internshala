@@ -15,17 +15,38 @@ from django.forms import modelformset_factory
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import Job_Post,Apply_Job,Location,Category
-from .forms import NewUserForm1
+from .forms import NewUserForm1,InternProfileForm
 from .forms import NewUserForm2,EditProfileForm
 
 from django.contrib.auth.decorators import login_required
 
 #view for homepage 
+def education_list(request):
+    education = Job.objects.filter(user=request.user)
+    return render(request,'resume.html',{'education':education})
+
+def education_detail(request):                                      
+    if request.method == "POST":                                                #if user hits the sign up button
+        form = education_detail(request.user,request.POST)                                #mapping the submitted form to user creation form
+        if form.is_valid():                                                     #if the form filled is valid
+            education = form.save(commit=False)  
+            education.user=request.user  
+            education.save()                                       #basically save the user(since user is a part of form,thus we save the form)
+            
+            return education_list(request)
+        
+    form = education_detail(request.user)
+    return render(request = request,
+                  template_name = "main/education_form.html",
+                  context={"form":form}) 
+
+def add_detail_intern(request):
+    return render(request,"main/resume.html")
+
 class homepage(View):
    def get(self,request):                                              
         return render(request=request,template_name="main/home.html",)
 
-#view for student's profile
 class student_profile(View):
     def get(self,request):                                                
         return render(request=request,template_name="main/StudentProfile.html",context={"intern":Job.objects.all()} )   
@@ -111,9 +132,9 @@ class apply_for_job(View):
     initial={'key':'value'}
     template_name="main/apply_for_job.html"
 
-    def get(self,request):
-        #job = Job.objects.get(pk=job_id)
-        #print(job)
+    def get(self,request,job_id):
+        job = Job.objects.get(pk=job_id)
+        print(job)
         form=self.form_class(initial=self.initial)
         return render(request,self.template_name,{'form':form})
 
@@ -157,7 +178,7 @@ class apply_for_job(View):
             # now after signing up we automatically logs in the user 
             # login(request, user)                                             #login(HttpResponse,User)
             return redirect("main:employer")
-        
+        2
         else:                                                 #if form is not valid or not filled properly               
             for msg in form.error_messages:                   
                 messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
@@ -248,9 +269,16 @@ class register_as_student(View):
     
     def post(self,request):
         form=self.form_class(request.POST)
-        if form.is_valid():
+        #profile_form = InternProfileForm(request.POST, prefix='PF')
+
+
+        if form.is_valid(): #and profile_form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
+            #user.intern_profile.skill = profile_form.cleaned_data.get('skill')
+            #user.intern_profile.college_name = profile_form.cleaned_data.get('college_name')
+            #user.intern_profile.phone_no = profile_form.cleaned_data.get('phone_no')
+
             messages.success(request, f"New account created: {username}")
             login(request, user)
             if user.is_student:
@@ -263,7 +291,10 @@ class register_as_student(View):
                 messages.error(request, f"{msg}: {form.error_messages[msg]}")
 
             form=self.form_class(initial=self.initial)
-            return render(request ,self.template_name,{'form':form})
+            #profile_form = InternProfileForm(prefix='PF')
+
+            return render(request ,self.template_name,{'form':form
+})
 
 
 

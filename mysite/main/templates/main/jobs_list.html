@@ -1,6 +1,5 @@
 {% extends 'main/header.html' %}
 {% block content %}
-
 <!-- <a href="/post">Post a Job</a> -->
 <div class="row">
 
@@ -8,7 +7,9 @@
              
     <div class="card text-white bg-warning" >
         <div class="card-header">
-            <h1>{{j.username}}</h1>
+            <h1>{{j.user}}</h1>
+            <h1>job_id:{{j.id}}</h1>
+
         
         <h4>{{j.job_title}}</h4>
         <h4 style="font-size: 80%">{{j.job_published}}</h4>
@@ -20,7 +21,7 @@
         <br>
         <h4>Details: {{j.job_content|safe}}</h4>
         <br>
-        <h3><a href="apply/" style="color: black">Apply</a></h3>
+        <h3><a href="{{job.id}}/apply" style="color: black">Apply</a></h3>
     
             </div>
     </div>

@@ -1,0 +1,26 @@
+{% block content %}
+<div class="head"><h1>{{user.first_name}}{{user.last_name}}</h1>
+<p>{{user.username}}</p></div>
+<div class="education">
+<h2>Education:</h2>
+<div class="education_part"></div>
+{% for e in education %}
+<div class="education_part">
+{{e.Add_Education}}
+{{e.start_year}}
+{{e.end_year}}
+{{e.performance_scale}}
+{{e.steam}}
+{{e.college_name}}
+</div>
+{% endfor %}
+<a href="/education/add_detail">+ add Education detail</a>
+</div>
+<h2>Job:</h2><a href="#">+job</a>
+<h2>Skill:</h2><a href="#">+skill</a>
+<h2>TRAININGS:</h2><a href="#">+Add Trainings</a>
+<h2>PROJECTS:</h2><a href="#">+projects</a>
+<h2>INTERNSHIPS:</h2><a href="#">+Add Internships</a>
+
+
+{% endblock %}

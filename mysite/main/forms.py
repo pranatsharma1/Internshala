@@ -2,7 +2,7 @@ from django.forms import ModelForm
 
 from django import forms
 from datetime import datetime
-from .models import Job,Intern,Location,Category
+from .models import Job,Intern,Location,Category,InternProfile,Education_detail
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
@@ -26,7 +26,7 @@ class Location(ModelForm):
 class Apply_Job(ModelForm):
     class Meta:
           model=Intern
-          fields=("intern_name","job_title","intern_college","intern_skills","intern_city","intern_study_year")
+          fields=("intern_name","job_title","intern_college","intern_skills","intern_city","intern_study_year","company_id")
 
 class Job_Post(ModelForm):
     class Meta:
@@ -87,11 +87,21 @@ class EditProfileForm(UserChangeForm):
             'password'
         )    
 
+class InternProfileForm(forms.ModelForm):
+   class Meta:
+        model = InternProfile
+        fields = ('college_name', 'skill','phone_no','Address')
 
 
 
-
-
+class education_detail(ModelForm):
+    class Meta:
+          model=Education_detail
+          fields=("Add_Education","start_year","end_year","performance_scale","steam","college_name")
+    
+    def __init__(self, user, *args, **kwargs):
+        super(education_detail, self).__init__(*args, **kwargs)
+        
 
 
 

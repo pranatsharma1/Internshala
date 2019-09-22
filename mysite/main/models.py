@@ -13,7 +13,31 @@ class User(AbstractUser):
     is_employer=models.BooleanField(default=False)                      #a boolean field to check whether the registered user is employer?
     is_student=models.BooleanField(default=False)                       #a boolean field to check whether the registered user is student?
     
+class InternProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    college_name = models.CharField(max_length=100)
+    skill = models.CharField(max_length=100)
+    phone_no = models.CharField(max_length=10)
+    Address = models.CharField(max_length=100)
+    def __str__(self):
+        return self.user
 
+class Add_Education(models.Model):
+    name = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name                                        
+                                     
+class Education_detail(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    Add_Education = models.ForeignKey(Add_Education, on_delete=models.CASCADE)
+    start_year = models.CharField(max_length=4)
+    end_year = models.CharField(max_length=4)
+    performance_scale = models.IntegerField()
+    steam = models.CharField(max_length=100)
+    college_name = models.CharField(max_length=100)
+    def __str__(self):
+        return self.user
+        
 class Location(models.Model):
     location=models.CharField(max_length=200,default='Delhi')                                                 
                                              
@@ -50,7 +74,8 @@ class Intern(models.Model):
     intern_city=models.CharField(max_length=200)
     intern_study_year=models.CharField(max_length=200)
     username=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)      
-    job_title=models.ForeignKey(Job,default=1,on_delete=models.SET_DEFAULT,null=True)    
+    job_title=models.ForeignKey(Job,default=1,on_delete=models.SET_DEFAULT,null=True) 
+    company_id = models.CharField(max_length=100)   
     is_accept=models.BooleanField(default=False)
     is_reject=models.BooleanField(default=False)                        
 
