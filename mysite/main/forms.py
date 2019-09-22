@@ -26,7 +26,7 @@ class Location(ModelForm):
 class Apply_Job(ModelForm):
     class Meta:
           model=Intern
-          fields=("intern_name","job_title","intern_college","intern_skills","intern_city","intern_study_year","company_id")
+          fields=("intern_name","job_title","intern_college","intern_skills","intern_city","intern_study_year","job_id","company_name")
 
 class Job_Post(ModelForm):
     class Meta:

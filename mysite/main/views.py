@@ -60,18 +60,19 @@ class employer_profile(View):
 #view to display the details of interns applied for the internship
 class interns_applied(View):
     def get(self,request):
-        return render(request=request,template_name="main/jobs_posted.html",context={"intern":Intern.objects.all()})
+        i = Intern.objects.filter(company_name=request.user)
+        return render(request=request,template_name="main/jobs_posted.html",context={"intern":i})
 
 #view to display the jobs posted by the company
 class jobs_list(View):
     def get(self,request):
         return render(request=request,template_name="main/jobs_list.html",context={"jobs":Job.objects.all()})                
-'''
 
-class job_detail(View):
-    def get(self,request,job_id):
-        return render(request=request,template_name="main/job_detail.html",context={"job":Job.objects.get(job_id)})
-'''
+
+def myaplication(request):
+        i = Intern.objects.filter(username=request.user)
+        return render(request=request,template_name="main/myaplication.html",context={"intern":i})
+
 # view for adding category
 class add_category(View):
     form_class=Category
@@ -132,9 +133,9 @@ class apply_for_job(View):
     initial={'key':'value'}
     template_name="main/apply_for_job.html"
 
-    def get(self,request,job_id):
-        job = Job.objects.get(pk=job_id)
-        print(job)
+    def get(self,request):
+        #job = Job.objects.get(pk=job_id)
+        #print(job)
         form=self.form_class(initial=self.initial)
         return render(request,self.template_name,{'form':form})
 

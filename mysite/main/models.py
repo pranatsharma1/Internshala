@@ -75,7 +75,8 @@ class Intern(models.Model):
     intern_study_year=models.CharField(max_length=200)
     username=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)      
     job_title=models.ForeignKey(Job,default=1,on_delete=models.SET_DEFAULT,null=True) 
-    company_id = models.CharField(max_length=100)   
+    job_id = models.CharField(max_length=100,default="1") 
+    company_name = models.CharField(max_length=100,default="Sumsung")     
     is_accept=models.BooleanField(default=False)
     is_reject=models.BooleanField(default=False)                        
 

@@ -3,11 +3,15 @@
 
 {% block content %}
 <div class="row">
+      <h1 align="center">Intern applied for this company!</h1>
 
     {% for j in intern %}
         <div class="card text-white bg-warning" >
                 <div class="card-body">
-            
+                <h4>job_id: {{j.job_id}}</h4>
+                <h4>company_name: {{j.company_name}}</h4>
+                <h1>intern_id:{{j.id}}</h1>
+
                 <h1>{{j.intern_name}}</h1>
                 <h4>Username: {{j.username}}</h4>
                 <h4>Applied for: {{j.job_title}}</h4>

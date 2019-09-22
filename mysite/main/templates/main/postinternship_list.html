@@ -12,7 +12,9 @@
       {% for product in internship %}
       <div class="card text-white bg-warning" >
         <div class="card-header">
-            <h1>{{product.username}}</h1>
+            <h1>job_id:{{product.id}}</h1>
+
+            <h1>{{product.user}}</h1>
         
         <h4>{{product.job_title}}</h4>
         <h4 style="font-size: 80%">{{product.job_published}}</h4>
