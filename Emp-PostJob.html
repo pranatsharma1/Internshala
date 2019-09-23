@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title> Post A Job </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+       <nav class="navbar navbar-light" style="background-color:#DCDCDC;">
+            <a class="navbar-brand" href="HomePage.html"> 
+             <img width="40%" height="40%" src="internshala_logo.svg" alt="" style="margin-left: 8px;">
+             </a>
+             <div class="btn-group">
+                 <button type="button" class="btn ">My Profile </button>
+                  <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <div class="dropdown-menu">
+                   <a href="#" class="dropdown-item"> Name </a>
+                    <a href="#" class="dropdown-item"> email id </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item"> logout </a>
+                   </div>
+              </div>
+       
+         </nav>
+        <div class="container">
+                <h2 id="std-head" style="color: rgb(106, 209, 243); padding-left: 5%;padding-right: 2%"> Post a Internship </h2>
+                  <hr>
+                <div class="row">
+                  <!-- left column -->
+                  <div class="col-md-5">
+                    <div class="text-center">
+                      <img src="emp-profile/jobpost.svg" width="100%" height="100%" style="padding-top: 5%" > 
+                    </div>
+                  </div>
+                  
+                  
+                  <div class="col-md-7 personal-info">              
+                    <h4> Fill the Required Fields </h4>
+                    
+                    <form class="form-horizontal" role="form">
+                      <div class="form-group">
+                        <label class="col-lg-3 control-label"> Job title </label>
+                        <div class="col-lg-8">
+                          <input class="form-control" type="text" placeholder="">
+                        </div>
+                      </div>
+                       <div class="form-group">
+                          <label class="col-lg-3" id="dropdown">Category: </label>
+                          <div class="col-lg-8">
+                            <input class="form-control" type="text" placeholder="Web Development">
+                            <!-- <select class="form-control" id="dropdown">
+                              <option>Web Development</option>
+                              <option>Android Development</option>
+                              <option>Designer</option>
+                              <option>Photography</option>
+                            </select> -->
+                          </div>
+                       </div>
+                       <div class="form-group">
+                            <label class="col-lg-3" id="dropdown">Location: </label>
+                            <div class="col-lg-8">
+                              <select class="form-control" id="dropdown">
+                                <option>Delhi/NCR</option>
+                                <option>Mumbai</option>
+                                <option>Kolkata</option>
+                                <option>Banglore</option>
+                                <option>Work from Home</option>
+                              </select>
+                            </div>
+                         </div> 
+                     
+                       <div class="form-group">
+                          <label class="col-lg-3 control-label">Job duration</label>
+                          <div class="col-lg-8">
+                            <input class="form-control" type="text" value="">
+                          </div>
+                       </div>
+
+                       <div class="form-group">
+                            <label class="col-lg-3 control-label">Job content</label>
+                            <div class="col-lg-8">
+                            <textarea class="form-control" rows="3" placeholder="Write something here..."></textarea>
+                            </div>
+                        </div>
+
+                       <div class="form-group">
+                            <label class="col-lg-3 control-label">Job Stipend:</label>
+                            <div class="col-lg-8 ">
+                              <input class="form-control" type="text" placeholder="₹ ">
+                            </div>
+                        </div>
+                      
+                        <div class="form-group">
+                                <label class="col-lg-3 control-label">Job Post date: </label>
+                                <div class="col-lg-8 ">
+                                  <input class="form-control" type="text" placeholder="DD-MM-YYYY">
+                                </div>
+                        </div>
+                      <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-8">
+                          <input type="button" class="btn btn-primary" value="Submit">
+                          <input type="reset" class="btn btn-default" value="Cancel">
+                        </div>
+                      </div>
+                    
+
+                  </div>
+              </div>
+
+        </div>
+      
+</body>
+</html>

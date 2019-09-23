@@ -10,17 +10,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="std.css">
+    
 </head>
 <body>
-        <nav class="navbar navbar-light navbar-expand-lg static-top" style="background-color:#DCDCDC;">
-            <a class="navbar-brand" href="#">
-              <span id="logo">
-               <img width="200px" height="35px" src="internshala_logo.svg" alt="" >
-              </span>
-            </a>
-              
-       </nav>
-        <div class="container">
+    <nav class="navbar navbar-light" style="background-color:#DCDCDC;">
+        <a class="navbar-brand" href="HomePage.html"> 
+         <img width="40%" height="40%" src="internshala_logo.svg" alt="" style="margin-left: 8px;">
+         </a>
+         <div class="btn-group">
+             <button type="button" class="btn ">My Profile </button>
+              <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <div class="dropdown-menu">
+               <a href="#" class="dropdown-item"> Name </a>
+                <a href="#" class="dropdown-item"> email id </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item"> logout </a>
+               </div>
+          </div>
+   
+     </nav>
+            <div class="container">
                 <h2 id="std-head">Edit Profile</h2>
                   <hr>
                 <div class="row">
