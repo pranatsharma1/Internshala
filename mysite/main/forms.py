@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from django import forms
 from datetime import datetime
 from .models import Job,Intern
-from django.contrib.auth.forms import UserCreationForm,UserChangeForm
+from django.contrib.auth.forms import UserCreationForm,UserChangeForm ,PasswordChangeForm
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -26,14 +26,15 @@ User=get_user_model()
 class Apply_Job(ModelForm):
     class Meta:
           model=Intern
-          fields=("intern_name","job_title","intern_college","intern_skills","intern_city","intern_study_year")
+          fields=("intern_name","job_title","job_id","company_name","intern_college","intern_skills","intern_city","intern_study_year")
 
 class Job_Post(ModelForm):
     class Meta:
           model=Job
           fields=("category","job_title","location","job_duration","job_content","job_published","job_stipend")
     
-
+    def __init__(self,user,*args,**kwargs):
+        super(Job_Post,self).__init__(*args,**kwargs)
 
 class NewUserForm1(UserCreationForm):
     email= forms.EmailField(required=True)
@@ -63,7 +64,7 @@ class NewUserForm2(UserCreationForm):
 
     class Meta:
           model=User
-          fields=("first_name","last_name","username","is_student","email","image","password1","password2")
+          fields=("first_name","last_name","username","is_student","email","image","college_name","city","year_of_study","basic_skills","password1","password2")
 
     def save(self,commit=True):
         user=super(NewUserForm2,self).save(commit=False)
@@ -72,7 +73,17 @@ class NewUserForm2(UserCreationForm):
             user.save()
         return user   
 
+class EditProfileForm(UserChangeForm):
 
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'first_name',
+            'last_name',
+            'image',
+            'password',
+        )
 
 
 

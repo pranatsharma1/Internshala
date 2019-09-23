@@ -1,7 +1,11 @@
 {% load static %}
 <!DOCTYPE HTML>
 <html>
-<head>
+<head style="width: 100%;
+height: 100%;
+margin: 0px;
+padding: 0px;
+overflow-x: hidden; ">
     <title> Employer Profile </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,11 +16,15 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'main/std.css' %}">
 </head>
-<body>
+<body style="width: 100%;
+height: 100%;
+margin: 0px;
+padding: 0px;
+overflow-x: hidden; ">
     {% if user.is_employer %}
         <nav class="navbar navbar-light" style="background-color:#DCDCDC;">
-               <a class="navbar-brand" href="HomePage.html"> 
-                <img width="150px" height="25px" src="internshala_logo.svg" alt="">
+               <a class="navbar-brand" href="/"> 
+                <img width="150px" height="25px" src="{% static 'main/internshala_logo.svg' %}" alt="">
                 </a>
                     <div class="btn-group">
                         <button type="button" class="btn "> Company PROFILE </button>
@@ -24,13 +32,14 @@
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item"> Company Name </a>
-                            <a href="/add_location" style="color: black" class="dropdown-item">Add a location</a>
-                            <a href="/add_category" style="color: black" class="dropdown-item">Add a Category</a>
-                            <a href="emp-edit.html" class="dropdown-item"> Edit Profile </a>
-                            <a href="/interns_applied" style="color: black" class="dropdown-item">Interns Applied</a>
+                            <a href="#" class="dropdown-item"> {{user.username}} </a>
+                            <a href="/profile/edit" class="dropdown-item"> Edit Profile </a>
+                            <a href="/change-password" class="dropdown-item"> Change Password </a>
+                            <a href="/internship/list" class="dropdown-item">Posted internships</a>
+                            <a href="/interns_applied" class="dropdown-item">Interns Applied</a>
+                            <a href="/internship/edit_all" class="dropdown-item">Edit all internship</a>
                             <div class="dropdown-divider"></div>
-                            <a href="/logout" class="dropdown-item"> logout </a>
+                            <a href="/logout" class="dropdown-item"> Logout </a>
                         </div>
                     </div>  
                               
@@ -41,22 +50,22 @@
            <object class="dash-img" type="image/svg+xml" data="{% static 'main/emp-profile/EmployerProfile1.svg' %}">
            </object>
           </div>
-          <div class="col-md-5 personal-info" style="padding-top:3%">
+          <div class="col-md-5 personal-info" style="padding-top:2%">
             <h3 id="profile-head">Employer info</h3>
             <hr>
-
+            <img src="/media/{{user.image}}" style="width: 50%; height:20%"><hr>
             <h4> Company Name: </h4>
-             <h5> Samsung </h5><hr>
+             <h5> {{user.username}} </h5><hr>
 
-            <h4> Location: </h4> 
-            <h5> New York </h5><hr>
+            <h4> Email: </h4> 
+            <h5> {{user.email}} </h5><hr>
 
             <h4> Additional Details </h4> 
             <h5> ............... </h5><hr>
           </div>
         </div>
         <div clas="apply-btn" style="margin-left: 45%">
-          <button class="button"><span><a href="/post" style="color: black">Post a Job</a></span></button>
+          <button class="button"><span><a href="/post_internship" style="color: black">Post an internship</a></span></button>
         </div>
         {% elif user.is_student %}
         <h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>

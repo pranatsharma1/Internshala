@@ -34,9 +34,11 @@ overflow-x: hidden; ">
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item"> Name </a>
-                            <a href="#" class="dropdown-item"> email id </a>
-                            <a href="std-edit.html" class="dropdown-item"> Edit Profile </a>
+                            <a href="#" class="dropdown-item"> {{user.first_name}} </a>
+                            <a href="#" class="dropdown-item"> {{user.email}} </a>
+                            <a href="/myapplication" class="dropdown-item">My Applications</a>
+                            <a href="/profile/edit" class="dropdown-item"> Edit Profile </a>
+                            <a href="/change-password" class="dropdown-item"> Change Password </a>
                             <div class="dropdown-divider"></div>
                             <a href="/logout" class="dropdown-item">Logout</a>
                             <!-- <a href="#" class="dropdown-item"> logout </a> -->
@@ -64,15 +66,27 @@ overflow-x: hidden; ">
           <div class="col-md-5 personal-info" style="padding-top:3%">
             <h3 id="profile-head">Personal info</h3>
             <hr>
-            <h4><u> Username: </u></h4> <h5>{{user.username}} </h5>
-            <h4><u> Image: </u></h4> <img src="/media/{{user.image}}" style="width: 50%; height:50%">
-            <h4><u> Skills: </u></h4> 
-            <h5>  </h5>  
+            <img src="/media/{{user.image}}" style="width: 50%; height:30%">
+            <hr>
+            <h4>Name:</h4>
+            <h5>{{user.first_name}} </h5>
+            <hr>
+
+            <h4>College:</h4>
+            <h5>{{user.college_name}}</h5><hr>
+
+            <h4>City:</h4>
+            <h5> {{user.city}}</h5><hr>
+
+            <h4>Skills:</h4>
+            <h5>{{user.basic_skills}}</h5><hr> 
           </div>
         </div>
-        <div clas="apply-btn" style="margin-left: 45%">
-          <button class="button"><span><a href="/jobs_in_Delhi">Apply for Internship</a></span></button>
+
+        <div clas="apply-btn" style="margin-left: 45%;padding-top: 2%">
+          <button class="button"><span><a href="/filter_internship">Apply for Internship</a></span></button>
         </div>
+
         {% elif user.is_employer %}
         <h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>
         <h2 style="text-align:center">Click on <a style="color:crimson" href="/employer_profile">this</a> to go to back to employer's profile</h2>

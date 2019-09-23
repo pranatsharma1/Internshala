@@ -29,6 +29,10 @@ height: 100%;
 margin: 0px;
 padding: 0px;
 overflow-x: hidden; ">
+
+                                               
+
+                                             <!--Navigation Bar-->
         <nav class="navbar navbar navbar-light navbar-expand-lg static-top" style="background-color:#DCDCDC">
              
                 <div class="container-fluid"> 
@@ -48,17 +52,25 @@ overflow-x: hidden; ">
      
                      <div class="collapse navbar-collapse" id="myNavbar">
                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="/">Home</a></li>
-                        {% if user.is_authenticated %}            <!--When the user is logged in-->
-                        {% if user.is_student %}
-                        <li><a href="/student_profile">{{user.username|title}}-S</a></li>
-                       {% else %} 
-                       <li><a href="/employer_profile">{{user.username|title}}-E</a></li>
-                       {% endif %}
-                            <li><a href="/logout">Logout</a></li>
-                       </ul>     
-                       {% else %}             <!--When the user is not logged in-->
 
+                         <li><a href="/">Home</a></li>                           <!--Home Button-->
+
+
+                         {% if user.is_authenticated %}                              <!--When the user is logged in-->
+
+                         {% if user.is_student %}                                    <!--If user is Student-->
+                         <li><a href="/student_profile">{{user.username|title}}-S</a></li>    <!--Username of Student-->
+
+                         {% else %}                                                   <!--If user is Employer-->
+                         <li><a href="/employer_profile">{{user.username|title}}-E</a></li>   <!--Username of Employer-->
+
+                         {% endif %}
+                         <li><a href="/logout">Logout</a></li>                            <!--Logout Option-->  
+
+                       </ul>     
+
+
+                       {% else %}                                            <!--When the user is not logged in-->
 
                        <!--Registration Buttons-->
                        <ul class="nav navbar-nav navbar-right">
@@ -66,8 +78,12 @@ overflow-x: hidden; ">
                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up <span class="caret"></span>
                            </a>
                            <ul class="dropdown-menu">
+                               <!--Register as student -->
                                <li><a href="/register_as_student" class="dropdown-item"> Student </a></li>
-                               <li><a href="/register_as_employer" class="dropdown-item"> Employer </a></li>
+
+                               <!--Register as employer -->
+                               <li><a href="/register_as_employer" class="dropdown-item"> Employer </a></li>  
+
                            </ul>
                          </li>
 
@@ -109,6 +125,8 @@ overflow-x: hidden; ">
                  </div> 
         </nav>
 
+
+                                 <!-- The Main Image of "Internshala" in the center-->
         <object style="margin: 0;
         align-content: center;
         margin-top:-8%;
@@ -116,8 +134,10 @@ overflow-x: hidden; ">
         margin-left: -3%;
         width:110%;
         height: 110%;"class="home-img" type="image/svg+xml" data="{% static 'main/home-page.svg' %}">
-           </object>
+        </object>
             
+
+        
            <h1 id="centre-head"> Select the One Which Suits you Best </h1> 
                   
            <div class="row">
@@ -139,13 +159,13 @@ overflow-x: hidden; ">
                  <h3 id="in-head"> INTERNSHIP BY INTEREST </h3>
                  <div class="card">
                     <a href="/web_developer_internship"><img src="{% static 'main/home-img/it-internships.png' %}" width="50px" alt="" class="clip-circle"></a>
-                     <h3> Developer </h3>
+                     <h3> Web Development </h3>
                     <a href="/video_editor_internship"><img src="{% static 'main/home-img/eng-internships.png' %}" width="50px" alt="" class="clip-circle"></a>
-                     <h3> Engineering </h3>
+                     <h3> Video Editing </h3>
                     <a href="/photographer_internship"><img src="{% static 'main/home-img/design-internships.png' %}" width="50px" alt="" class="clip-circle"></a>
-                     <h3> Designing </h3>
+                     <h3> Photography </h3>
                     <a href="/android_developer_internship"><img src="{% static 'main/home-img/teaching.png' %}" width="50px" alt="" class="clip-circle"></a>
-                     <h3> Teaching </h3>
+                     <h3> Android Development </h3>
                  </div>
                </div>  
            </div>            

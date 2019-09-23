@@ -1,0 +1,192 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title> Post A Job </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    {% if user.is_employer %}
+    <nav class="navbar navbar-light" style="background-color:#DCDCDC;">
+           <a class="navbar-brand" href="HomePage.html"> 
+            <img width="150px" height="25px" src="internshala_logo.svg" alt="">
+            </a>
+                <div class="btn-group">
+                    <button type="button" class="btn "> Company PROFILE </button>
+                    <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item"> {{user.username}} </a>
+                        <a href="/profile/edit" class="dropdown-item"> Edit Profile </a>
+                        <a href="/change-password" class="dropdown-item"> Change Password </a>
+                        <a href="/internship/list" class="dropdown-item">Posted internships</a>
+                        <a href="/interns_applied" class="dropdown-item">Interns Applied</a>
+                        <a href="/internship/edit_all" class="dropdown-item">Edit all internship</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/logout" class="dropdown-item"> Logout </a>
+                    </div>
+                </div>  
+                          
+    </nav>
+        <div class="container">
+                <h2 id="std-head" style="color: rgb(106, 209, 243); padding-left: 5%;padding-right: 2%"> Post a Internship </h2>
+                  <hr>
+                <div class="row">
+                  <!-- left column -->
+                  <div class="col-md-5">
+                    <div class="text-center">
+                      <img src="{% static 'main/emp-profile/jobpost.svg' %}" width="100%" height="100%" style="padding-top: 5%" > 
+                    </div>
+                  </div>
+                  
+                  
+                  <div class="col-md-7 personal-info">              
+                    <h4> Fill the Required Fields </h4>
+                    
+                    <form method="POST" class="form-horizontal" role="form">
+                        {% csrf_token %}
+                      
+                        <div class="form-group">
+                          <label for="id_category" class="col-lg-3 control-label">Category:</label> 
+                          <div class="col-lg-8">
+                          <input class="form-control" type="text" name="category" maxlength="200" required="" id="id_category">
+                        </div>
+                        </div>
+                  
+                        <div class="form-group">
+                         <label for="id_job_title" class="col-lg-3 control-label">Job title:</label> 
+                        <div class="col-lg-8">
+                          <input class="form-control" type="text" name="job_title" maxlength="200" required="" id="id_job_title">
+                        </div>
+                         </div>
+                  
+                       <!-- <div class="form-group">
+                       <label for="id_id_job" class="col-lg-3 control-label">Id job:</label> 
+                       <div class="col-lg-8">
+                       <input class="form-control" type="text" name="id_job" maxlength="200" required="" id="id_id_job">
+                        </div>
+                      </div>
+                   -->
+                       <div class="form-group">
+                       <label for="id_location" class="col-lg-3 control-label">Location:</label> 
+                       <div class="col-lg-8">
+                       <input class="form-control" type="text" name="location" maxlength="200" required="" id="id_location">
+                      </div>
+                    </div>
+                  
+                  
+                       <div class="form-group">
+                       <label for="id_job_duration" class="col-lg-3 control-label">Job duration:</label> 
+                       <div class="col-lg-8"><input class="form-control" type="text" name="job_duration" maxlength="200" required="" id="id_job_duration">
+                      </div></div>
+                  
+                       <div class="form-group">
+                       <label for="id_job_content" class="col-lg-3 control-label">Job content:</label> 
+                       <div class="col-lg-8"><textarea class="form-control" name="job_content" required="" id="id_job_content"></textarea>
+                      </div></div>
+                  
+                       <div class="form-group">
+                       <label for="id_job_published" class="col-lg-3 control-label">Date published:</label> 
+                       <div class="col-lg-8"><input class="form-control" type="text" name="job_published" value="2019-09-22 21:31:25" required="" id="id_job_published">
+                      </div></div>
+                  
+                       <div class="form-group">
+                       <label for="id_job_stipend" class="col-lg-3 control-label">Job stipend:</label> 
+                       <div class="col-lg-8"><input class="form-control" type="text" name="job_stipend" maxlength="200" required="" id="id_job_stipend">
+                      </div></div>
+                  
+                      <div class="form-group">
+                          <label class="col-md-3 control-label"></label>
+                          <div class="col-md-8">
+                              <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Submit</button>
+                            <a href="/internship/list"><input type="reset" class="btn btn-default" value="Cancel"></a>
+                          </div>
+                        </div>
+                      </form>
+            
+                  </div>
+              </div>
+
+        </div>
+        {% elif user.is_student %}
+        <h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>
+        <h2 style="text-align:center">Click on <a style="color:crimson" href="/student_profile">this</a> to go to back to student's profile</h2>
+
+        {% endif %}        
+</body>
+</html>
+
+<!-- <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label class="col-lg-3 control-label"> Job title </label>
+      <div class="col-lg-8">
+        <input class="form-control" type="text" placeholder="">
+      </div>
+    </div>
+     <div class="form-group">
+        <label class="col-lg-3" id="dropdown">Category: </label>
+        <div class="col-lg-8">
+          <input class="form-control" type="text" placeholder="Web Development"> -->
+          <!-- <select class="form-control" id="dropdown">
+            <option>Web Development</option>
+            <option>Android Development</option>
+            <option>Designer</option>
+            <option>Photography</option>
+          </select> -->
+        <!-- </div>
+     </div>
+     <div class="form-group">
+          <label class="col-lg-3" id="dropdown">Location: </label>
+          <div class="col-lg-8">
+            <select class="form-control" id="dropdown">
+              <option>Delhi/NCR</option>
+              <option>Mumbai</option>
+              <option>Kolkata</option>
+              <option>Banglore</option>
+              <option>Work from Home</option>
+            </select>
+          </div>
+       </div> 
+   
+     <div class="form-group">
+        <label class="col-lg-3 control-label">Job duration</label>
+        <div class="col-lg-8">
+          <input class="form-control" type="text" value="">
+        </div>
+     </div>
+
+     <div class="form-group">
+          <label class="col-lg-3 control-label">Job content</label>
+          <div class="col-lg-8">
+          <textarea class="form-control" rows="3" placeholder="Write something here..."></textarea>
+          </div>
+      </div>
+
+     <div class="form-group">
+          <label class="col-lg-3 control-label">Job Stipend:</label>
+          <div class="col-lg-8 ">
+            <input class="form-control" type="text" placeholder="₹ ">
+          </div>
+      </div>
+    
+      <div class="form-group">
+              <label class="col-lg-3 control-label">Job Post date: </label>
+              <div class="col-lg-8 ">
+                <input class="form-control" type="text" placeholder="DD-MM-YYYY">
+              </div>
+      </div>
+    <div class="form-group">
+      <label class="col-md-3 control-label"></label>
+      <div class="col-md-8">
+        <input type="button" class="btn btn-primary" value="Submit">
+        <input type="reset" class="btn btn-default" value="Cancel">
+      </div>
+    </div>
+  -->

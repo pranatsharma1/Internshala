@@ -116,21 +116,125 @@ overflow-x: hidden; ">
           </div>     
           <!-- div close row-1  -->
           <div class="row">
+
+                                                      <!--Main Design-->
             <div class="col-md-6">
                 <h3> Grab the Best for you </h3>
                 <hr>
               <img src="{% static 'main/std-profile/std-sign.svg' %}" class="img-responsive" style="float:left; padding-bottom:100px;" width="85%" height="85%" >
 
             </div>   
+ 
+                                                     <!--Form ka division-->
+
             <div class="col-md-6 Sign Up" style="padding-left: 10%;">
-              <h4 style="padding-left: 10px;"> Apply Now! </h4>
+              <h3 style="padding-left: 10px;"> Apply Now! </h3>
+              <hr>
 
           <!--Backend wala form-->  
-            <div class="container">
-                <form method="POST" enctype="multipart/form-data">
+          
+                <form method="POST" enctype="multipart/form-data" class="form-horizontal" role="form">
                     {% csrf_token %}
-                    
-                    <div class="form-group col-lg-8">
+                      <div class="form-group col-lg-8">
+                          <label for="id_first_name">First name:</label> 
+                          <input class="form-control" type="text" name="first_name" maxlength="30" id="id_first_name">
+                          </div>
+    
+                          <div class="form-group col-lg-8">
+                          <label for="id_last_name">Last name:</label> 
+                          <input class="form-control" type="text" name="last_name" maxlength="150" id="id_last_name">
+                          </div>
+    
+                          <div class="form-group col-lg-8">
+                          <label for="id_username">Username:</label>
+                          <input class="form-control" type="text" name="username" maxlength="150" autofocus="" required="" id="id_username">
+                          </div>
+    
+    
+                          <div class="form-group col-lg-8" >
+                            <label for="id_is_student">Is student:</label> 
+                            <div class="radio">
+                              <label><input type="radio"  name="is_student">Agree</label>
+                            <!-- <input class="form-control" type="checkbox" name="is_student" required="" id="id_is_student"> -->
+                          </div>
+                        </div>
+    
+                          <div class="form-group col-lg-8">
+                          <label for="id_email">Email:</label> 
+                          <input class="form-control" type="email" name="email" required="" id="id_email">
+                          </div>
+    
+                          <div class="form-group col-lg-8">
+                          <label for="id_image">Image:</label> 
+                          <input class="form-control" type="file" name="image" accept="image/*" required="" id="id_image">
+                          </div>
+
+                          <div class="form-group col-lg-8">
+                          <label for="id_college_name">College name:</label> 
+                          <input class="form-control" type="text" name="college_name" maxlength="200" required="" id="id_college_name">
+                          </div>
+
+                          <div class="form-group col-lg-8">
+                          <label for="id_city">City:</label> 
+                          <input class="form-control" type="text" name="city" maxlength="200" required="" id="id_city">
+                          </div>
+
+                          <div class="form-group col-lg-8">
+                          <p><label for="id_year_of_study">Year of study:</label> 
+                          <input type="text" name="year_of_study" maxlength="200" required="" id="id_year_of_study"></p>
+                          </div>
+
+                          <div class="form-group col-lg-8">
+                          <label for="id_basic_skills">Basic skills:</label> 
+                          <textarea class="form-control" name="basic_skills"  required="" id="id_basic_skills"></textarea>
+                          </div>
+
+                          <div class="form-group col-lg-8">
+                          <label for="id_password1">Password:</label> 
+                          <input class="form-control" type="password" name="password1" required="" id="id_password1">
+                          </div>
+    
+                          <div class="form-group col-lg-8">
+                          <label for="id_password2">Password confirmation:</label> 
+                          <input class="form-control" type="password" name="password2" required="" id="id_password2">
+                          </div>
+  
+    
+    
+                          <div class="form-group col-lg-8">
+                          <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Sign Up</button>
+                          </div>
+                          <div class="form-group col-lg-8">
+                          If you already have an account <a href="/login" target="blank"><strong>login</strong></a> instead.
+                          </div>
+                      </form>
+                         
+                  
+                      
+            </div>
+                   
+    
+                
+                    <!-- If you already have an account <a href="/login" target="blank"><strong>login</strong></a> instead. -->
+            
+
+
+           
+            </div>
+    
+        </div>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+        <!-- <div class="form-group col-lg-8">
                         <p><label for="id_first_name">First name:</label> 
                         <input type="text" name="first_name" maxlength="30" id="id_first_name"></p>
                         </div>
@@ -177,15 +281,10 @@ overflow-x: hidden; ">
                         <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Sign Up</button>
                         </div>
                     </form>
-                       
+                        -->
                 
-    
-                
-                    If you already have an account <a href="/login" target="blank"><strong>login</strong></a> instead.
-            </div>
 
-
-            <!--Vibhu's Form-->
+                         <!--Vibhu's Form-->
               <!-- <form class="form-horizontal" role="form">
                   <div class="form-group col-lg-8">
                     <label class="">Email ID:</label>
@@ -206,11 +305,3 @@ overflow-x: hidden; ">
                   <input type="button" class="btn btn-primary" style="align-content: center;" value="Sign Up">
                   </div>
               </form> -->
-
-            </div>
-
-          </div>
-           <!-- div close row-2 -->
-        </div>
-       </body>
-       </html>

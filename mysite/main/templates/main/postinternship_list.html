@@ -1,51 +1,33 @@
 {% extends 'main/header.html' %}
 <h1>student profile</h1>
 {% block content %}
-<a href="#" style="margin-left:auto;margin-right:auto; background-color:bisque;">Student list for Applied internship!</a>
+<!-- <a href="/interns_applied" >Student list for Applied internship!</a> -->
 
   <h3>Posted Internship!</h3>
-  <p>
+  <!-- <p>
     <a href="/internship/post_a_job">New Internship!</a>
-    <a href="/add_category">New category</a>
-   <a href="/add_location">New location</a>
-  </p>
+  </p> -->
 
-  <table border="1">
-    <thead>
-      <tr> 
+  {% for product in internship %}
+             
+<div class="card text-white bg-warning" >
+      <div class="card-header">
+          <h1>{{product.username}}</h1>
+      
+      <h4>{{product.job_title}}</h4>
+      <h4 style="font-size: 80%">{{product.job_published}}</h4>
+      <br>
+      <h4>Location: {{product.location}}</h4>
+      <br>
+      <h4>Duration: {{product.job_duration}}</h4>
+      <h4>Stipend: {{product.job_stipend|safe}}</h4> 
+      <br>
+      <h4>Details: {{product.job_content|safe}}</h4>
+      <br>
+      <!-- <h3><a href="/apply" style="color: black">Apply</a></h3> -->
+  </div>
+</div>
+{% endfor %}
+<!-- <a href="/internship/edit_all">Edit all internship</a> -->
 
-        <th>job_title</th>
-        <th>category</th>
-        <th>location</th>
-        <th>job_content</th>
-        <th>job_published</th>
-        <th>job_stipend</th>
-
-      </tr>
-    </thead>
-    <tbody>
-      {% for product in internship %}
-        <tr>
-          <td>{{ product.job_title }}</td>
-          <td>{{ product.category}}</td>
-          <td>{{ product.location }}</td>
-          <td>{{ product.job_content }}</td>
-          <td>{{ product.job_published }}</td>
-          <td>{{ product.job_stipend }}</td>
-
-        </tr>
-        {% if forloop.last %}
-          <tr>
-            <td colspan="6">
-              <a href="/internship/edit_all">Edit all products</a>
-            </td>
-          </tr>
-        {% endif %}
-      {% empty %}
-        <tr>
-          <td colspan="6">No product</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
 {% endblock %}

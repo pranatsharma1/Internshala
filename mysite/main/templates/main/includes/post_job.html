@@ -4,7 +4,6 @@
 {% extends 'main/header.html' %}
 
 {% block content %}
-{% if user.is_authenticated %}
 <br>
 <div class="container">
 <form method="POST">
@@ -27,10 +26,6 @@
     <button type="submit" aria-placeholder="enter the student/company"">save</button>
 </div> -->
 
-{% elif not user.is_auth %}
-<h1 style="text-align: center;color: crimson">XX--You are required to Login first to access this page--XX</h1>
-<h2 style="text-align:center">Click on <a style="color:crimson" href="/login">this</a> to login</h2>
-{% endif %}
 
 {% endblock %}
 
