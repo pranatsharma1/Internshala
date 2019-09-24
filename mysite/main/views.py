@@ -21,12 +21,70 @@ from django.forms import modelformset_factory
 from django.urls import reverse
 
 
+
+
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from .forms import SignupForm
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
+from django.template.loader import render_to_string
+from .tokens import account_activation_token
+from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your blog account.'
+            message = render_to_string('main/acc_active_email.html', {
+
+                   'user': user,
+                   'domain': current_site.domain,
+                   'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                   'token': account_activation_token.make_token(user),
+                })
+            to_email = form.cleaned_data.get('email')
+            email = EmailMessage(
+                        mail_subject, message, to=[to_email]
+            )
+            email.send()
+            return HttpResponse('Please confirm your email address to complete the registration')
+    else:
+        form = SignupForm()
+    return render(request, template_name="main/signup.html", context={'form': form})
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        # return redirect('home')
+        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse('Activation link is invalid!')
+
+
 #view for homepage of our website
 class homepage(View):
    def get(self,request):                                              
         return render(request=request,
                     template_name="main/home.html",
                     )
+
 
 #view for student's profile
 class student_profile(View):
@@ -63,7 +121,7 @@ class filter_internship(View):
                       context={"filter":Job.objects.all()},
                     )
 
-#view to display the jobs posted by the company
+#view to display the jobs posted by the company in Delhi
 class jobs_in_Delhi(View):
     def get(self,request):
         d=Job.objects.filter(location='Delhi')
@@ -72,7 +130,7 @@ class jobs_in_Delhi(View):
                       context={"jobs":d},
                     )   
 
-#view to display the jobs posted by the company
+#view to display the jobs posted by the company in Mumbai
 class jobs_in_Mumbai(View):
     def get(self,request):
         d=Job.objects.filter(location='Mumbai')
@@ -81,38 +139,45 @@ class jobs_in_Mumbai(View):
                       context={"jobs":d},
                     )     
 
-#view to display the jobs posted by the company
+#view to display the jobs posted by the company in Chennai
 class jobs_in_Chennai(View):
     def get(self,request):
         d=Job.objects.filter(location='Chennai')
         return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})       
 
-#view to display the jobs posted by the company
+
+
+#view to display the jobs posted by the company in Banaglore
 class jobs_in_Bangalore(View):
     def get(self,request):
         d=Job.objects.filter(location='Bangalore')
         return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})                
 
-
+#view to display the Web Developer Internships
 class web_developer_internship(View):
     def get(self,request):
         d=Job.objects.filter(category='Web Development')
         return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})
 
+# view to display the android developer Internships
 class android_developer_internship(View):
     def get(self,request):
         d=Job.objects.filter(category='Android Development')
         return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})
 
+# view to display the photographer internships
 class photographer_internship(View):
     def get(self,request):
         d=Job.objects.filter(category='Photography')
         return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})
 
+# view to display the video editor internships
 class video_editor_internship(View):
     def get(self,request):
         d=Job.objects.filter(category='Video Editing')
         return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})                        
+
+
 
 # view for applying for job 
 class apply_for_job(View):
@@ -125,47 +190,48 @@ class apply_for_job(View):
         return render(request,self.template_name,{'form':form})
 
     def post(self,request):
-        form=self.form_class(request.POST)
+        form=self.form_class(request.POST or None,request.FILES or None)
         if form.is_valid():
             intern_profile= form.save(commit=False)
             
             intern_profile.username=request.user
-            intern_profile.id_job=form.cleaned_data.get('intern_profile_username')
             intern_profile.save()
             #username = form.cleaned_data.get('intern_profile.username')                     #getting the username from the form   
-            messages.success(request, f"{intern_profile.username} has succesully applied for this job")
+            # messages.success(request, f"{intern_profile.username} has succesully applied for this job")
 
             return redirect("main:student")
         else:                                                 #if form is not valid or not filled properly               
-            for msg in form.error_messages:                   
-                messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
+            # for msg in form.error_messages:                   
+            #     messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
 
             form=self.form_class(initial=self.initial)
             return render(request ,self.template_name,{'form':form})
 
 
-# view for posting a job
-# class post_a_job(View):
-#     form_class=Job_Post
+
+# view for signup page of employer
+# class register_as_employer(View):
+#     form_class=NewUserForm1
 #     initial={'key':'value'}
-#     template_name="main/post_job.html"
+#     template_name="main/Employer-Signup.html"
 
 #     def get(self,request):
 #         form=self.form_class(initial=self.initial)
 #         return render(request,self.template_name,{'form':form})
-
+    
 #     def post(self,request):
-#         form=self.form_class(request.POST)
+#         form=self.form_class(request.POST or None,request.FILES or None)
 #         if form.is_valid():                                                     #if the form filled is valid
-#             job_profile = form.save(commit=False)  
-#             job_profile.username=request.user  
-#             job_profile.save()                                       #basically save the user(since user is a part of form,thus we save the form)
-#             username = form.cleaned_data.get('job_title')                     #getting the username from the form   
-#             messages.success(request, f"New Job created: {username}")    #displaying the message that new account has been created
+#             user = form.save()                                           #basically save the user(since user is a part of form,thus we save the form)
+#             username = form.cleaned_data.get('username')                     #getting the username from the form   
+#             messages.success(request, f"New account created: {username}")    #displaying the message that new account has been created
             
 #             # now after signing up we automatically logs in the user 
-#             # login(request, user)                                             #login(HttpResponse,User)
-#             return redirect("main:employer")
+#             login(request, user)                                             #login(HttpResponse,User)
+#             if user.is_student:
+#                 return redirect("main:student")
+#             else:
+#                 return redirect("main:employer")  
         
 #         else:                                                 #if form is not valid or not filled properly               
 #             for msg in form.error_messages:                   
@@ -173,37 +239,6 @@ class apply_for_job(View):
 
 #             form=self.form_class(initial=self.initial)
 #             return render(request ,self.template_name,{'form':form})
-
-# view for signup page of employer
-class register_as_employer(View):
-    form_class=NewUserForm1
-    initial={'key':'value'}
-    template_name="main/Employer-Signup.html"
-
-    def get(self,request):
-        form=self.form_class(initial=self.initial)
-        return render(request,self.template_name,{'form':form})
-    
-    def post(self,request):
-        form=self.form_class(request.POST or None,request.FILES or None)
-        if form.is_valid():                                                     #if the form filled is valid
-            user = form.save()                                           #basically save the user(since user is a part of form,thus we save the form)
-            username = form.cleaned_data.get('username')                     #getting the username from the form   
-            messages.success(request, f"New account created: {username}")    #displaying the message that new account has been created
-            
-            # now after signing up we automatically logs in the user 
-            login(request, user)                                             #login(HttpResponse,User)
-            if user.is_student:
-                return redirect("main:student")
-            else:
-                return redirect("main:employer")  
-        
-        else:                                                 #if form is not valid or not filled properly               
-            for msg in form.error_messages:                   
-                messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
-
-            form=self.form_class(initial=self.initial)
-            return render(request ,self.template_name,{'form':form})
 
 
 # view for signup page of student
@@ -237,7 +272,7 @@ class register_as_student(View):
 
 
 
-#function for logging the user out of the current session
+#view for logging the user out of the current session
 class logout_request(View):
     def get(self,request):
        logout(request)
@@ -245,6 +280,7 @@ class logout_request(View):
        return redirect("main:homepage") 
 
 
+#view for logging in the user in current session
 class login_request(View):
     form_class=AuthenticationForm
     initial={'key':'value'}
@@ -279,18 +315,20 @@ class login_request(View):
             return render(request ,self.template_name,{'form':form})
 
 
+#view for displaying the status of applications of intern to him
 class myapplication(View):
     def get(self,request):
        i=Intern.objects.filter(username=request.user)
        return render(request=request,template_name="main/myapplication.html",context={"intern":i})
 
-
+#view for dusplaying the jobs posted by the company to him
 class internship_list(View):
     def get(self,request):
         internship = Job.objects.filter(user=request.user)
         return render(request, 'main/postinternship_list.html', {'internship': internship})
 
 
+# view for posting the job
 def post_a_job(request):                                      
     if request.method == "POST":                                                #if user hits the sign up button
         form = Job_Post(request.user,request.POST)                                #mapping the submitted form to user creation form
@@ -332,9 +370,12 @@ def change_password(request):
         form = PasswordChangeForm(data=request.POST, user=request.user)
 
         if form.is_valid():
-            form.save()
+            user=form.save()
             update_session_auth_hash(request, form.user)
-            return redirect(reverse('main:view_profile'))
+            if user.is_student:
+              return redirect(reverse('main:student'))
+            else:
+                return redirect(reverse('main:employer'))
         else:
             return redirect(reverse('main:change_password'))
     else:
@@ -380,6 +421,38 @@ def view_profile(request, pk=None):
 
 
 
+
+
+
+# view for posting a job
+# class post_a_job(View):
+#     form_class=Job_Post
+#     initial={'key':'value'}
+#     template_name="main/post_job.html"
+
+#     def get(self,request):
+#         form=self.form_class(initial=self.initial)
+#         return render(request,self.template_name,{'form':form})
+
+#     def post(self,request):
+#         form=self.form_class(request.POST)
+#         if form.is_valid():                                                     #if the form filled is valid
+#             job_profile = form.save(commit=False)  
+#             job_profile.username=request.user  
+#             job_profile.save()                                       #basically save the user(since user is a part of form,thus we save the form)
+#             username = form.cleaned_data.get('job_title')                     #getting the username from the form   
+#             messages.success(request, f"New Job created: {username}")    #displaying the message that new account has been created
+            
+#             # now after signing up we automatically logs in the user 
+#             # login(request, user)                                             #login(HttpResponse,User)
+#             return redirect("main:employer")
+        
+#         else:                                                 #if form is not valid or not filled properly               
+#             for msg in form.error_messages:                   
+#                 messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
+
+#             form=self.form_class(initial=self.initial)
+#             return render(request ,self.template_name,{'form':form})
 
 
 # view for adding category

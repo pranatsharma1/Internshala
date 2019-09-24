@@ -52,6 +52,7 @@ class Intern(models.Model):
     company_name=models.CharField(max_length=100,default="Samsung")
     is_accept=models.BooleanField(default=False)
     is_reject=models.BooleanField(default=False)  
+    resume=models.FileField(upload_to='files',default="")
 
     def __str__(self):
         return self.intern_name                                        

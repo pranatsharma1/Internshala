@@ -23,10 +23,17 @@ User=get_user_model()
 #         model=Location
 #         fields=("location",)
 
+
+class SignupForm(UserCreationForm):
+    email = forms.EmailField(max_length=200, help_text='Required')
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
 class Apply_Job(ModelForm):
     class Meta:
           model=Intern
-          fields=("intern_name","job_title","job_id","company_name","intern_college","intern_skills","intern_city","intern_study_year")
+          fields=("intern_name","job_title","job_id","resume","company_name","intern_college","intern_skills","intern_city","intern_study_year")
 
 class Job_Post(ModelForm):
     class Meta:
