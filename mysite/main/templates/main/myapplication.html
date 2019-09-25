@@ -11,7 +11,10 @@
             <h4>Comapny Name: {{j.company_name}}</h4>
             <!-- <h4>Intern Id:{{j.username}}</h4> -->
             <!-- <h4>Applied for: {{j.job_title}}</h4> -->
-            <h4>Status: #</h4>
+            {% if i.is_accept %}
+
+            <h4>Status: Accepted</h4>
+            {% endif %}
         </div>
     </div>
 </div>

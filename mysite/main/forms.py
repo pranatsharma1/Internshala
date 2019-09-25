@@ -33,7 +33,7 @@ class SignupForm(UserCreationForm):
 class Apply_Job(ModelForm):
     class Meta:
           model=Intern
-          fields=("intern_name","job_title","job_id","resume","company_name","intern_college","intern_skills","intern_city","intern_study_year")
+          fields=("intern_name","job_title","company_name","intern_college","intern_skills","intern_city","intern_study_year")
 
 class Job_Post(ModelForm):
     class Meta:
@@ -44,7 +44,7 @@ class Job_Post(ModelForm):
         super(Job_Post,self).__init__(*args,**kwargs)
 
 class NewUserForm1(UserCreationForm):
-    email= forms.EmailField(required=True)
+    email = forms.EmailField(max_length=200, help_text='Required')
     last_name=models.CharField(max_length=50)
     first_name=models.CharField(max_length=100) 
     is_employer=forms.BooleanField()
@@ -63,7 +63,7 @@ class NewUserForm1(UserCreationForm):
         return user    
 
 class NewUserForm2(UserCreationForm):
-    email= forms.EmailField(required=True)
+    email = forms.EmailField(max_length=200, help_text='Required')
     last_name=models.CharField(max_length=50)
     first_name=models.CharField(max_length=100)
     is_student=forms.BooleanField()

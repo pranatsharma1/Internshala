@@ -23,6 +23,7 @@ class User(AbstractUser):
     year_of_study=models.CharField(max_length=200,default="")
                             
 
+
 # model for Job
 class Job(models.Model):      
     job_title= models.CharField(max_length=200)                     #field: Title of Job. Ex: Front End Developer etc.
@@ -48,8 +49,8 @@ class Intern(models.Model):
     intern_study_year=models.CharField(max_length=200)                         
     username=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)      
     job_title=models.ForeignKey(Job,default=1,related_name="Title",on_delete=models.SET_DEFAULT,null=True)    
-    job_id=models.CharField(max_length=100,default="1")
-    company_name=models.CharField(max_length=100,default="Samsung")
+    job_id=models.CharField(max_length=100,default="")
+    company_name=models.CharField(max_length=100,default="")
     is_accept=models.BooleanField(default=False)
     is_reject=models.BooleanField(default=False)  
     resume=models.FileField(upload_to='files',default="")
