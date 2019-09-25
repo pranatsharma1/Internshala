@@ -1,0 +1,18 @@
+
+
+<!--Basically it displays the jobs in Card form-->
+
+{% extends 'main/header.html' %}
+{% block content %}
+
+<h1 style="color: black ; text-align: center">Welcome to Internshala 
+{% if user.is_authenticated %}
+    {% if user.is_employer %}
+        <li align='center'><a href="/internship/list">post a intership</a></li>
+    {% else %}
+        <li><a href="#">Apply for internship</a></li>
+    {% endif %}
+{% endif %}
+
+{% endblock %}
+

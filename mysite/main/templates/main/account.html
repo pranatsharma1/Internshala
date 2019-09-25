@@ -1,0 +1,45 @@
+
+<head>
+    
+    {% load static %}
+        <link href="{% static 'tinymce/css/prism.css' %}" rel="stylesheet">
+                <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+                <!-- Compiled and minified JavaScript for Materialize CSS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            
+    <style>
+        .profile{
+            border: 5px;
+            background-color: aquamarine;
+            margin-left: auto;
+            margin-right: auto;
+            width:80%;
+            background-color:red;   
+
+        }
+
+    </style>
+</head>
+<body>
+{% block content %}
+
+<nav>
+    <div class="nav-wrapper">
+    <a href="https://internshala.com/" target="_blank" class="brand-logo">INTERNSHALA</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                {% include 'main/includes/navbaritems.html' %}
+        </ul>
+    </div>
+</nav>    
+{% include 'main/includes/messaging.html' %}
+
+<div class="profile" style="border:5px;">
+    <div class="name"><h3>{{user.first_name}}{{user.last_name}}</h3></div>
+    EMAIL: {{user.email}}
+    <div class="name">USERNAME: {{user.username}}</div>
+    <p>phone no: {{ profile.phone_no }} </p>
+    </div>
+
+{% endblock %}
+</body>

@@ -1,0 +1,16 @@
+{% block content %}
+    <h2>upload file!</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="document">
+        <button type="submit">upload file</button>
+
+    </form>
+    {% if url %}
+        <p>download file:<a href="{{ url }}">{{ url }}</a></p>
+    {% endif %}
+    <p><a href="/">Return to home</a></p>
+
+
+
+{% endblock %}

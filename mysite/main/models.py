@@ -9,58 +9,32 @@ from datetime import datetime
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+
+#user model for Employer and Student
 class User(AbstractUser):      
     is_employer=models.BooleanField(default=False)                      #a boolean field to check whether the registered user is employer?
     is_student=models.BooleanField(default=False)                       #a boolean field to check whether the registered user is student?
-    
-class InternProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    college_name = models.CharField(max_length=100)
-    skill = models.CharField(max_length=100)
-    phone_no = models.CharField(max_length=10)
-    Address = models.CharField(max_length=100)
-    def __str__(self):
-        return self.user
+    image=models.ImageField(upload_to='pics',default="")
 
-class Add_Education(models.Model):
-    name = models.CharField(max_length=100)
-    def __str__(self):
-        return self.name                                        
-                                     
-class Education_detail(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    Add_Education = models.ForeignKey(Add_Education, on_delete=models.CASCADE)
-    start_year = models.CharField(max_length=4)
-    end_year = models.CharField(max_length=4)
-    performance_scale = models.IntegerField()
-    steam = models.CharField(max_length=100)
-    college_name = models.CharField(max_length=100)
-    def __str__(self):
-        return self.user
-        
-class Location(models.Model):
-    location=models.CharField(max_length=200,default='Delhi')                                                 
-                                             
-    def __str__(self):
-        return self.location                                         
-                                             
-class Category(models.Model):
-    category=models.CharField(max_length=200,default='Development')   
+    # extra fields for student
+    college_name=models.CharField(max_length=200,default="")
+    basic_skills=models.TextField(default="")
+    city=models.CharField(max_length=200,default="")
+    year_of_study=models.CharField(max_length=200,default="")
+                            
 
-    def __str__(self):
-        return self.category                              
 
 # model for Job
-
 class Job(models.Model):      
-    job_title= models.CharField(max_length=200)
-    category=models.ForeignKey(Category,default="Development",on_delete=models.SET_DEFAULT,null=True) 
-    location=models.ForeignKey(Location,default='Delhi',on_delete=models.SET_DEFAULT,null=True)
+    job_title= models.CharField(max_length=200)                     #field: Title of Job. Ex: Front End Developer etc.
+    category=models.CharField(max_length=200,default="")            #Category of Job. Ex: Web Development,Android Development
+    location=models.CharField(max_length=200,default="")            #location of Job. Ex: Delhi,Mumbai,Bangalore,etc.
     job_duration=models.CharField(max_length=200)                                        #field1: Job Title
-    job_content= models.TextField()                                                     #field2: Job Content
-    job_published= models.DateTimeField("date published",default= datetime.now())       #Date and time of Job Published
-    job_stipend=models.CharField(max_length=200)
-    user=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)
+    job_content= models.TextField()                                                      #field2: Job Content
+    job_published= models.DateTimeField("date published",default= datetime.now())        #Date and time of Job Published
+    job_stipend=models.CharField(max_length=200)                                         #Stipend of Job
+    user=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)    #Username of Company who has posted the job
+    
 
                         #https://www.quora.com/What-does-def-str__-self-method-does-in-Django
 
@@ -68,17 +42,17 @@ class Job(models.Model):
         return self.job_title       #display the job title as heading for the objects of Job model
 
 class Intern(models.Model):
-    intern_name=models.CharField(max_length=200,default='pranat')
-    intern_college=models.CharField(max_length=200)
-    intern_skills=models.TextField()
-    intern_city=models.CharField(max_length=200)
-    intern_study_year=models.CharField(max_length=200)
+    intern_name=models.CharField(max_length=200,default="")  
+    hire =models.CharField(max_length=200,default="")  
+    available =models.CharField(max_length=200,default="")   
     username=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)      
-    job_title=models.ForeignKey(Job,default=1,on_delete=models.SET_DEFAULT,null=True) 
-    job_id = models.CharField(max_length=100,default="1") 
-    company_name = models.CharField(max_length=100,default="Sumsung")     
+    #job_title=models.ForeignKey(Job,default=1,related_name="Title",on_delete=models.SET_DEFAULT,null=True)    
+    job_id=models.CharField(max_length=100,default="")
+    company_name=models.CharField(max_length=100,default="")
+    document = models.FileField(upload_to='documents/')
+
     is_accept=models.BooleanField(default=False)
-    is_reject=models.BooleanField(default=False)                        
+    is_reject=models.BooleanField(default=False)  
 
     def __str__(self):
         return self.intern_name                                        
@@ -291,3 +265,24 @@ class Intern(models.Model):
 #         "Does the user have a specific permission?"
 #         # Simplest possible answer: Yes, always
 #         return True
+
+#     def has_module_perms(self, app_label):
+#         "Does the user have permissions to view the app `app_label`?"
+#         # Simplest possible answer: Yes, always
+#         return True
+
+#     @property
+#     def is_student(self):
+#         "Is the user a member of staff?"
+#         return self.student
+
+#     @property
+#     def is_company(self):
+#         "Is the user a admin member?"
+#         return self.company
+
+#     @property
+#     def is_active(self):
+#         "Is the user active?"
+#         return self.active'''
+# >>>>>>> 0c068883fa2efc525150809d3d31552b94896f8d

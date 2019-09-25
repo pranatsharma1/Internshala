@@ -2,48 +2,58 @@
 from django.urls import path
 from . import views
 from django.conf.urls import url
-from main.views import homepage,jobs_list,student_profile,employer_profile,logout_request,add_category,add_location,apply_for_job
-from main.views import post_a_job,interns_applied,register_as_employer,register_as_student,login_request
+from main.views import homepage,jobs_in_Delhi,jobs_in_Mumbai,jobs_in_Chennai,jobs_in_Bangalore,student_profile,employer_profile,logout_request
+from main.views import post_a_job,interns_applied,register_as_employer,register_as_student,login_request,web_developer_internship
+from main.views import filter_internship,web_developer_internship,android_developer_internship,photographer_internship,video_editor_internship
+from main.views import post_a_job,internship_list,myapplication
 app_name="main"
 
 urlpatterns = [
-   #path("job_in_delhi/",views.job_delhi,name="job_delhi"),
    path("",homepage.as_view(),name="homepage"),
    path("register_as_employer/",register_as_employer.as_view(), name="register_as_employer"), 
    path("register_as_student/", register_as_student.as_view(), name="register_as_student"), 
    path("logout/", logout_request.as_view(), name="logout"), 
    path("login/",login_request.as_view(), name="login"),
-   path("student_profile/",student_profile.as_view(),name="student"),
-   path("jobs_list/",jobs_list.as_view(),name="jobs_list"),
    path("employer_profile/",employer_profile.as_view(),name="employer"),
-   #path("post/",post_a_job.as_view(),name="post_a_job"),
-   path("apply/",apply_for_job.as_view(),name="apply_for_job"),
-   path("add_location/",add_location.as_view(),name="add_location"),
-   path("add_category/",add_category.as_view(),name="add_category"),
+   path("student_profile/",student_profile.as_view(),name="student"),
+
+   # path("post/",views.post_a_job,name="post_a_job"),
+
+   path("filter_internship/",filter_internship.as_view(),name="filter_internship"),
+
+   path("jobs_in_Delhi/",jobs_in_Delhi.as_view(),name="jobs_in_Delhi"),
+   path("jobs_in_Mumbai/",jobs_in_Mumbai.as_view(),name="jobs_in_Mumbai"),
+   path("jobs_in_Chennai/",jobs_in_Chennai.as_view(),name="jobs_in_Chennai"),
+   path("jobs_in_Bangalore/",jobs_in_Bangalore.as_view(),name="jobs_in_Bangalore"),
+
+   path("web_developer_internship/",web_developer_internship.as_view(),name="web_developer_internship"),
+   path("android_developer_internship/",android_developer_internship.as_view(),name="android_developer_internship"),
+   path("video_editor_internship/",video_editor_internship.as_view(),name="video_editor_internship"),
+   path("photographer_internship/",photographer_internship.as_view(),name="photographer_internship"),
+   
+   
+  # path("apply/",apply_for_job.as_view(),name="apply_for_job"),
+
    path("interns_applied/",interns_applied.as_view(),name="interns_applied"),
+
+
    path("profile/edit/",views.edit_profile,name="edit_profile"),
    path("change-password/",views.change_password,name="change_password"),
-   path("apply/",apply_for_job.as_view(),name="apply_for_job"),
-   path('internship/post_a_job/', views.post_a_job, name='post_a_job'),
+
+   path("post_internship/", views.post_a_job, name='post_a_job'),
    path('internship/edit_all/', views.edit_all_internship, name='edit_all_internship'),
-   path('internship/list/', views.internship_list, name='internship_list'),
-   path('resume/', views.add_detail_intern, name='add_detail_intern'),
-   path('education/list/', views.education_list, name='education_list'),
-   path('education/add_detail/', views.education_detail, name='education_detail'),
-   path('myaplication/', views.myaplication, name='myaplication'),
+   path('internship/list/', internship_list.as_view(), name='internship_list'),
+   path('myapplication/', myapplication.as_view(), name='myapplication'),
+   path("job_detail/<int:job_id>/",views.job_detail,name="job_detail"),
+   path("job_list/",views.job_list,name="job_list"),
 
 
 
-
-   
-
-
-
-
-#    url(r'^$', views.homepage, name='homepage'),
-#    url(r'^signup/$', views.register_as_employer, name='register_as_employer'),
-#    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-#         views.activate_account, name='activate'),
+   url(r'^$', views.homepage, name='homepage'),
+   # url("signup/", views.signup, name='signup'),
+   #url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+      #  views.activate, name='activate'),
+        
 
 ]
 

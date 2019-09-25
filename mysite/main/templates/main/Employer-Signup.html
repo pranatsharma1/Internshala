@@ -1,3 +1,5 @@
+                                        <!--Template for the signup page of Employer-->
+
 {% load static %}
 {% include 'main/includes/messaging.html' %}
 <!DOCTYPE HTML>
@@ -29,6 +31,8 @@ height: 100%;
 margin: 0px;
 padding: 0px;
 overflow-x: hidden; ">
+
+                                            <!--Navigation Bar-->
     <nav class="navbar navbar navbar-light navbar-expand-lg static-top" style="background-color:#DCDCDC">
              
         <div class="container-fluid"> 
@@ -38,9 +42,9 @@ overflow-x: hidden; ">
                  <span class="icon-bar" style="background-color:rgb(142, 199, 248)"></span>
                  <span class="icon-bar" style="background-color:rgb(142, 199, 248)"></span>                        
                </button>
-               <div style="padding-top:0px">
+               <div style="padding-top:0px;padding-bottom:60px">
                 <a class="navbar-brand" href="https://internshala.com/" target="_blank">
-                   <img width="150px" height="25px" src="{% static 'main/internshala_logo.svg' %}" alt="">
+                   <img width="200px" height="35px" src="{% static 'main/internshala_logo.svg' %}" alt="">
                </a> 
                </div>
              </div>
@@ -50,7 +54,13 @@ overflow-x: hidden; ">
                <ul class="nav navbar-nav navbar-right">
                     <li><a href="/">Home</a></li>
                 {% if user.is_authenticated %}            <!--When the user is logged in-->
-                    <li><a href="/account">{{user.username|title}}</a></li>
+
+                   {% if user.is_student %}
+                      <li><a href="/student_profile">{{user.username|title}}</a></li>
+                   {% if user.is_employer %} 
+                      <li><a href="/employer_profile">{{user.username|title}}</a></li>
+                   {% endif %}   
+               {% endif %}
                     <li><a href="/logout">Logout</a></li>
                </ul>     
                {% else %}             <!--When the user is not logged in-->
@@ -76,21 +86,28 @@ overflow-x: hidden; ">
            </div>
          </div> 
 </nav>
+                                         
 
+                                            <!--Guide for Employer-->
        <div class="container ">
           <h3 id="signup-head"> Hire Interns In 3 Steps </h3>
           <hr>
           <div class="row text-center">
+
             <div class="col-sm-4 ">
               <!-- <div class="signup-text-center"> -->
+                     
+                                               <!--SignUp Design-->
                     <img src="{% static 'main/emp-profile/Sign_up_icon.svg' %}" width="50%" height="50%" > 
                     <h4> SIGN UP </h4>
                     <h5 style="font-size: 15px;color:darkgray">Get started by creating your account</h5>
-                <!-- </div> -->
             </div>
+
             <div class="col-sm-4 ">
                 <!-- <div class="signup-text-center"> -->
                   <!-- style="margin-left:25%" -->
+
+                                          <!--Post Internship Design-->
                     <img src="{% static 'main/emp-profile/Post-icon.svg' %}" width="45%" height="45%"  > 
                     <div class="icon-text" style="padding-top: 12px">
                     <h4> POST </h4>
@@ -98,10 +115,11 @@ overflow-x: hidden; ">
                     </div>
                 <!-- </div> -->
             </div>
+
             <div class="col-sm-4 ">
                 <!-- <div class="signup-text-center"> -->
                     <!-- style="margin-left:50%" -->
-                    
+                                              <!--Hire Intern Design-->
                     <img src="{% static 'main/emp-profile/Hire-icon.svg' %}" width="50%" height="50%" style="padding-bottom: 5px" > 
                     <div class="icon-text" >
                      <h4> HIRE THE BEST </h4>
@@ -112,65 +130,80 @@ overflow-x: hidden; ">
 
           </div>     
           <!-- div close row-1  -->
+          
+                                              <!--The Design and Form Section-->
           <div class="row">
+
             <div class="col-md-6">
                     <h4> Your Search Completes here for Best Interns </h4>
                     <hr>
                     <!-- <h6>More than 50 brands trust Internshala for hiring interns.</h6>
                     <h6>Find interns across 10+ profiles round the year.And it's free!</h6> -->
+                                    
+                                              <!--Main Design of Employer Profile-->
                <img src="{% static 'main/emp-profile/emp-sign.svg' %}" class="img-responsive" style="float:left; margin-bottom:60px;" width="65%" height="65%" > 
                 
             </div>   
+
+
+                                            <!--Form Division Starts from here-->
            <div class="col-md-6 Sign Up" style="padding-left: 10%;">
               <h4 style="padding-left: 10px;"> Start hiring now! </h4>
-
+              <hr>
 
               <!--Backend wala form-->  
-              <div class="container">
-                  <form method="POST" class="form-horizontal" role="form">
+              
+                  <form method="POST" role="form" enctype="multipart/form-data" class="form-horizontal">
                       {% csrf_token %}
 
 
                       <div class="form-group col-lg-8">
-                      <p><label for="id_first_name">First name:</label> 
-                      <input type="text" name="first_name" maxlength="30" id="id_first_name"></p>
+                      <label for="id_first_name">First name:</label> 
+                      <input class="form-control" type="text" name="first_name" maxlength="30" id="id_first_name">
                       </div>
 
                       <div class="form-group col-lg-8">
-                      <p><label for="id_last_name">Last name:</label> 
-                      <input type="text" name="last_name" maxlength="150" id="id_last_name"></p>
+                      <label for="id_last_name">Last name:</label> 
+                      <input class="form-control" type="text" name="last_name" maxlength="150" id="id_last_name">
                       </div>
 
                       <div class="form-group col-lg-8">
-                      <p><label for="id_username">Username:</label>
-                      <input type="text" name="username" maxlength="150" autofocus="" required="" id="id_username"> <span class="helptext"></span></p>
-                      </div>
-
-
-                      <div class="form-group col-lg-8">
-                      <p><label for="id_is_employer">Is employer:</label> 
-                      <input type="checkbox" name="is_employer" required="" id="id_is_employer"></p>
-                      </div>
-
-                      <div class="form-group col-lg-8">
-                      <p><label for="id_email">Email:</label> 
-                      <input type="email" name="email" required="" id="id_email"></p>
+                      <label for="id_username">Username:</label>
+                      <input class="form-control" type="text" name="username" maxlength="150" autofocus="" required="" id="id_username">
                       </div>
 
 
                       <div class="form-group col-lg-8">
-                      <p><label for="id_password1">Password:</label> 
-                      <input type="password" name="password1" required="" id="id_password1"> <span class="helptext"></span></p>
+                      <label for="id_is_employer">Is employer:</label> 
+                      <div class="radio">
+                          <label><input type="radio"  name="is_employer" id="id_is_employer">Agree</label>
+                      </div>
+                      <!-- <input class="form-control" type="checkbox" name="is_employer" required="" id="id_is_employer"> -->
                       </div>
 
                       <div class="form-group col-lg-8">
-                      <p><label for="id_password2">Password confirmation:</label> 
-                      <input type="password" name="password2" required="" id="id_password2"> <span class="helptext"></span></p>
+                      <label for="id_email">Email:</label> 
+                      <input class="form-control" type="email" name="email" required="" id="id_email">
+                      </div>
+
+                      <div class="form-group col-lg-8">
+                      <label for="id_image">Image:</label> 
+                      <input class="form-control" type="file" name="image" accept="image/*" required="" id="id_image">
+                      </div>
+
+                      <div class="form-group col-lg-8">
+                      <label for="id_password1">Password:</label> 
+                      <input class="form-control" type="password" name="password1" required="" id="id_password1">
+                      </div>
+
+                      <div class="form-group col-lg-8">
+                      <label for="id_password2">Password confirmation:</label> 
+                      <input class="form-control" type="password" name="password2" required="" id="id_password2">
                       </div>
 
 
                       <div class="form-group col-lg-8">
-                      <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Sign Up</button>
+                      <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Sign Up</button>
                       </div>
                   </form>
                       

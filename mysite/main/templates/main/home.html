@@ -1,8 +1,15 @@
+                                            <!--Template for the homepage of website-->
+
+
 {% load static %}
 
-<!--Basically it displays the jobs in Card form-->
+
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en"style="width: 100%;
+height: 100%;
+margin: 0px;
+padding: 0px;
+overflow-x: hidden; ">
 <head>
            
         <title> Main Page </title>
@@ -17,7 +24,15 @@
     
 </head>
 
-<body>
+<body style="width: 100%;
+height: 100%;
+margin: 0px;
+padding: 0px;
+overflow-x: hidden; ">
+
+                                               
+
+                                             <!--Navigation Bar-->
         <nav class="navbar navbar navbar-light navbar-expand-lg static-top" style="background-color:#DCDCDC">
              
                 <div class="container-fluid"> 
@@ -27,7 +42,7 @@
                          <span class="icon-bar" style="background-color:rgb(142, 199, 248)"></span>
                          <span class="icon-bar" style="background-color:rgb(142, 199, 248)"></span>                        
                        </button>
-                       <div style="padding-top:0px;padding-bottom: 70px">
+                       <div style="padding-top:0px;padding-bottom:60px">
                         <a class="navbar-brand" href="https://internshala.com/" target="_blank">
                            <img width="200px" height="35px" src="{% static 'main/internshala_logo.svg' %}" alt="">
                        </a> 
@@ -37,13 +52,25 @@
      
                      <div class="collapse navbar-collapse" id="myNavbar">
                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="/">Home</a></li>
-                        {% if user.is_authenticated %}            <!--When the user is logged in-->
-                            <li><a href="/account">{{user.username|title}}</a></li>
-                            <li><a href="/logout">Logout</a></li>
-                       </ul>     
-                       {% else %}             <!--When the user is not logged in-->
 
+                         <li><a href="/">Home</a></li>                           <!--Home Button-->
+
+
+                         {% if user.is_authenticated %}                              <!--When the user is logged in-->
+
+                         {% if user.is_student %}                                    <!--If user is Student-->
+                         <li><a href="/student_profile">{{user.username|title}}-S</a></li>    <!--Username of Student-->
+
+                         {% else %}                                                   <!--If user is Employer-->
+                         <li><a href="/employer_profile">{{user.username|title}}-E</a></li>   <!--Username of Employer-->
+
+                         {% endif %}
+                         <li><a href="/logout">Logout</a></li>                            <!--Logout Option-->  
+
+                       </ul>     
+
+
+                       {% else %}                                            <!--When the user is not logged in-->
 
                        <!--Registration Buttons-->
                        <ul class="nav navbar-nav navbar-right">
@@ -51,36 +78,79 @@
                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up <span class="caret"></span>
                            </a>
                            <ul class="dropdown-menu">
+                               <!--Register as student -->
                                <li><a href="/register_as_student" class="dropdown-item"> Student </a></li>
-                               <li><a href="/register_as_employer" class="dropdown-item"> Employer </a></li>
+
+                               <!--Register as employer -->
+                               <li><a href="/register_as_employer" class="dropdown-item"> Employer </a></li>  
+
                            </ul>
                          </li>
 
                          <!--Login Button-->
                          <li><a href="/login"><span class="glyphicon glyphicon-log-in">&nbspLogin</span></a></li>
 
+                         <!-- <li><a class="popup-window" data-toggle="modal" data-target="#popupModal" href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <div class="modal" id="popupModal" tableindex="-1">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div clas="modal-header">
+                            <h4 class="modal-title">Sign In</h4>
+                          </div>
+                          
+                          <div class="modal-body">
+                            <form>
+                              <div class="form-group">
+                                <h5>Username</h5>
+                              <input type="email" name="inputEmail" placeholder="Email" class="form-control">
+                              <h5> Password </h5>
+                                <input type="password" name="inputPassword" placeholder="********" class="form-control">
+                              </div>
+                              <div class="form-group">
+                                <button class="btn btn-primary btn-group-justified"> Log In </button>
+                              </div>
+                            </form>
+                          </div>
+                              <div class="modal-footer">
+                                <span> Need an account? <a href="#"> Sign Up </a></span>
+                              </div>
+                              
+                            </form>
+                          </div>
+                        </div>
+                      </div> -->
                        </ul>
                        {% endif %}
                    </div>
                  </div> 
         </nav>
 
-        <object class="home-img" type="image/svg+xml" data="{% static 'main/main-page.svg' %}">
-           </object>
+
+                                 <!-- The Main Image of "Internshala" in the center-->
+        <object style="margin: 0;
+        align-content: center;
+        margin-top:-8%;
+        margin-bottom: -4%;
+        margin-left: -3%;
+        width:110%;
+        height: 110%;"class="home-img" type="image/svg+xml" data="{% static 'main/home-page.svg' %}">
+        </object>
             
+
+        
            <h1 id="centre-head"> Select the One Which Suits you Best </h1> 
                   
            <div class="row">
                <div class="column">
                  <h3 id="in-head"> INTERNSHIP IN TOP CITIES </h3>
                  <div class="card">
-                   <img src="{% static 'main/home-img/Delhi-Internships.svg' %}" width="50px" alt="" class="clip-circle" >
-                   <a href="/job_in_delhi"><h3> Delhi/NCR </h3></a>
-                   <img src="{% static 'main/home-img/Mumbai-Internships.svg' %}" width="50px" alt="" class="clip-circle">
+                    <a href="/jobs_in_Delhi"><img src="{% static 'main/home-img/Delhi-Internships.svg' %}" width="50px" alt="" class="clip-circle" ></a>
+                   <h3> Delhi/NCR </h3>
+                   <a href="/jobs_in_Mumbai"><img src="{% static 'main/home-img/Mumbai-Internships.svg' %}" width="50px" alt="" class="clip-circle"></a>
                    <h3> Mumbai </h3>
-                   <img src="{% static 'main/home-img/Chennai-Internships.svg' %}" width="50px" alt="" class="clip-circle">
+                   <a href="/jobs_in_Chennai"><img src="{% static 'main/home-img/Chennai-Internships.svg' %}" width="50px" alt="" class="clip-circle"></a>
                    <h3> Chennai </h3>
-                   <img src="{% static 'main/home-img/Bangalore-Internships.svg' %}" width="50px" alt="" class="clip-circle">
+                   <a href="/jobs_in_Bangalore"><img src="{% static 'main/home-img/Bangalore-Internships.svg' %}" width="50px" alt="" class="clip-circle"></a>
                    <h3> Bangalore </h3>
                  </div>
                </div>
@@ -88,14 +158,14 @@
                <div class="column">
                  <h3 id="in-head"> INTERNSHIP BY INTEREST </h3>
                  <div class="card">
-                     <img src="{% static 'main/home-img/it-internships.png' %}" width="50px" alt="" class="clip-circle">
-                     <h3> Developer </h3>
-                     <img src="{% static 'main/home-img/eng-internships.png' %}" width="50px" alt="" class="clip-circle">
-                     <h3> Engineering </h3>
-                     <img src="{% static 'main/home-img/design-internships.png' %}" width="50px" alt="" class="clip-circle">
-                     <h3> Designing </h3>
-                     <img src="{% static 'main/home-img/teaching.png' %}" width="50px" alt="" class="clip-circle">
-                     <h3> Teaching </h3>
+                    <a href="/web_developer_internship"><img src="{% static 'main/home-img/it-internships.png' %}" width="50px" alt="" class="clip-circle"></a>
+                     <h3> Web Development </h3>
+                    <a href="/video_editor_internship"><img src="{% static 'main/home-img/eng-internships.png' %}" width="50px" alt="" class="clip-circle"></a>
+                     <h3> Video Editing </h3>
+                    <a href="/photographer_internship"><img src="{% static 'main/home-img/design-internships.png' %}" width="50px" alt="" class="clip-circle"></a>
+                     <h3> Photography </h3>
+                    <a href="/android_developer_internship"><img src="{% static 'main/home-img/teaching.png' %}" width="50px" alt="" class="clip-circle"></a>
+                     <h3> Android Development </h3>
                  </div>
                </div>  
            </div>            
