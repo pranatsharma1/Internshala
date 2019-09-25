@@ -2,6 +2,10 @@
 #and returns a web response. This response can be the HTML contents of a Web page, or a redirect,
 #or a 404 error, or an XML document, or an image, etc. Example: You use view to create web pages, 
 #note that you need to associate a view to a URL to see it as a web page.
+from django.shortcuts import render
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
 
 from django.views import View
 from django.shortcuts import render, redirect
@@ -13,16 +17,10 @@ from django.contrib.auth.models import User
 from .forms import Job_Post,Apply_Job,EditProfileForm
 from .forms import NewUserForm1
 from .forms import NewUserForm2
-
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.forms import modelformset_factory
 from django.urls import reverse
-
-
-
-
 from django.http import HttpResponse
 from .forms import SignupForm
 from django.contrib.sites.shortcuts import get_current_site
@@ -106,8 +104,6 @@ class homepage(View):
                     template_name="main/home.html",
                     )
 
-
-
 #view for student's profile
 class student_profile(View):
     def get(self,request):                                                
@@ -115,8 +111,6 @@ class student_profile(View):
                       template_name="main/StudentProfile.html",
                       context={"intern":Job.objects.all()}, 
                     )   
-
-
 #view for employer's profile
 class employer_profile(View):
     def get(self,request):                                              
@@ -147,16 +141,17 @@ def post_a_job(request):
 
 
 # view for applying for job
+@login_required
 def job_list(request):
     job = Job.objects.all()
     return render(request,"main/jobs_list.html",{'jobs':job}) 
-
+@login_required
 def job_detail(request,job_id):
     job_id = Job.objects.get(pk=job_id)
-    if request.method== "POST":
+    if request.method == 'POST':
         form = Apply_Job(request.POST,request.FILES)
         if form.is_valid():
-            intern_profile= form.save(commit=False) 
+            intern_profile=form.save(commit=False) 
             intern_profile.username=request.user
             #intern_profile.job_id=job_id
             #intern_profile.company_name=job_id.user
@@ -246,9 +241,6 @@ class interns_applied(View):
                       template_name="main/jobs_posted.html",
                       context={"intern":i},
                     )
-
-
-
 #view for logging the user out of the current session
 class logout_request(View):
     def get(self,request):
@@ -364,6 +356,10 @@ def view_profile(request, pk=None):
     return render(request, 'main/home.html', args)
 
 
+#def search(request):
+    #job_list = Job.objects.all()
+    #job_filter = JobFilter(request.GET, queryset=job_list)
+    #return render(request, 'main/job_list.html', {'filter': job_filter})
 
 
 

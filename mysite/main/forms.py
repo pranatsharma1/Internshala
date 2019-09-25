@@ -33,7 +33,7 @@ class SignupForm(UserCreationForm):
 class Apply_Job(ModelForm):
     class Meta:
           model=Intern
-          fields=("intern_name","company_name","job_id","hire","available","document")
+          fields=('phone_no',"intern_name","company_name",'job_title',"job_id","hire","available","document")
 
 class Job_Post(ModelForm):
     class Meta:

@@ -46,10 +46,11 @@ class Intern(models.Model):
     hire =models.CharField(max_length=200,default="")  
     available =models.CharField(max_length=200,default="")   
     username=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)      
-    #job_title=models.ForeignKey(Job,default=1,related_name="Title",on_delete=models.SET_DEFAULT,null=True)    
+    job_title=models.CharField(max_length=200,default="")    
     job_id=models.CharField(max_length=100,default="")
     company_name=models.CharField(max_length=100,default="")
     document = models.FileField(upload_to='documents/')
+    phone_no=models.CharField(max_length=10)
 
     is_accept=models.BooleanField(default=False)
     is_reject=models.BooleanField(default=False)  

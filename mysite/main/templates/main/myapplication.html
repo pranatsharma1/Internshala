@@ -1,17 +1,18 @@
 {% extends 'main/header.html' %}
 
 {% block content %}
-<div class="row">
 <h1 style="text-align: center">My Applications</h1>
 {% for j in intern %}
+<div class="row">
+
     <div class="card text-white bg-warning" style="background-color:gainsboro;">
             <div class="card-body">
-            <h4>Job Title: {{j.job_title}}</h4>
-            <h4>Job Id: {{j.job_id}}</h4>
-            <h4>Comapny Name: {{j.company_name}}</h4>
-            <!-- <h4>Intern Id:{{j.username}}</h4> -->
-            <!-- <h4>Applied for: {{j.job_title}}</h4> -->
-            {% if i.is_accept %}
+                <h4>job_title: {{j.job_title}}</h4>
+                <h4>Comapny Name: {{j.company_name}}</h4>
+                <h4>Status: In touch</h4>
+
+
+           {% if i.is_accept %}
 
             <h4>Status: Accepted</h4>
             {% endif %}

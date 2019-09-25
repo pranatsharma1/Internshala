@@ -12,16 +12,13 @@
                 
 
                 <h1>{{j.intern_name}}</h1>
-                <h4>Username: {{j.username}}</h4>
-                <!-- <h4>Intern Id: {{j.id}}</h4> -->
-                <h4>Applied for: {{j.job_title}}</h4>
-                <!-- <h4>Resume: {{j.resume}}</h4> -->
+                <h4>Name: {{j.username.first_name}} {{j.username.last_name}}</h4>
+                <h4>college_name:{{ j.username.college_name}}</h4>
+                <h4>basic_skills:{{ j.username.basic_skills}}</h4>
+                <h4>City:{{ j.username.city}}</h4>
                 <h4 style="font-size: 100%">College: {{j.intern_college}}</h4>
                 <br>
-                <h4>Skills: {{j.intern_skills}}</h4>
                 <br>
-                <h4>City: {{j.intern_city}}</h4>
-                <h4>Year of Study: {{j.intern_study_year}}</h4> 
                 <a href="/jobs_posted1">Accept</a>
                 <br>
                 <a href="/jobs_posted2">Reject</a>

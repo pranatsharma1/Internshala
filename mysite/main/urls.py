@@ -1,4 +1,5 @@
-
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from . import views
 from django.conf.urls import url
@@ -47,6 +48,7 @@ urlpatterns = [
    path("job_detail/<int:job_id>/",views.job_detail,name="job_detail"),
    path("job_list/",views.job_list,name="job_list"),
 
+   #path(r'^search/$', views.search, name='search'),
 
 
    url(r'^$', views.homepage, name='homepage'),
@@ -56,19 +58,5 @@ urlpatterns = [
         
 
 ]
-
-
-
-
-                                                #Mahima's Code
-
-# <<<<<<< HEAD
-   
-#    path("login_as_student/", views.login_as_student, name="login_as_student"),
-  
-# =======
-#    path("login/", views.login_request, name="login"), 
-#    path("account/",views.account,name="account"),
-#    path("add_profile/",views.add_profile,name="add_profile"),
-
-# >>>>>>> 0c068883fa2efc525150809d3d31552b94896f8d
+if settings.DEBUG:
+   urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

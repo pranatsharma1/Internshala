@@ -1,6 +1,8 @@
 <!--Template to show the Internships posted by the Employer-->
 {% extends 'main/header.html' %}
 {% block content %}
+{% if user.is_student %}
+
 <div class="row">             
     <div class="card text-white bg-warning" >
         <div class="card-header">
@@ -16,19 +18,23 @@
         <h4>Details: {{j.job_content|safe}}</h4>
         <br>
     <div class="container">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
+          
             <form method="POST">
                 <p><label style="display: none;" for="id_intern_name">Intern name:</label> <input style="display: none;" type="text" name="intern_name" maxlength="200" required="" id="id_intern_name" value="{{user.username}}"></p>
                 <p><label style="display: none;" for="id_company_name">Company name:</label> <input style="display: none;" type="text" name="company_name" maxlength="100" required="" id="id_company_name" value="{{j.user}}"></p>
+                <p><label style="display: none;" for="id_job_title">job_title:</label> <input style="display: none;" type="text" name="job_title" maxlength="100" required="" id="id_job_title" value="{{j.job_title}}"></p>
                 <p><label style="display: none;" for="id_job_id">Job id:</label> <input style="display: none;" type="text" name="job_id" maxlength="100" required="" id="id_job_id" value="{{j.id}}"></p>
-                <p><label for="id_hire"> Why should you be hired for this internship?</label> <input type="text" name="hire" maxlength="200" required="" id="id_hire"></p>
+                <p><label for="id_phone_no">Phone no:</label> <input type="text" name="phone_no" maxlength="10" required="" id="id_phone_no"></p><p><label for="id_hire"> Why should you be hired for this internship?</label> <input type="text" name="hire" maxlength="200" required="" id="id_hire"></p>
                 <p><label for="id_available">Are you available for this month?</label> <input type="text" name="available" maxlength="200" required="" id="id_available"></p>
-                <input type="submit"  value="apply"></form>
+                <p><label for="id_document">Resume Upload:</label> <input type="file"  name="document" required="" id="id_document"></p>
 
-                   
+                <input type="submit"  value="apply"></form>
+           
             </div>
     </div>
 </div>
+{% endif %}
 
 {% endblock %}
