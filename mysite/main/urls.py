@@ -31,8 +31,8 @@ urlpatterns = [
    path("video_editor_internship/",video_editor_internship.as_view(),name="video_editor_internship"),
    path("photographer_internship/",photographer_internship.as_view(),name="photographer_internship"),
    
-   
-   path("apply/",apply_for_job.as_view(),name="apply_for_job"),
+   path("job_detail/<int:job_id>/",views.job_detail,name="job_detail"),
+   path("apply/",views.apply_for_job,name="apply_for_job"),
 
    path("interns_applied/",interns_applied.as_view(),name="interns_applied"),
 
@@ -53,19 +53,3 @@ urlpatterns = [
         
 
 ]
-
-
-
-
-                                                #Mahima's Code
-
-# <<<<<<< HEAD
-   
-#    path("login_as_student/", views.login_as_student, name="login_as_student"),
-  
-# =======
-#    path("login/", views.login_request, name="login"), 
-#    path("account/",views.account,name="account"),
-#    path("add_profile/",views.add_profile,name="add_profile"),
-
-# >>>>>>> 0c068883fa2efc525150809d3d31552b94896f8d
