@@ -1,0 +1,33 @@
+{% extends 'main/header.html' %}
+<h1>student profile</h1>
+{% block content %}
+<!-- <a href="/interns_applied" >Student list for Applied internship!</a> -->
+
+  <h3>Posted Internship!</h3>
+  <!-- <p>
+    <a href="/internship/post_a_job">New Internship!</a>
+  </p> -->
+
+  {% for product in internship %}
+             
+<div class="card text-white bg-warning" >
+      <div class="card-header">
+          <h1>{{product.username}}</h1>
+      
+      <h4>{{product.job_title}}</h4>
+      <h4 style="font-size: 80%">{{product.job_published}}</h4>
+      <br>
+      <h4>Location: {{product.location}}</h4>
+      <br>
+      <h4>Duration: {{product.job_duration}}</h4>
+      <h4>Stipend: {{product.job_stipend|safe}}</h4> 
+      <br>
+      <h4>Details: {{product.job_content|safe}}</h4>
+      <br>
+      <!-- <h3><a href="/apply" style="color: black">Apply</a></h3> -->
+  </div>
+</div>
+{% endfor %}
+<!-- <a href="/internship/edit_all">Edit all internship</a> -->
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <title> Login </title>
+        <link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="jquery.fittext.js"></script>
+    
+      </head>
+    <body>
+            <nav class="navbar navbar-light" style="background-color:#DCDCDC;">
+                    <a class="navbar-brand" href="/"> 
+                     <img width="200px" height="30px" src="{% static 'main/internshala_logo.svg' %}" alt="" >
+                     </a>
+            </nav>
+
+        <div class="row">
+            
+             <div class="col-md-7">   
+                <img src="{% static 'main/Login.svg' %}" width="60%" height="60%" alt="" style="margin-left: 5%" > 
+             </div>
+             
+             <div class="col-md-5" style="padding-top: 1%">
+                <h3 style="font-family:montserrat"> Get Started with <img width="20%" height="20%" style="padding-bottom:3%" src="{% static 'main/internshala_logo.svg' %}"></h3>
+                <form method="POST"class="form-horizontal" role="form" style="padding-top:5%">
+                        {% csrf_token %}
+                        <div class="form-group col-lg-8">
+                        <label for="id_username">Username:</label> 
+                        <input class="form-control" type="text" name="username" autofocus="" required="" id="id_username">
+                        </div>
+
+                        <div class="form-group col-lg-8">
+                        <label for="id_password">Password:</label> 
+                        <input class="form-control" type="password" name="password" required="" id="id_password">
+                        </div>
+
+                        <div class="form-group col-lg-8">
+                        <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Login</button>
+                        </div>
+
+                        </form>
+                
+                <!-- <form class="form-horizontal" role="form" style="padding-top:5%">
+                    <div class="form-group col-lg-8">
+                        <label class="">Official Email ID:</label>
+                        <input class="form-control" type="text" placeholder="name@email.com">
+                    </div>
+                    <div class="form-group col-lg-8">
+                        <label>Password:</label>
+                        <input class="form-control" type="text" placeholder="minimum 6 character">    
+                    </div>
+                    <div class="form-group col-lg-8">
+                        <input type="button" class="btn btn-primary" style="margin-left:40%; margin-top:5%"  value="Login">
+                    </div>
+                </form> -->
+            </div>
+        </div>
+        
+</body>
+</html>

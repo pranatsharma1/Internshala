@@ -1,0 +1,25 @@
+{% extends 'main/header.html' %}
+
+{% block content %}
+<div class="container">
+    <!-- {{form.as_p}}
+     -->
+        <form method="post">
+                {% csrf_token %}
+            
+            <p><label for="id_email">Email address:</label> 
+            <input type="email" name="email" value="" maxlength="254" id="id_email"></p>
+            <p><label for="id_first_name">First name:</label> 
+            <input type="text" name="first_name" value="" maxlength="30" id="id_first_name"></p>
+            <p><label for="id_last_name">Last name:</label> 
+            <input type="text" name="last_name" value="" maxlength="150" id="id_last_name"></p>
+            <!-- <p><label for="id_image">Image:</label> 
+                Currently: <a href="/media/pics/IMG_20180822_153708.jpg">pics/IMG_20180822_153708.jpg</a><br>
+                Change:
+            <input type="file" name="image" accept="image/*" id="id_image"></p> -->
+        <button style="background-color:#0356fc; color:white" type="submit">Save Changes</button>
+            </form>
+    <br>
+</div>
+
+{% endblock %}

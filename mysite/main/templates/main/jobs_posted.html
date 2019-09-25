@@ -1,0 +1,77 @@
+{% extends 'main/header.html' %}
+
+
+{% block content %}
+<div class="row">
+<h1 style="text-align: center">Interns Applied for this company</h1>
+    {% for j in intern %}
+        <div class="card text-white bg-warning" >
+            <div class="card-body">
+                <!-- <h4>Job Id: {{j.job_id}}</h4> -->
+                <!-- <h4>Company Name: {{j.company_name}}</h4> -->
+                
+
+                <h1>{{j.intern_name}}</h1>
+                <h4>Username: {{j.username}}</h4>
+                <!-- <h4>Intern Id: {{j.id}}</h4> -->
+                <h4>Applied for: {{j.job_title}}</h4>
+                <!-- <h4>Resume: {{j.resume}}</h4> -->
+                <h4 style="font-size: 100%">College: {{j.intern_college}}</h4>
+                <br>
+                <h4>Skills: {{j.intern_skills}}</h4>
+                <br>
+                <h4>City: {{j.intern_city}}</h4>
+                <h4>Year of Study: {{j.intern_study_year}}</h4> 
+                <a href="/jobs_posted1">Accept</a>
+                <br>
+                <a href="/jobs_posted2">Reject</a>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+
+
+
+{% endblock %}
+
+<!-- <a href="/post">Post a Job</a> -->
+<!-- <div class="row">
+    {% for j in jobs %}
+        <div class="col s12 m6" >
+            <div class="card white darken-1 hoverable">
+            <div class="card-content black-text" style="background-color: #c2c0bc">
+                <span class="card-title">{{j.username}}</span>
+                <p style="font-size: 100%">{{j.job_title}}</p>
+                <p style="font-size: 80%">{{j.job_published}}</p>
+                <br><br>
+                <p>Location: {{j.location}}</p>
+                <br>
+                <p>Duration: {{j.job_duration}}</p>
+                <p>Stipend: {{j.job_stipend|safe}}</p> 
+                <br>
+                <p>Details: {{j.job_content|safe}}</p>
+                <br><br>
+                <h3><a href="/apply" style="color: black">Apply</a></h3>
+            </div>
+            </div>
+        </div>
+        {% endfor %} -->
+
+
+
+                                              <!-- Mahima's Code-->
+        <!-- {% for k in postjob %}
+        <div class="col s12 m6">
+            <div class="card white darken-1 hoverable">
+            <div class="card-content black-text">
+                <span class="card-title">{{k.company_name}}</span>
+                <p style="font-size: 70%">{{k.about}}</p> 
+                <br><br>
+                <p>{k.location}}</p>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+ -->

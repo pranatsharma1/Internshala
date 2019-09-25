@@ -9,31 +9,56 @@ from datetime import datetime
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-class User(AbstractUser):                                               
+
+#user model for Employer and Student
+class User(AbstractUser):      
     is_employer=models.BooleanField(default=False)                      #a boolean field to check whether the registered user is employer?
     is_student=models.BooleanField(default=False)                       #a boolean field to check whether the registered user is student?
+    image=models.ImageField(upload_to='pics',default="")
+
+    # extra fields for student
+    college_name=models.CharField(max_length=200,default="")
+    basic_skills=models.TextField(default="")
+    city=models.CharField(max_length=200,default="")
+    year_of_study=models.CharField(max_length=200,default="")
+                            
+
 
 # model for Job
-
 class Job(models.Model):      
-    job_title= models.CharField(max_length=200)                                         #field1: Job Title
-    job_content= models.TextField()                                                     #field2: Job Content
-    job_published= models.DateTimeField("date published",default= datetime.now())       #Date and time of Job Published
-    job_stipend=models.CharField(max_length=200)
+    job_title= models.CharField(max_length=200)                     #field: Title of Job. Ex: Front End Developer etc.
+    category=models.CharField(max_length=200,default="")            #Category of Job. Ex: Web Development,Android Development
+    location=models.CharField(max_length=200,default="")            #location of Job. Ex: Delhi,Mumbai,Bangalore,etc.
+    job_duration=models.CharField(max_length=200)                                        #field1: Job Title
+    job_content= models.TextField()                                                      #field2: Job Content
+    job_published= models.DateTimeField("date published",default= datetime.now())        #Date and time of Job Published
+    job_stipend=models.CharField(max_length=200)                                         #Stipend of Job
+    user=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)    #Username of Company who has posted the job
+    
 
                         #https://www.quora.com/What-does-def-str__-self-method-does-in-Django
 
     def __str__(self):              #__str__(self): is used to define how you want to provide string output of your class.
         return self.job_title       #display the job title as heading for the objects of Job model
 
+class Intern(models.Model):
+    intern_name=models.CharField(max_length=200,default="")                     # Name of Intern
+    intern_college=models.CharField(max_length=200)                             # College name. Ex: AKGEC
+    intern_skills=models.TextField()                                            # Skills of Intern
+    intern_city=models.CharField(max_length=200)                                # City of Intern
+    intern_study_year=models.CharField(max_length=200)                         
+    username=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)      
+    job_title=models.ForeignKey(Job,default=1,related_name="Title",on_delete=models.SET_DEFAULT,null=True)    
+    job_id=models.CharField(max_length=100,default="")
+    company_name=models.CharField(max_length=100,default="")
+    is_accept=models.BooleanField(default=False)
+    is_reject=models.BooleanField(default=False)  
+    resume=models.FileField(upload_to='files',default="")
+
+    def __str__(self):
+        return self.intern_name                                        
                                              
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
+            
                                              
                                              
                                              

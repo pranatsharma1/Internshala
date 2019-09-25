@@ -1,0 +1,20 @@
+{% extends 'main/header.html' %}
+
+{% block content %}
+{% if user.is_employer %}
+<h3><a href="/post" style="color: black">Post a Job</a></h3>
+<br>
+<h3><a href="/add_location" style="color: black">Add a location</a></h3>
+<br>
+<h3><a href="/add_category" style="color: black">Add a Category</a></h3>
+<br>
+<h3><a href="/interns_applied" style="color: black">Interns Applied</a></h3>
+
+{% elif user.is_student %}
+<h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>
+<h2 style="text-align:center">Click on <a style="color:crimson" href="/student_profile">this</a> to go to back to student's profile</h2>
+
+{% endif %}
+{% endblock %}
+<!-- <h3><a href="/jobs_list" style="color: black">Apply for Jobs</a></h3> -->
+

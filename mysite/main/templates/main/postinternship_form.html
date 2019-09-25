@@ -1,0 +1,69 @@
+{% extends 'main/header.html' %}
+{% block content %}
+  <h1>New Internship!</h1>
+  <form method="POST" class="form-horizontal" role="form">
+      <input type="hidden" name="csrfmiddlewaretoken" value="MIWAMpAcT1Rfgupjt0Ert3NUpdTtNExGRZputdfcYjyQd7SC2twmJ9Vk4JOTxKwp">
+      
+      <div class="form-group">
+        <label for="id_category" class="col-lg-3 control-label">Category:</label> 
+        <div class="col-lg-8">
+        <input type="text" name="category" maxlength="200" required="" id="id_category">
+      </div>
+      </div>
+
+      <div class="form-group">
+       <label for="id_job_title" class="col-lg-3 control-label">Job title:</label> 
+      <div class="col-lg-8">
+        <input type="text" name="job_title" maxlength="200" required="" id="id_job_title">
+      </div>
+       </div>
+
+     <div class="form-group">
+     <label for="id_id_job" class="col-lg-3 control-label">Id job:</label> 
+     <div class="col-lg-8">
+     <input type="text" name="id_job" maxlength="200" required="" id="id_id_job">
+      </div>
+    </div>
+
+     <div class="form-group">
+     <label for="id_location" class="col-lg-3 control-label">Location:</label> 
+     <div class="col-lg-8">
+     <input type="text" name="location" maxlength="200" required="" id="id_location">
+    </div>
+  </div>
+
+
+     <div class="form-group">
+     <label for="id_job_duration" class="col-lg-3 control-label">Job duration:</label> 
+     <div class="col-lg-8"><input type="text" name="job_duration" maxlength="200" required="" id="id_job_duration">
+    </div></div>
+
+     <div class="form-group">
+     <label for="id_job_content" class="col-lg-3 control-label">Job content:</label> 
+     <div class="col-lg-8"><textarea name="job_content" cols="40" rows="10" required="" id="id_job_content"></textarea>
+    </div></div>
+
+     <div class="form-group">
+     <label for="id_job_published" class="col-lg-3 control-label">Date published:</label> 
+     <div class="col-lg-8"><input type="text" name="job_published" value="2019-09-22 21:31:25" required="" id="id_job_published">
+    </div></div>
+
+     <div class="form-group">
+     <label for="id_job_stipend" class="col-lg-3 control-label">Job stipend:</label> 
+     <div class="col-lg-8"><input type="text" name="job_stipend" maxlength="200" required="" id="id_job_stipend">
+    </div></div>
+
+     <div class="form-group">
+     <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Save</button>
+
+     <!-- <input type="submit" value="Submit"> -->
+     <a href="/internship/list">cancel</a>
+    </div>
+    </form>
+<!-- <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Sign Up</button>
+</form> -->
+
+If you already have an account <a href="/login" target="blank"><strong>login</strong></a> instead.
+</div>
+
+{% endblock %}
