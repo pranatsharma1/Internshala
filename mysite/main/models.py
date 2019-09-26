@@ -51,7 +51,6 @@ class Intern(models.Model):
     company_name=models.CharField(max_length=100,default="")
     document = models.FileField(upload_to='documents/')
     phone_no=models.CharField(max_length=10)
-
     is_accept=models.BooleanField(default=False)
     is_reject=models.BooleanField(default=False)  
 
