@@ -37,13 +37,16 @@ urlpatterns = [
    path("interns_applied/",interns_applied.as_view(),name="interns_applied"),
 
 
-   path("profile/edit/",views.edit_profile,name="edit_profile"),
+   path("profile/edit_student/",views.edit_student_profile,name="edit_student_profile"),
+   path("profile/edit_employer/",views.edit_employer_profile,name="edit_employer_profile"),
    path("change-password/",views.change_password,name="change_password"),
 
    path("post_internship/", views.post_a_job, name='post_a_job'),
    path('internship/edit_all/', views.edit_all_internship, name='edit_all_internship'),
    path('internship/list/', internship_list.as_view(), name='internship_list'),
    path('myapplication/', myapplication.as_view(), name='myapplication'),
+   path("job_detail/<int:job_id>/",views.job_detail,name="job_detail"),
+   path("intern_detail/<int:intern_id>/",views.intern_detail,name="intern_detail"),
 
 
    url(r'^$', views.homepage, name='homepage'),

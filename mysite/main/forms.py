@@ -11,29 +11,21 @@ from django.db import models
 User=get_user_model()
 
 
-
-
-# class Category(ModelForm):
-#     class Meta:
-#         model=Category
-#         fields=("category",)
-
-# class Location(ModelForm):
-#     class Meta:
-#         model=Location
-#         fields=("location",)
-
-
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=200, help_text='Required')
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
 
+class AcceptReject(ModelForm):
+    class Meta:
+        model=Intern
+        fields=("is_accept","is_reject")
+
 class Apply_Job(ModelForm):
     class Meta:
           model=Intern
-          fields=("intern_name","job_title","company_name","intern_college","intern_skills","intern_city","intern_study_year")
+          fields=('phone_no',"intern_name","company_name",'job_title',"job_id","hire","available")
 
 class Job_Post(ModelForm):
     class Meta:
@@ -53,7 +45,7 @@ class NewUserForm1(UserCreationForm):
     class Meta:
           model=User
         #   fields='__all__'
-          fields=("first_name","last_name","username","is_employer","email","image","password1","password2")
+          fields=("first_name","last_name","username","is_employer","email","city","image","password1","password2")
 
     def save(self,commit=True):
         user=super(NewUserForm1,self).save(commit=False)
@@ -80,7 +72,7 @@ class NewUserForm2(UserCreationForm):
             user.save()
         return user   
 
-class EditProfileForm(UserChangeForm):
+class EditStudentProfileForm(UserChangeForm):
 
     class Meta:
         model = User
@@ -88,6 +80,19 @@ class EditProfileForm(UserChangeForm):
             'email',
             'first_name',
             'last_name',
-            'image',
-            'password',
+            'college_name',
+            'basic_skills',
+            'city',
+            'year_of_study',
         )
+class EditEmployerProfileForm(UserChangeForm):
+
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'first_name',
+            'last_name',
+            'city',
+        )        
+

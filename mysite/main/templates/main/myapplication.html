@@ -1,6 +1,7 @@
 {% extends 'main/header.html' %}
 
 {% block content %}
+{% if user.is_student %}
 <div class="row">
 <h1 style="text-align: center">My Applications</h1>
 {% for j in intern %}
@@ -11,12 +12,21 @@
             <h4>Comapny Name: {{j.company_name}}</h4>
             <!-- <h4>Intern Id:{{j.username}}</h4> -->
             <!-- <h4>Applied for: {{j.job_title}}</h4> -->
-            {% if i.is_accept %}
-
+            {% if intern.is_accept %}
             <h4>Status: Accepted</h4>
+            {% elif intern.is_reject %}
+            <h4>Status: Rejected</h4>
+            {% else %}
+            <h4>Status: Pending</h4>
             {% endif %}
         </div>
     </div>
 </div>
 {% endfor %}
+{% elif user.is_employer %}
+<h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>
+<h2 style="text-align:center">Click on <a style="color:crimson" href="/employer_profile">this</a> to go to back to employer's profile</h2>
+
+{% endif %}
+
 {% endblock %}

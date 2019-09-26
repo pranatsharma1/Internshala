@@ -43,17 +43,20 @@ class Job(models.Model):
 
 class Intern(models.Model):
     intern_name=models.CharField(max_length=200,default="")                     # Name of Intern
-    intern_college=models.CharField(max_length=200)                             # College name. Ex: AKGEC
-    intern_skills=models.TextField()                                            # Skills of Intern
-    intern_city=models.CharField(max_length=200)                                # City of Intern
-    intern_study_year=models.CharField(max_length=200)                         
+    # intern_college=models.CharField(max_length=200)                             # College name. Ex: AKGEC
+    # intern_skills=models.TextField()                                            # Skills of Intern
+    # intern_city=models.CharField(max_length=200)                                # City of Intern
+    # intern_study_year=models.CharField(max_length=200)                         
     username=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)      
     job_title=models.ForeignKey(Job,default=1,related_name="Title",on_delete=models.SET_DEFAULT,null=True)    
     job_id=models.CharField(max_length=100,default="")
     company_name=models.CharField(max_length=100,default="")
     is_accept=models.BooleanField(default=False)
     is_reject=models.BooleanField(default=False)  
-    resume=models.FileField(upload_to='files',default="")
+    document = models.FileField(upload_to='documents/',default="")
+    hire =models.CharField(max_length=200,default="")  
+    available =models.CharField(max_length=200,default="")
+    phone_no=models.CharField(max_length=10,default="")
 
     def __str__(self):
         return self.intern_name                                        
