@@ -10,7 +10,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm ,Pass
 from django.contrib.auth import logout, authenticate, login,get_user_model
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import Job_Post,Apply_Job,EditProfileForm
+from .forms import Job_Post,Apply_Job,EditStudentProfileForm,EditEmployerProfileForm
 from .forms import NewUserForm1
 from .forms import NewUserForm2
 
@@ -54,27 +54,27 @@ class register_as_employer(View):
             messages.success(request, f"New account created: {username}")    #displaying the message that new account has been created
             
             # now after signing up we automatically logs in the user 
-            login(request, user)                                             #login(HttpResponse,User)
-            if user.is_student:
-                return redirect("main:student")
-            else:
-                return redirect("main:employer")  
-            # user.is_active = False
-            # user.save()
-            # current_site = get_current_site(request)
-            # mail_subject = 'Activate your blog account.'
-            # message = render_to_string('main/acc_active_email.html', {
-            #        'user': user,
-            #        'domain': current_site.domain,
-            #        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            #        'token': account_activation_token.make_token(user),
-            #     })
-            # to_email = form.cleaned_data.get('email')
-            # email = EmailMessage(
-            #             mail_subject, message, to=[to_email]
-            # )
-            # email.send()
-            # return HttpResponse('Please confirm your email address to complete the registration') 
+            # login(request, user)                                             #login(HttpResponse,User)
+            # if user.is_student:
+            #     return redirect("main:student")
+            # else:
+            #     return redirect("main:employer")  
+            user.is_active = False
+            user.save()
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your blog account.'
+            message = render_to_string('main/acc_active_email.html', {
+                   'user': user,
+                   'domain': current_site.domain,
+                   'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                   'token': account_activation_token.make_token(user),
+                })
+            to_email = form.cleaned_data.get('email')
+            email = EmailMessage(
+                        mail_subject, message, to=[to_email]
+            )
+            email.send()
+            return HttpResponse('Please confirm your email address to complete the registration') 
         
         else:                                                 #if form is not valid or not filled properly               
             for msg in form.error_messages:                   
@@ -101,27 +101,27 @@ class register_as_student(View):
             user = form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f"New account created: {username}")
-            login(request, user)
-            if user.is_student:
-                return redirect("main:student")
-            else:
-                return redirect("main:employer")
-            # user.is_active = False
-            # user.save()
-            # current_site = get_current_site(request)
-            # mail_subject = 'Activate your blog account.'
-            # message = render_to_string('main/acc_active_email.html', {
-            #        'user': user,
-            #        'domain': current_site.domain,
-            #        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            #        'token': account_activation_token.make_token(user),
-            #     })
-            # to_email = form.cleaned_data.get('email')
-            # email = EmailMessage(
-            #             mail_subject, message, to=[to_email]
-            # )
-            # email.send()
-            # return HttpResponse('Please confirm your email address to complete the registration') 
+            # login(request, user)
+            # if user.is_student:
+            #     return redirect("main:student")
+            # else:
+            #     return redirect("main:employer")
+            user.is_active = False
+            user.save()
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your blog account.'
+            message = render_to_string('main/acc_active_email.html', {
+                   'user': user,
+                   'domain': current_site.domain,
+                   'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                   'token': account_activation_token.make_token(user),
+                })
+            to_email = form.cleaned_data.get('email')
+            email = EmailMessage(
+                        mail_subject, message, to=[to_email]
+            )
+            email.send()
+            return HttpResponse('Please confirm your email address to complete the registration') 
         
         else:
             for msg in form.error_messages:
@@ -154,9 +154,7 @@ def activate(request, uidb64, token):
 #view for homepage of our website
 class homepage(View):
    def get(self,request):                                              
-        return render(request=request,
-                    template_name="main/home.html",
-                    )
+        return render(request=request, template_name="main/home.html",)
 
 
 
@@ -230,99 +228,8 @@ def apply_for_job(request):
 
 
 
-# # view for applying for job 
-# class apply_for_job(View):
-#     form_class=Apply_Job
-#     initial={'key':'value'}
-#     template_name="main/apply_for_job.html"
-
-#     def get(self,request):
-#         form=self.form_class(initial=self.initial)
-#         return render(request,self.template_name,context={'form':form})
-
-#     def post(self,request):
-#         form=self.form_class(request.POST or None,request.FILES or None)
-#         if form.is_valid():
-#             intern_profile= form.save(commit=False)
-            
-#             intern_profile.username=request.user
-#             intern_profile.save()
-#             #username = form.cleaned_data.get('intern_profile.username')                     #getting the username from the form   
-#             # messages.success(request, f"{intern_profile.username} has succesully applied for this job")
-
-#             return redirect("main:student")
-#         else:                                                 #if form is not valid or not filled properly               
-#             # for msg in form.error_messages:                   
-#             #     messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
-
-#             form=self.form_class(initial=self.initial)
-#             return render(request ,self.template_name,{'form':form})
 
 
-
-#view to show the filter internship page where the locations and category are seen
-class filter_internship(View):
-    def get(self,request):
-        return render(request,
-                      template_name="main/Internship_filter.html",
-                      context={"filter":Job.objects.all()},
-                    )
-
-#view to display the jobs posted by the company in Delhi
-class jobs_in_Delhi(View):
-    def get(self,request):
-        d=Job.objects.filter(location='Delhi')
-        return render(request=request,
-                      template_name="main/jobs_list.html",
-                      context={"jobs":d},
-                    )   
-
-#view to display the jobs posted by the company in Mumbai
-class jobs_in_Mumbai(View):
-    def get(self,request):
-        d=Job.objects.filter(location='Mumbai')
-        return render(request=request,
-                      template_name="main/jobs_list.html",
-                      context={"jobs":d},
-                    )     
-
-#view to display the jobs posted by the company in Chennai
-class jobs_in_Chennai(View):
-    def get(self,request):
-        d=Job.objects.filter(location='Chennai')
-        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})       
-
-
-
-#view to display the jobs posted by the company in Banaglore
-class jobs_in_Bangalore(View):
-    def get(self,request):
-        d=Job.objects.filter(location='Bangalore')
-        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})                
-
-#view to display the Web Developer Internships
-class web_developer_internship(View):
-    def get(self,request):
-        d=Job.objects.filter(category='Web Development')
-        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})
-
-# view to display the android developer Internships
-class android_developer_internship(View):
-    def get(self,request):
-        d=Job.objects.filter(category='Android Development')
-        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})
-
-# view to display the photographer internships
-class photographer_internship(View):
-    def get(self,request):
-        d=Job.objects.filter(category='Photography')
-        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})
-
-# view to display the video editor internships
-class video_editor_internship(View):
-    def get(self,request):
-        d=Job.objects.filter(category='Video Editing')
-        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})                        
 
 
 #view to display the details of interns applied for the internship
@@ -393,7 +300,7 @@ class myapplication(View):
 #view for dusplaying the jobs posted by the company to him
 class internship_list(View):
     def get(self,request):
-        internship = Job.objects.filter(user=request.user)
+        internship = Job.objects.filter(user=request.user)        #taking only those internships jinka user whi hai jisne abhib login kiya hai
         return render(request, 'main/postinternship_list.html', {'internship': internship})
 
 
@@ -435,15 +342,38 @@ def change_password(request):
         return render(request, 'main/change_password.html', args)
 
 @login_required
-def edit_profile(request):
+def edit_student_profile(request):
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)
+        form = EditStudentProfileForm(request.POST, instance=request.user)
 
         if form.is_valid():
-            form.save()
-            return view_profile(request)
+            user=form.save()
+            if user.is_student:
+                return redirect("main:student")
+            else:
+                return redirect("main:employer")
+
+            
     else:
-        form = EditProfileForm(instance=request.user)
+        form = EditStudentProfileForm(instance=request.user)
+        args = {'form': form}
+        return render(request, 'main/edit_profile.html', args)
+
+@login_required
+def edit_employer_profile(request):
+    if request.method == 'POST':
+        form = EditEmployerProfileForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            user=form.save()
+            if user.is_student:
+                return redirect("main:student")
+            else:
+                return redirect("main:employer")
+
+            
+    else:
+        form = EditEmployerProfileForm(instance=request.user)
         args = {'form': form}
         return render(request, 'main/edit_profile.html', args)
 
@@ -455,3 +385,111 @@ def view_profile(request, pk=None):
     args = {'user': user}
     return render(request, 'main/home.html', args)
    
+
+
+#view to show the filter internship page where the locations and category are seen
+class filter_internship(View):
+    def get(self,request):
+        return render(request,
+                      template_name="main/Internship_filter.html",
+                      context={"filter":Job.objects.all()},
+                    )
+
+#view to display the jobs posted by the company in Delhi
+class jobs_in_Delhi(View):
+    def get(self,request):
+        d=Job.objects.filter(location='Delhi')
+        return render(request=request,
+                      template_name="main/jobs_list.html",
+                      context={"jobs":d},
+                    )   
+
+#view to display the jobs posted by the company in Mumbai
+class jobs_in_Mumbai(View):
+    def get(self,request):
+        d=Job.objects.filter(location='Mumbai')
+        return render(request=request,
+                      template_name="main/jobs_list.html",
+                      context={"jobs":d},
+                    )     
+
+#view to display the jobs posted by the company in Chennai
+class jobs_in_Chennai(View):
+    def get(self,request):
+        d=Job.objects.filter(location='Chennai')
+        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})       
+
+
+#view to display the jobs posted by the company in Banaglore
+class jobs_in_Bangalore(View):
+    def get(self,request):
+        d=Job.objects.filter(location='Bangalore')
+        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})                
+
+#view to display the Web Developer Internships
+class web_developer_internship(View):
+    def get(self,request):
+        d=Job.objects.filter(category='Web Development')
+        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})
+
+# view to display the android developer Internships
+class android_developer_internship(View):
+    def get(self,request):
+        d=Job.objects.filter(category='Android Development')
+        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})
+
+# view to display the photographer internships
+class photographer_internship(View):
+    def get(self,request):
+        d=Job.objects.filter(category='Photography')
+        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})
+
+# view to display the video editor internships
+class video_editor_internship(View):
+    def get(self,request):
+        d=Job.objects.filter(category='Video Editing')
+        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   # # view for applying for job 
+# class apply_for_job(View):
+#     form_class=Apply_Job
+#     initial={'key':'value'}
+#     template_name="main/apply_for_job.html"
+
+#     def get(self,request):
+#         form=self.form_class(initial=self.initial)
+#         return render(request,self.template_name,context={'form':form})
+
+#     def post(self,request):
+#         form=self.form_class(request.POST or None,request.FILES or None)
+#         if form.is_valid():
+#             intern_profile= form.save(commit=False)
+            
+#             intern_profile.username=request.user
+#             intern_profile.save()
+#             #username = form.cleaned_data.get('intern_profile.username')                     #getting the username from the form   
+#             # messages.success(request, f"{intern_profile.username} has succesully applied for this job")
+
+#             return redirect("main:student")
+#         else:                                                 #if form is not valid or not filled properly               
+#             # for msg in form.error_messages:                   
+#             #     messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
+
+#             form=self.form_class(initial=self.initial)
+#             return render(request ,self.template_name,{'form':form})

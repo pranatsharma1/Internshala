@@ -20,8 +20,7 @@ class User(AbstractUser):
     college_name=models.CharField(max_length=200,default="")
     basic_skills=models.TextField(default="")
     city=models.CharField(max_length=200,default="")
-    year_of_study=models.CharField(max_length=200,default="")
-                            
+    year_of_study=models.CharField(max_length=200,default="")                        
 
 
 # model for Job

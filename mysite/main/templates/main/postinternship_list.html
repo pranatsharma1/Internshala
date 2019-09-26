@@ -1,8 +1,9 @@
 {% extends 'main/header.html' %}
+
 <h1>student profile</h1>
 {% block content %}
 <!-- <a href="/interns_applied" >Student list for Applied internship!</a> -->
-
+{% if user.is_employer %}
   <h3>Posted Internship!</h3>
   <!-- <p>
     <a href="/internship/post_a_job">New Internship!</a>
@@ -27,7 +28,13 @@
       <!-- <h3><a href="/apply" style="color: black">Apply</a></h3> -->
   </div>
 </div>
+
 {% endfor %}
+{% elif user.is_student %}
+<h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>
+<h2 style="text-align:center">Click on <a style="color:crimson" href="/student_profile">this</a> to go to back to student's profile</h2>
+
+{% endif %}
 <!-- <a href="/internship/edit_all">Edit all internship</a> -->
 
 {% endblock %}

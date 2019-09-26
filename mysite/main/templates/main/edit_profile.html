@@ -1,25 +1,91 @@
 {% extends 'main/header.html' %}
 
 {% block content %}
-<div class="container">
-    <!-- {{form.as_p}}
-     -->
-        <form method="post">
-                {% csrf_token %}
+<h2>&nbsp&nbsp&nbspEdit Profile</h2>
+<hr>
+{% if user.is_student %}
+<div style="display: inline-block;" class="col-md-5">
+        <!-- <form method="post">
+    {{form.as_p}}
+    <button style="background-color:#0356fc;  color:white" class="btn btn-outline-info" type="submit">Update</button>
+    {% csrf_token %}
+    </form> -->
+    <!-- <form method="post"> -->
             
-            <p><label for="id_email">Email address:</label> 
-            <input type="email" name="email" value="" maxlength="254" id="id_email"></p>
-            <p><label for="id_first_name">First name:</label> 
-            <input type="text" name="first_name" value="" maxlength="30" id="id_first_name"></p>
-            <p><label for="id_last_name">Last name:</label> 
-            <input type="text" name="last_name" value="" maxlength="150" id="id_last_name"></p>
-            <!-- <p><label for="id_image">Image:</label> 
-                Currently: <a href="/media/pics/IMG_20180822_153708.jpg">pics/IMG_20180822_153708.jpg</a><br>
-                Change:
-            <input type="file" name="image" accept="image/*" id="id_image"></p> -->
-        <button style="background-color:#0356fc; color:white" type="submit">Save Changes</button>
-            </form>
+       
+         <form method="post" class="form-horizontal" role="form" style="padding-top:5%">
+                {% csrf_token %}          
+        <div class="form-group col-lg-8">
+            <label for="id_email">Email address:</label> 
+            <input class="form-control" type="email" name="email" value="{{user.email}}" maxlength="254" id="id_email">
+        </div>    
+            
+        <div class="form-group col-lg-8">
+            <label for="id_first_name">First name:</label> 
+            <input class="form-control" type="text" name="first_name" value="{{user.first_name}}" maxlength="30" id="id_first_name">
+        </div>    
+
+        <div class="form-group col-lg-8">    
+            <label for="id_last_name">Last name:</label> 
+            <input class="form-control" type="text" name="last_name" value="{{user.last_name}}" maxlength="150" id="id_last_name">
+        </div>   
+
+        <div class="form-group col-lg-8">
+        <label for="id_college_name">College name:</label> 
+        <input class="form-control" type="text" name="college_name" value="Ajay Kumar Garg Engineering College,Ghaziabad" maxlength="200" required="" id="id_college_name"></p>
+        </div>
+
+        <div class="form-group col-lg-8">
+        <label for="id_basic_skills">Basic skills:</label> 
+            <textarea class="form-control" name="basic_skills" cols="40" rows="10" required="" id="id_basic_skills">{{user.basic_skills}}</textarea>
+        </div>
+        <div class="form-group col-lg-8">
+        <label for="id_city">City:</label> 
+            <input class="form-control" type="text" name="city" value="{{user.city}}" maxlength="200" required="" id="id_city">
+        </div>
+        <div class="form-group col-lg-8">    
+        <label for="id_year_of_study">Year of study:</label> 
+            <input class="form-control" type="text" name="year_of_study" value="{{user.year_of_study}}" maxlength="200" required="" id="id_year_of_study">
+        </div>
+        <div class="form-group col-lg-8">
+            <button style="background-color:#0356fc;  color:white" class="btn btn-outline-info" type="submit">Update</button> 
+        </div>     
+        </form>
     <br>
 </div>
+{% elif user.is_employer %}
+<div class="container" style="display: inline-block;">
+        <!-- <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}   
+        </form>   -->
+        <form method="post">
+                {% csrf_token %}      
+            <div class="form-group col-lg-8">
+                <label for="id_email">Email address:</label> 
+                <input class="form-control" type="email" name="email" value="{{user.email}}" maxlength="254" id="id_email">
+            </div>    
+                
+            <div class="form-group col-lg-8">
+                <label for="id_first_name">First name:</label> 
+                <input class="form-control" type="text" name="first_name" value="{{user.first_name}}" maxlength="30" id="id_first_name">
+            </div>    
 
+            <div class="form-group col-lg-8">    
+                <label for="id_last_name">Last name:</label> 
+                <input class="form-control" type="text" name="last_name" value="{{user.last_name}}" maxlength="150" id="id_last_name">
+            </div> 
+
+            <div class="form-group col-lg-8">
+                <label for="id_city">City:</label> 
+                <input class="form-control" type="text" name="city" value="{{user.city}}" maxlength="200" required="" id="id_city">
+            </div>
+
+            <div class="form-group col-lg-8">
+                <button style="background-color:#0356fc;  color:white" class="btn btn-outline-info" type="submit">Update</button> 
+            </div>     
+            </form>
+        <br>
+    </div>
+{% endif %}
 {% endblock %}

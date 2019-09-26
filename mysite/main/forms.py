@@ -53,7 +53,7 @@ class NewUserForm1(UserCreationForm):
     class Meta:
           model=User
         #   fields='__all__'
-          fields=("first_name","last_name","username","is_employer","email","image","password1","password2")
+          fields=("first_name","last_name","username","is_employer","email","city","image","password1","password2")
 
     def save(self,commit=True):
         user=super(NewUserForm1,self).save(commit=False)
@@ -80,7 +80,7 @@ class NewUserForm2(UserCreationForm):
             user.save()
         return user   
 
-class EditProfileForm(UserChangeForm):
+class EditStudentProfileForm(UserChangeForm):
 
     class Meta:
         model = User
@@ -88,6 +88,18 @@ class EditProfileForm(UserChangeForm):
             'email',
             'first_name',
             'last_name',
-            'image',
-            'password',
+            'college_name',
+            'basic_skills',
+            'city',
+            'year_of_study',
         )
+class EditEmployerProfileForm(UserChangeForm):
+
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'first_name',
+            'last_name',
+            'city',
+        )        

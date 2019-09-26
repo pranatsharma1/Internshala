@@ -33,7 +33,7 @@ overflow-x: hidden; ">
                         </button>
                         <div class="dropdown-menu">
                             <a href="/employer_profile" class="dropdown-item"> {{user.username}} </a><hr>
-                            <a href="/profile/edit" class="dropdown-item"> Edit Profile </a>
+                            <a href="/profile/edit_employer" class="dropdown-item"> Edit Profile </a>
                             <a href="/change-password" class="dropdown-item"> Change Password </a>
                             <a href="/internship/list" class="dropdown-item">Posted internships</a>
                             <a href="/interns_applied" class="dropdown-item">Interns Applied</a>
@@ -60,8 +60,8 @@ overflow-x: hidden; ">
             <h4> Email: </h4> 
             <h5> {{user.email}} </h5><hr>
 
-            <h4> Additional Details </h4> 
-            <h5> ............... </h5><hr>
+            <h4> Main Office Location </h4> 
+            <h5> {{user.city}} </h5><hr>
           </div>
         </div>
         <div clas="apply-btn" style="margin-left: 45%">
