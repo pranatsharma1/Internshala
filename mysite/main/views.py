@@ -161,7 +161,6 @@ def job_detail(request,job_id):
             username = form.cleaned_data.get('intern_profile.username')                     #getting the username from the form   
 
             return redirect("main:homepage")
-
     form = Apply_Job()
     return render(request,"main/job_details.html",{'j':job_id,"form":form})
 
