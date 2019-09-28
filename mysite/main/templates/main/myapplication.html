@@ -3,26 +3,27 @@
 {% block content %}
 {% if user.is_student %}
 <div class="row">
-<h1 style="text-align: center">My Applications</h1>
+<h1 style="text-align: center; color: cornflowerblue">My Applications</h1><hr>
 {% for j in intern %}
-    <div class="card text-white bg-warning" style="background-color:gainsboro;">
-            <div class="card-body">
-            <h4>Job Title: {{j.job_title}}</h4>
-            <!-- <h4>Job Id: {{j.job_id}}</h4> -->
-            <h4>Comapny Name: {{j.company_name}}</h4>
-            <!-- <h4>Intern Id:{{j.username}}</h4> -->
-            <!-- <h4>Applied for: {{j.job_title}}</h4> -->
-            {% if j.is_accept %}
-            <h4>Status: Accepted</h4>
-            {% elif j.is_reject %}
-            <h4>Status: Rejected</h4>
-            {% else %}
-            <!-- <h3><a href="/job_status/{{intern.id}}" style="color: black">job status!</a></h3> -->
-            <h4>Status: Pending</h4>
-            {% endif %}
+        <div class="row">
+           <div class="col-sm-4"> 
+              <div class="card bg-light mb-3 border-secondary mb-3" style="margin-top:40px">
+                  <div class="card-body">
+                  <h2 class="card-title" style="font-family: nexa">{{j.job_title}}</h2>
+                  <h3 class="card-subtitle">Comapny Name: {{j.company_name}}</h3>              
+                  {% if j.is_accept %}
+                  <h4>Status: Accepted</h4>
+                  {% elif j.is_reject %}
+                  <h4>Status: Rejected</h4>
+                  {% else %}
+                    <!-- <h3><a href="/job_status/{{intern.id}}" style="color: black">job status!</a></h3> -->
+                  <h4>Status: Pending</h4>
+                  {% endif %}
+                  </div>
+            </div>
         </div>
-    </div>
-</div>
+        
+
 {% endfor %}
 {% elif user.is_employer %}
 <h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>
@@ -31,3 +32,23 @@
 {% endif %}
 
 {% endblock %}
+
+
+
+<!-- <div class="card text-white bg-warning" style="background-color:gainsboro;"> -->
+        <!-- <div class="card-body"> -->
+        <!-- <h4>Job Title: {{j.job_title}}</h4> -->
+        <!-- <h4>Job Id: {{j.job_id}}</h4> -->
+        <!-- <h4>Comapny Name: {{j.company_name}}</h4> -->
+        <!-- <h4>Intern Id:{{j.username}}</h4> -->
+        <!-- <h4>Applied for: {{j.job_title}}</h4> -->
+        <!-- {% if j.is_accept %} -->
+        <!-- <h4>Status: Accepted</h4> -->
+        <!-- {% elif j.is_reject %} -->
+        <!-- <h4>Status: Rejected</h4> -->
+        <!-- {% else %} -->
+        <!-- <h3><a href="/job_status/{{intern.id}}" style="color: black">job status!</a></h3> -->
+        <!-- <h4>Status: Pending</h4> -->
+        <!-- {% endif %} -->
+    <!-- </div> -->
+<!-- </div> -->

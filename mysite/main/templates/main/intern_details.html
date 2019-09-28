@@ -49,6 +49,10 @@
         </div>
     </div>
 </div>
+
+{% elif user.is_student %}
+<h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>
+<h2 style="text-align:center">Click on <a style="color:crimson" href="/student_profile">this</a> to go to back to student's profile</h2>
 {% endif %}
 
 {% endblock %}

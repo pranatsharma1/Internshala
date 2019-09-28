@@ -211,6 +211,20 @@ def apply_for_job(request):
                   template_name = "main/apply_for_job.html",
                   context={"form":form}) 
 
+@login_required
+def edit_internship(request,pk):
+    job_id = Job.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        form = Job_Post(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+
+            return redirect("main:homepage")
+
+    form = Job_Post(instance=job_id)
+    return render(request,"main/edit_internship.html",{'j':job_id,"form":form})
+
 
 @login_required
 def job_detail(request,job_id):

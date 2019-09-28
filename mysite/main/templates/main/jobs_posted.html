@@ -2,40 +2,68 @@
 
 
 {% block content %}
+{% if user.is_employer %}
 <div class="row">
-<h1 style="text-align: center">Interns Applied for this company</h1>
-    {% for i in intern %}
-        <div class="card text-white bg-warning" >
-            <div class="card-body">
-                <!-- <h4>Job Id: {{j.job_id}}</h4> -->
-                <!-- <h4>Company Name: {{j.company_name}}</h4> -->
-                
-
-                <h1>{{i.intern_name}}</h1>
-                <h4>Username: {{i.username}}</h4>
-                <!-- <h4>Intern Id: {{j.id}}</h4> -->
-                <h4>Applied for: {{i.job_title}}</h4>
-                <h3><a href="/intern_detail/{{i.id}}" style="color: black">View Detail!</a></h3>
-                <!-- <h4>Resume: {{j.resume}}</h4> -->
-                <!-- <h4 style="font-size: 100%">College: {{j.intern_college}}</h4> -->
-                <!-- <br> -->
-                <!-- <h4>Skills: {{j.intern_skills}}</h4> -->
-                <!-- <br> -->
-                <!-- <h4>City: {{j.intern_city}}</h4> -->
-                <!-- <h4>Year of Study: {{j.intern_study_year}}</h4>  -->
-                <!-- <a href="/jobs_posted1">Accept</a> -->
-                <!-- <br> -->
-                <!-- <a href="/jobs_posted2">Reject</a> -->
+<h1 style="text-align: center; color: cornflowerblue">Interns Applied for this company</h1><hr>
+{% for i in intern %}
+        
+    <div class="row">
+            <div class="col-sm-4"> 
+                <div class="card bg-light mb-3 border-secondary mb-3" style="margin-top:40px">
+                    <div class="card-body">
+                    <h1 class="card-title" style="font-family: montserrat">{{i.intern_name}}</h1>
+                    <h2 class="card-subtitle">{{i.username}}</h2>              
+                    <p class="card-text">Applied for: {{i.job_title}}</p>
+                    <!-- <p class="card-text">Details: {{product.job_content|safe}}</p> -->
+                    <a href="/intern_detail/{{i.id}}" class="btn btn-primary">Details</a>
+                    <!-- <a href="#" class="btn btn-default">Cancel</a> -->
+                </div>
             </div>
-            </div>
-        </div>
-        {% endfor %}
+    </div>
+      
+        
+{% endfor %}
 
+        {% elif user.is_student %}
+        <h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>
+        <h2 style="text-align:center">Click on <a style="color:crimson" href="/student_profile">this</a> to go to back to student's profile</h2>
 
+        {% endif %}  
 
 
 
 {% endblock %}
+
+
+
+
+<!-- <div class="card text-white bg-warning" >
+        <div class="card-body"> -->
+            <!-- <h4>Job Id: {{j.job_id}}</h4> -->
+            <!-- <h4>Company Name: {{j.company_name}}</h4> -->
+            
+
+            <!-- <h1>{{i.intern_name}}</h1> -->
+            <!-- <h4>Username: {{i.username}}</h4> -->
+            <!-- <h4>Intern Id: {{j.id}}</h4> -->
+            <!-- <h4>Applied for: {{i.job_title}}</h4> -->
+            <!-- <h3><a href="/intern_detail/{{i.id}}" style="color: black">View Detail!</a></h3> -->
+            <!-- <h4>Resume: {{j.resume}}</h4> -->
+            <!-- <h4 style="font-size: 100%">College: {{j.intern_college}}</h4> -->
+            <!-- <br> -->
+            <!-- <h4>Skills: {{j.intern_skills}}</h4> -->
+            <!-- <br> -->
+            <!-- <h4>City: {{j.intern_city}}</h4> -->
+            <!-- <h4>Year of Study: {{j.intern_study_year}}</h4>  -->
+            <!-- <a href="/jobs_posted1">Accept</a> -->
+            <!-- <br> -->
+            <!-- <a href="/jobs_posted2">Reject</a> -->
+        <!-- </div>
+        </div>
+    </div> -->
+
+
+
 
 <!-- <a href="/post">Post a Job</a> -->
 <!-- <div class="row">

@@ -46,6 +46,7 @@ urlpatterns = [
    path("job_detail/<int:job_id>/",views.job_detail,name="job_detail"),
    path("intern_detail/<int:intern_id>/",views.intern_detail,name="intern_detail"),
    path("job_status/<int:intern_id>/",views.job_status,name="job_status"),
+   path("edit_internship/<int:pk>/",views.edit_internship,name="edit_internship"),
 
 
    url(r'^$', views.homepage, name='homepage'),
