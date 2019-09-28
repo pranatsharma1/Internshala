@@ -5,7 +5,7 @@
 
 from django.views import View
 from django.shortcuts import render, redirect
-from .models import Job,Intern
+from .models import Job,Intern,JobStatus
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm ,PasswordChangeForm
 from django.contrib.auth import logout, authenticate, login,get_user_model
 from django.contrib import messages
@@ -51,14 +51,6 @@ class register_as_employer(View):
         if form.is_valid():                                                     #if the form filled is valid
             user = form.save()                                           #basically save the user(since user is a part of form,thus we save the form)
             username = form.cleaned_data.get('username')                     #getting the username from the form   
-            # messages.success(request, f"New account created: {username}")    #displaying the message that new account has been created
-            
-            # now after signing up we automatically logs in the user 
-            # login(request, user)                                             #login(HttpResponse,User)
-            # if user.is_student:
-            #     return redirect("main:student")
-            # else:
-            #     return redirect("main:employer")  
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
@@ -100,12 +92,6 @@ class register_as_student(View):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
-            # messages.success(request, f"New account created: {username}")
-            # login(request, user)
-            # if user.is_student:
-            #     return redirect("main:student")
-            # else:
-            #     return redirect("main:employer")
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
@@ -143,7 +129,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
-        # return redirect('home')
+
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
@@ -197,9 +183,6 @@ def post_a_job(request):
                   template_name = "main/Emp-PostJob.html",
                   context={"form":form}) 
 
-def job_detail(request,job_id):
-    job_id=Job.objects.get(pk=job_id)
-    return render(request,"main/job_details.html",{'j':job_id})
 
 # view function for form for applying for an internship
 def apply_for_job(request):
@@ -249,6 +232,12 @@ def job_detail(request,job_id):
     form = Apply_Job()
     return render(request,"main/job_details.html",{'j':job_id,"form":form})
 
+
+def job_status(request,intern_id):
+    intern_id= Intern.objects.get(pk=intern.id)
+    return render(request,"main/job_status",{'intern':intern_id,})
+        
+
 @login_required
 def intern_detail(request,intern_id):
     intern_id = Intern.objects.get(pk=intern_id)
@@ -269,7 +258,11 @@ def intern_detail(request,intern_id):
     form = AcceptReject()
     return render(request,"main/intern_details.html",{'intern':intern_id,"form":form})
 
-
+#view for displaying the status of applications of intern to him
+class myapplication(View):
+    def get(self,request):
+       i=JobStatus.objects.filter(intern_name=request.user)
+       return render(request=request,template_name="main/myapplication.html",context={"intern":i})
 
 #view to display the details of interns applied for the internship
 class interns_applied(View):
@@ -280,10 +273,7 @@ class interns_applied(View):
         #whose comany name equals to the username of the user currently logged in
         i=Intern.objects.filter(company_name=request.user)   
 
-        return render(request=request,
-                      template_name="main/jobs_posted.html",
-                      context={"intern":i},
-                    )
+        return render(request=request,template_name="main/jobs_posted.html",context={"intern":i},)
 
 
 
@@ -330,11 +320,7 @@ class login_request(View):
             return render(request ,self.template_name,{'form':form})
 
 
-#view for displaying the status of applications of intern to him
-class myapplication(View):
-    def get(self,request):
-       i=Intern.objects.filter(username=request.user)
-       return render(request=request,template_name="main/myapplication.html",context={"intern":i})
+
 
 #view for dusplaying the jobs posted by the company to him
 class internship_list(View):
@@ -434,6 +420,14 @@ class filter_internship(View):
                       template_name="main/Internship_filter.html",
                       context={"filter":Job.objects.all()},
                     )
+
+
+class all_jobs(View):
+    def get(self,request):
+        return render(request=request,
+                      template_name="main/jobs_list.html",
+                      context={"jobs":Job.objects.all()},
+                    )   
 
 
 

@@ -2,7 +2,7 @@ from django.forms import ModelForm
 
 from django import forms
 from datetime import datetime
-from .models import Job,Intern
+from .models import Job,Intern,JobStatus
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm ,PasswordChangeForm
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
@@ -19,13 +19,13 @@ class SignupForm(UserCreationForm):
 
 class AcceptReject(ModelForm):
     class Meta:
-        model=Intern
-        fields=("is_accept","is_reject")
+        model=JobStatus
+        fields=("is_accept","is_reject","intern_name","company_name",'job_title',"hire","available",)
 
 class Apply_Job(ModelForm):
     class Meta:
           model=Intern
-          fields=('phone_no',"intern_name","company_name",'job_title',"job_id","hire","available")
+          fields=('phone_no',"intern_name","company_name",'job_title',"job_id","hire","available","document")
 
 class Job_Post(ModelForm):
     class Meta:

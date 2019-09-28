@@ -8,20 +8,45 @@
         <div class="card-header">
             <h1>{{intern.intern_name}}</h1>
 
-        <h4>Availability: {{intern.hire}}</h4>
+        <h4>Availability: {{intern.available}}</h4>
         <br>
 
         <h4>Applied for: {{intern.job_title}}</h4>
 
-        <h4>Resume: {{intern.document}}</h4>
+        <!-- <h4>Resume: {{intern.document}}</h4> -->
         <br>
-    <div class="container">
-        <form method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-             
-                <input type="submit"  value="apply"></form>
-            </div>
+        <div class="container">
+           <!-- <form method="POST">
+              {% csrf_token %}
+              {{form.as_p}}   
+             <input type="submit"  value="Submit"></form> -->
+            <form method="POST">
+                    {% csrf_token %}
+                <p><label for="id_is_accept">Accept:</label> 
+                <input type="checkbox" name="is_accept" id="id_is_accept"></p>
+  
+                <p><label for="id_is_reject">Reject:</label> 
+                <input type="checkbox" name="is_reject" id="id_is_reject"></p>
+  
+                <p><label style="display: none" for="id_intern_name">Intern name:</label> 
+                <input style="display: none" type="text" name="intern_name" maxlength="200" required="" id="id_intern_name" value="{{intern.username}}"></p>
+  
+                <p><label style="display: none" for="id_company_name">Company name:</label> 
+                <input style="display: none" type="text" name="company_name" maxlength="100" required="" id="id_company_name" value="{{user.username}}"></p>
+  
+                <p><label style="display: none" for="id_job_title">Job title:</label> 
+                <input style="display: none" type="text" name="job_title" maxlength="200" required="" id="id_job_title" value="{{intern.job_title}}"></p>
+  
+                <p><label style="display: none" for="id_hire">Hire:</label> 
+                <input style="display: none" type="text" name="hire" maxlength="200" required="" id="id_hire" value="{{intern.hire}}" ></p>
+  
+                <p><label style="display: none" for="id_available">Available:</label> 
+                <input style="display: none" type="text" name="available" maxlength="200" required="" id="id_available" value="{{intern.available}}"></p>   
+  
+                <div class="form-group col-lg-8">
+                        <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Submit</button>
+                        </div></form>  
+        </div>
     </div>
 </div>
 {% endif %}
@@ -29,28 +54,4 @@
 {% endblock %}
 
 
-                <p><label style="display: none;" for="id_intern_name">Intern name:</label> 
-                <input style="display: none;" type="text" name="intern_name" maxlength="200" required="" id="id_intern_name" value="{{user.username}}"></p>
-                
-                <p><label style="display: none;" for="id_company_name">Company name:</label> 
-                <input style="display: none;" type="text" name="company_name" maxlength="100" required="" id="id_company_name" value="{{j.user}}"></p>
-                
-                <p><label style="display: none;" for="id_job_title">job_title:</label> 
-                <input style="display: none;" type="text" name="job_title" maxlength="100" required="" id="id_job_title" value="{{j.job_title}}"></p>
-                
-                <p><label style="display: none;" for="id_job_id">Job id:</label> 
-                <input style="display: none;" type="text" name="job_id" maxlength="100" required="" id="id_job_id" value="{{j.id}}"></p>
-                
-                <p><label for="id_phone_no">Phone no:</label> 
-                <input type="text" name="phone_no" maxlength="10" required="" id="id_phone_no"></p>
-                
-                <p><label for="id_hire"> Why should you be hired for this internship?</label> 
-                <input type="text" name="hire" maxlength="200" required="" id="id_hire"></p>
-                
-                <p><label for="id_available">Are you available for this month?</label> 
-                <input type="text" name="available" maxlength="200" required="" id="id_available"></p>
-                
-                <p><label for="id_document">Resume Upload:</label> 
-                <input type="file"  name="document" required="" id="id_document"></p>
-                 -->
-               
+             
