@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
+
 <body>
     {% if user.is_employer %}
     <nav class="navbar navbar-light" style="background-color:#DCDCDC;">
@@ -93,11 +94,6 @@
                       </div></div>
                   
                        <div class="form-group">
-                       <label for="id_job_published" class="col-lg-3 control-label">Date published:</label> 
-                       <div class="col-lg-8"><input class="form-control" type="text" name="job_published" value="2019-09-22 21:31:25" required="" id="id_job_published">
-                      </div></div>
-                  
-                       <div class="form-group">
                        <label for="id_job_stipend" class="col-lg-3 control-label">Job stipend:</label> 
                        <div class="col-lg-8"><input class="form-control" type="text" name="job_stipend" maxlength="200" required="" id="id_job_stipend">
                       </div></div>
@@ -122,71 +118,3 @@
         {% endif %}        
 </body>
 </html>
-
-<!-- <form class="form-horizontal" role="form">
-    <div class="form-group">
-      <label class="col-lg-3 control-label"> Job title </label>
-      <div class="col-lg-8">
-        <input class="form-control" type="text" placeholder="">
-      </div>
-    </div>
-     <div class="form-group">
-        <label class="col-lg-3" id="dropdown">Category: </label>
-        <div class="col-lg-8">
-          <input class="form-control" type="text" placeholder="Web Development"> -->
-          <!-- <select class="form-control" id="dropdown">
-            <option>Web Development</option>
-            <option>Android Development</option>
-            <option>Designer</option>
-            <option>Photography</option>
-          </select> -->
-        <!-- </div>
-     </div>
-     <div class="form-group">
-          <label class="col-lg-3" id="dropdown">Location: </label>
-          <div class="col-lg-8">
-            <select class="form-control" id="dropdown">
-              <option>Delhi/NCR</option>
-              <option>Mumbai</option>
-              <option>Kolkata</option>
-              <option>Banglore</option>
-              <option>Work from Home</option>
-            </select>
-          </div>
-       </div> 
-   
-     <div class="form-group">
-        <label class="col-lg-3 control-label">Job duration</label>
-        <div class="col-lg-8">
-          <input class="form-control" type="text" value="">
-        </div>
-     </div>
-
-     <div class="form-group">
-          <label class="col-lg-3 control-label">Job content</label>
-          <div class="col-lg-8">
-          <textarea class="form-control" rows="3" placeholder="Write something here..."></textarea>
-          </div>
-      </div>
-
-     <div class="form-group">
-          <label class="col-lg-3 control-label">Job Stipend:</label>
-          <div class="col-lg-8 ">
-            <input class="form-control" type="text" placeholder="₹ ">
-          </div>
-      </div>
-    
-      <div class="form-group">
-              <label class="col-lg-3 control-label">Job Post date: </label>
-              <div class="col-lg-8 ">
-                <input class="form-control" type="text" placeholder="DD-MM-YYYY">
-              </div>
-      </div>
-    <div class="form-group">
-      <label class="col-md-3 control-label"></label>
-      <div class="col-md-8">
-        <input type="button" class="btn btn-primary" value="Submit">
-        <input type="reset" class="btn btn-default" value="Cancel">
-      </div>
-    </div>
-  -->

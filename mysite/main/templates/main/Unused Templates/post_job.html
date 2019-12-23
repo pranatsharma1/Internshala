@@ -1,0 +1,58 @@
+<!--Code of Post Job page-->
+
+
+{% extends 'main/header.html' %}
+
+{% block content %}
+<br>
+<div class="container">
+    <!-- {{form.as_p}} -->
+    <form method="post" class="form-horizontal" role="form">
+            <input type="hidden" name="csrfmiddlewaretoken" value="MIWAMpAcT1Rfgupjt0Ert3NUpdTtNExGRZputdfcYjyQd7SC2twmJ9Vk4JOTxKwp">
+            
+            <label for="id_category">Category:</label> 
+            <input type="text" name="category" maxlength="200" required="" id="id_category">
+
+           <label for="id_job_title">Job title:</label> 
+           <input type="text" name="job_title" maxlength="200" required="" id="id_job_title">
+<!-- 
+           <label for="id_id_job">Id job:</label> 
+           <input type="text" name="id_job" maxlength="200" required="" id="id_id_job"> -->
+            
+           <label for="id_location">Location:</label> 
+           <input type="text" name="location" maxlength="200" required="" id="id_location">
+
+           <label for="id_job_duration">Job duration:</label> 
+           <input type="text" name="job_duration" maxlength="200" required="" id="id_job_duration">
+           
+           <label for="id_job_content">Job content:</label> 
+           <textarea name="job_content" cols="40" rows="10" required="" id="id_job_content"></textarea>
+
+           <label for="id_job_published">Date published:</label> 
+           <input type="text" name="job_published" value="2019-09-22 21:31:25" required="" id="id_job_published">
+
+           <label for="id_job_stipend">Job stipend:</label> 
+           <input type="text" name="job_stipend" maxlength="200" required="" id="id_job_stipend">
+
+           <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Save</button>
+           <!-- <input type="submit" value="Submit"> -->
+           <a href="/internship/list">cancel</a>
+          </form>
+    <!-- <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Sign Up</button>
+</form> -->
+
+    If you already have an account <a href="/login" target="blank"><strong>login</strong></a> instead.
+</div>
+
+
+                                            <!--Mahima's Code-->
+
+<!-- <div class="differ">
+    <h6>enter the student/company</h6>
+    <input type="text">
+    <button type="submit" aria-placeholder="enter the student/company"">save</button>
+</div> -->
+
+
+{% endblock %}
+

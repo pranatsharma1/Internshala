@@ -19,8 +19,8 @@
               <h4 class="card-subtitle">Location:  {{product.location}}</h4>              
               <p class="card-text">Stipend: {{product.job_stipend|safe}}</p>
               <p class="card-text">Details: {{product.job_content|safe}}</p>
-
-              <p><a href="/edit_internship/{{product.id}}"><button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Edit</button></a></p>
+              <a href="/edit_internship/{{product.id}}/" class="btn btn-primary">Edit</a>
+              <!-- <a href="/edit_internship/{{product.id}}"><button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Edit</button></a> -->
               <!-- <a href="#" class="btn btn-primary">Accept</a>
               <a href="#" class="btn btn-default">Cancel</a> -->
               </div>

@@ -1,0 +1,15 @@
+<!--Template to show the Internships posted by the Employer-->
+{% extends 'main/header.html' %}
+{% block content %}
+
+{% if intern.is_accept %}
+<h3>Status : Accepted</h3>
+{% elif intern.is_reject %}
+<h3>Status: Rejected</h3>
+{% else %}
+<h3>Status: Pending</h3>
+{% endif %}
+{% endblock %}
+
+
+             

@@ -24,7 +24,7 @@ overflow-x: hidden; ">
     {% if user.is_employer %}
         <nav class="navbar navbar-light" style="background-color:#DCDCDC;">
                <a class="navbar-brand" href="/"> 
-                <img width="150px" height="25px" src="{% static 'main/internshala_logo.svg' %}" alt="">
+                <img width="200px" height="35px" src="{% static 'main/Logo.svg' %}" alt="">
                 </a>
                     <div class="btn-group">
                         <button type="button" class="btn "> MY PROFILE </button>
@@ -33,11 +33,10 @@ overflow-x: hidden; ">
                         </button>
                         <div class="dropdown-menu">
                             <a href="/employer_profile" class="dropdown-item"> {{user.username}} </a><hr>
-                            <a href="/profile/edit" class="dropdown-item"> Edit Profile </a>
+                            <a href="/profile/edit_employer" class="dropdown-item"> Edit Profile </a>
                             <a href="/change-password" class="dropdown-item"> Change Password </a>
                             <a href="/internship/list" class="dropdown-item">Posted internships</a>
                             <a href="/interns_applied" class="dropdown-item">Interns Applied</a>
-                            <a href="/internship/edit_all" class="dropdown-item">Edit all internship</a>
                             <div class="dropdown-divider"></div>
                             <a href="/logout" class="dropdown-item"> Logout </a>
                         </div>
@@ -51,7 +50,7 @@ overflow-x: hidden; ">
            </object>
           </div>
           <div class="col-md-5 personal-info" style="padding-top:2%">
-            <h3 id="profile-head">Employer info</h3>
+            <h2 id="profile-head"style="color: cornflowerblue">Employer info</h2>
             <hr>
             <img src="/media/{{user.image}}" style="width: 50%; height:20%"><hr>
             <h4> Company Name: </h4>
@@ -60,8 +59,8 @@ overflow-x: hidden; ">
             <h4> Email: </h4> 
             <h5> {{user.email}} </h5><hr>
 
-            <h4> Additional Details </h4> 
-            <h5> ............... </h5><hr>
+            <h4> Main Office Location </h4> 
+            <h5> {{user.city}} </h5><hr>
           </div>
         </div>
         <div clas="apply-btn" style="margin-left: 45%">

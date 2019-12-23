@@ -2,10 +2,7 @@
 from django.urls import path
 from . import views
 from django.conf.urls import url
-from main.views import homepage,jobs_in_Delhi,jobs_in_Mumbai,jobs_in_Chennai,jobs_in_Bangalore,student_profile,employer_profile,logout_request,apply_for_job
-from main.views import post_a_job,interns_applied,register_as_employer,register_as_student,login_request,web_developer_internship
-from main.views import filter_internship,web_developer_internship,android_developer_internship,photographer_internship,video_editor_internship
-from main.views import post_a_job,internship_list,myapplication,all_jobs
+from main.views import *
 app_name="main"
 
 urlpatterns = [
@@ -16,8 +13,6 @@ urlpatterns = [
    path("login/",login_request.as_view(), name="login"),
    path("employer_profile/",employer_profile.as_view(),name="employer"),
    path("student_profile/",student_profile.as_view(),name="student"),
-
-   # path("post/",views.post_a_job,name="post_a_job"),
 
    path("filter_internship/",filter_internship.as_view(),name="filter_internship"),
    
@@ -40,13 +35,12 @@ urlpatterns = [
    path("change-password/",views.change_password,name="change_password"),
 
    path("post_internship/", views.post_a_job, name='post_a_job'),
-   path('internship/edit_all/', views.edit_all_internship, name='edit_all_internship'),
    path('internship/list/', internship_list.as_view(), name='internship_list'),
    path('myapplication/', myapplication.as_view(), name='myapplication'),
    path("job_detail/<int:job_id>/",views.job_detail,name="job_detail"),
+   path("edit_internship/<int:pk>/",views.edit_this_internship,name="edit_this_internship"),
    path("intern_detail/<int:intern_id>/",views.intern_detail,name="intern_detail"),
    path("job_status/<int:intern_id>/",views.job_status,name="job_status"),
-   path("edit_internship/<int:pk>/",views.edit_internship,name="edit_internship"),
 
 
    url(r'^$', views.homepage, name='homepage'),

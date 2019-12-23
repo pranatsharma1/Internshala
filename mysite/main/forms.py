@@ -2,7 +2,7 @@ from django.forms import ModelForm
 
 from django import forms
 from datetime import datetime
-from .models import Job,Intern,JobStatus
+from .models import *
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm ,PasswordChangeForm
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
@@ -10,7 +10,7 @@ from django.db import models
 
 User=get_user_model()
 
-
+ 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=200, help_text='Required')
     class Meta:
@@ -30,7 +30,7 @@ class Apply_Job(ModelForm):
 class Job_Post(ModelForm):
     class Meta:
           model=Job
-          fields=("category","job_title","location","job_duration","job_content","job_published","job_stipend")
+          fields=("category","job_title","location","job_duration","job_content","job_stipend")
     
     def __init__(self,user,*args,**kwargs):
         super(Job_Post,self).__init__(*args,**kwargs)
@@ -44,7 +44,7 @@ class NewUserForm1(UserCreationForm):
 
     class Meta:
           model=User
-        #   fields='__all__'
+          
           fields=("first_name","last_name","username","is_employer","email","city","image","password1","password2")
 
     def save(self,commit=True):
@@ -96,3 +96,8 @@ class EditEmployerProfileForm(UserChangeForm):
             'city',
         )        
 
+class EditInternship(ModelForm):
+
+    class Meta:
+        model=Job
+        fields=("category","job_title","location","job_duration","job_content","job_stipend")

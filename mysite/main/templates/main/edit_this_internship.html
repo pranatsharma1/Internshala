@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title> Post A Job </title>
+    <title> Edit Internship </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -24,7 +24,7 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item"> {{user.username}} </a>
+                        <a href="/employer_profile/" class="dropdown-item"> {{user.username}} </a>
                         <a href="/profile/edit" class="dropdown-item"> Edit Profile </a>
                         <a href="/change-password" class="dropdown-item"> Change Password </a>
                         <a href="/internship/list" class="dropdown-item">Posted internships</a>
@@ -37,11 +37,11 @@
                           
     </nav>
         <div class="container">
-                <h2 id="std-head" style="color: rgb(106, 209, 243); padding-left: 5%;padding-right: 2%"> Post a Internship </h2>
+                <h2 id="std-head" style="color: rgb(106, 209, 243); padding-left: 5%;padding-right: 2%"> Edit Internship </h2>
                   <hr>
                 <div class="row">
                   <!-- left column -->
-                  <div class="col-md-5">
+                   <div class="col-md-5">
                     <div class="text-center">
                       <img src="{% static 'main/emp-profile/jobpost.svg' %}" width="100%" height="100%" style="padding-top: 5%" > 
                     </div>
@@ -57,52 +57,48 @@
                         <div class="form-group">
                           <label for="id_category" class="col-lg-3 control-label">Category:</label> 
                           <div class="col-lg-8">
-                          <input class="form-control" type="text" name="category" maxlength="200" required="" id="id_category">
-                        </div>
+                            <input class="form-control" type="text" name="category" maxlength="200" required="" id="id_category" value="{{i.category}}">
+                          </div>
                         </div>
                   
                         <div class="form-group">
-                         <label for="id_job_title" class="col-lg-3 control-label">Job title:</label> 
+                          <label for="id_job_title" class="col-lg-3 control-label">Job title:</label> 
+                          <div class="col-lg-8">
+                            <input class="form-control" type="text" name="job_title" maxlength="200" required="" id="id_job_title" value="{{i.job_title}}">
+                          </div>
+                        </div>
+                  
+                        <div class="form-group">
+                          <label for="id_location" class="col-lg-3 control-label">Location:</label> 
+                          <div class="col-lg-8">
+                            <input class="form-control" type="text" name="location" maxlength="200" required="" id="id_location" value="{{i.location}}">
+                          </div>
+                        </div>
+                  
+                        <div class="form-group">
+                          <label for="id_job_duration" class="col-lg-3 control-label">Job duration:</label> 
+                          <div class="col-lg-8">
+                            <input class="form-control" type="text" name="job_duration" maxlength="200" required="" id="id_job_duration" value="{{i.job_duration}}">
+                          </div>
+                        </div>
+                  
+                        <div class="form-group">
+                        <label for="id_job_content" class="col-lg-3 control-label">Job content:</label> 
                         <div class="col-lg-8">
-                          <input class="form-control" type="text" name="job_title" maxlength="200" required="" id="id_job_title">
-                        </div>
-                         </div>
+                           <input class="form-control" type="text" name="job_content" required="" id="id_job_content" value="{{i.job_content}}">
+                        </div></div>
                   
-                       <!-- <div class="form-group">
-                       <label for="id_id_job" class="col-lg-3 control-label">Id job:</label> 
-                       <div class="col-lg-8">
-                       <input class="form-control" type="text" name="id_job" maxlength="200" required="" id="id_id_job">
-                        </div>
-                      </div>
-                   -->
-                       <div class="form-group">
-                       <label for="id_location" class="col-lg-3 control-label">Location:</label> 
-                       <div class="col-lg-8">
-                       <input class="form-control" type="text" name="location" maxlength="200" required="" id="id_location">
-                      </div>
-                    </div>
-                  
-                  
-                       <div class="form-group">
-                       <label for="id_job_duration" class="col-lg-3 control-label">Job duration:</label> 
-                       <div class="col-lg-8"><input class="form-control" type="text" name="job_duration" maxlength="200" required="" id="id_job_duration">
-                      </div></div>
-                  
-                       <div class="form-group">
-                       <label for="id_job_content" class="col-lg-3 control-label">Job content:</label> 
-                       <div class="col-lg-8"><textarea class="form-control" name="job_content" required="" id="id_job_content"></textarea>
-                      </div></div>
-                  
-                       <div class="form-group">
-                       <label for="id_job_stipend" class="col-lg-3 control-label">Job stipend:</label> 
-                       <div class="col-lg-8"><input class="form-control" type="text" name="job_stipend" maxlength="200" required="" id="id_job_stipend">
-                      </div></div>
-                  
+                        <div class="form-group">
+                        <label for="id_job_stipend" class="col-lg-3 control-label">Job stipend:</label> 
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" name="job_stipend" maxlength="200" required="" id="id_job_stipend" value="{{i.job_stipend}}">
+                        </div></div>
+                       
                       <div class="form-group">
                           <label class="col-md-3 control-label"></label>
                           <div class="col-md-8">
-                              <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Submit</button>
-                            <a href="/internship/list"><input type="reset" class="btn btn-default" value="Cancel"></a>
+                            <button style="background-color:#0356fc;  color:white" class="btn btn-outline-info" type="submit">Update</button>
+                            <a href="/internship/list"><input type="text" class="btn btn-default" value="Cancel"></a>
                           </div>
                         </div>
                       </form>
@@ -117,4 +113,4 @@
 
         {% endif %}        
 </body>
-</html>
+</html> 

@@ -1,0 +1,92 @@
+<!--Code of sign up page-->
+
+
+{% extends 'main/header.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<br>
+<div class="container">
+<!-- <form method="POST">
+    {% csrf_token %}
+    {{form.as_p}} -->
+
+    <form method="POST">
+            {% csrf_token %}
+        <!-- <input type="hidden" name="csrfmiddlewaretoken" value="GOHdFu4HC18RcwzyEyhrKyKp3MNEgoUNWmz1tH6dtGxIzqKMwLKkqT4XoxV2O7q2"> -->
+        <p style="display: none"><label for="id_intern_name">Intern name:</label> 
+            <input type="text" value="{{user.first_name}}" name="intern_name" maxlength="200" required="" id="id_intern_name"></p>
+    <p><label for="id_job_title">Job title:</label> <select name="job_title" id="id_job_title">
+      <option value="1" selected="">Front-End-Developer</option>
+    
+      <option value="2">Python Developer</option>
+    
+      <option value="3">Video Editor</option>
+    
+      <option value="4">.Net Developer</option>
+    
+      <option value="5">Java Developer</option>
+    
+      <option value="6">Front-End-Developer</option>
+    
+      <option value="7">Photographer</option>
+    
+      <option value="8">Back-End Developer</option>
+    
+      <option value="9">Front-End-Developer</option>
+    
+      <option value="10">Back-End Developer</option>
+    
+      <option value="11">Video Editor</option>
+    
+      <option value="12">Photographer</option>
+    
+      <option value="13">Flutter Developer</option>
+    
+      <option value="18">Photographer</option>
+    
+      <option value="19">Product Photographer</option>
+    
+      <option value="20">Video Editor 2</option>
+    
+      <option value="21">Photographer</option>
+    
+      <option value="22">Video Editor 3</option>
+    
+      <option value="23">Video Editor 4</option>
+    
+      <option value="24">Video Editor 5</option>
+    
+    </select></p>
+    <p><label for="id_company_name">Company name:</label> <input type="text" name="company_name" maxlength="100" required="" id="id_company_name"></p>
+    <p><label for="id_intern_college">Intern college:</label> <input type="text" name="intern_college" maxlength="200" required="" id="id_intern_college"></p>
+    <p><label for="id_intern_skills">Intern skills:</label> <textarea name="intern_skills" cols="40" rows="10" required="" id="id_intern_skills"></textarea></p>
+    <p><label for="id_intern_city">Intern city:</label> <input type="text" name="intern_city" maxlength="200" required="" id="id_intern_city"></p>
+    <p><label for="id_intern_study_year">Intern study year:</label> <input type="text" name="intern_study_year" maxlength="200" required="" id="id_intern_study_year"></p>
+        <input type="submit" value="submit">
+    </form>
+
+    <!-- <input type="submit" value="submit">
+</form> -->
+    <!-- <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Sign Up</button>
+</form> -->
+
+    <!-- If you already have an account <a href="/login" target="blank"><strong>login</strong></a> instead. -->
+</div>
+
+
+                                            <!--Mahima's Code-->
+
+<!-- <div class="differ">
+    <h6>enter the student/company</h6>
+    <input type="text">
+    <button type="submit" aria-placeholder="enter the student/company"">save</button>
+</div> -->
+
+{% elif not user.is_auth %}
+<h1 style="text-align: center;color: crimson">XX--You are required to Login first to access this page--XX</h1>
+<h2 style="text-align:center">Click on <a style="color:crimson" href="/login">this</a> to login</h2>
+{% endif %}
+
+{% endblock %}
+

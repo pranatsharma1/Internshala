@@ -1,12 +1,44 @@
 <!--Template to show the Internships posted by the Employer-->
 {% extends 'main/header.html' %}
 {% block content %}
-{% if user.is_student %}
+{% if user.is_employer %}
+<!-- <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+{{form.as_p}}
+<input type="submit"  value="apply">
+</form> -->
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <p><label for="id_category">Category:</label> 
+    <input type="text" name="category" maxlength="200" required="" id="id_category" value="{{j.category}}"></p>
+
+    <p><label for="id_job_title">Job title:</label> 
+    <input type="text" name="job_title" maxlength="200" required="" id="id_job_title" value="{{j.job_title}}"></p>
+
+    <p><label for="id_location">Location:</label> 
+    <input type="text" name="location" maxlength="200" required="" id="id_location" value="{{j.location}}"></p>
+
+    <p><label for="id_job_duration">Job duration:</label> 
+    <input type="text" name="job_duration" maxlength="200" required="" id="id_job_duration" value="{{j.job_duration}}"></p> 
+
+    <p><label for="id_job_content">Job content:</label> 
+    <textarea name="job_content" cols="40" rows="10" required="" id="id_job_content" value="{{j.job_content}}"></textarea></p>
+
+    <p><label for="id_job_published">Date published:</label> 
+    <input type="text" name="job_published" required="" id="id_job_published" value="{{j.job_published}}"></p>
+
+    <p><label for="id_job_stipend">Job stipend:</label> 
+    <input type="text" name="job_stipend" maxlength="200" required="" id="id_job_stipend" value="{{j.job_stipend}}"></p>
+
+    <input type="submit" value="Save">
+</form>
 
 
 
-<div class="row">             
-    <div class="card text-white bg-warning" >
+<!-- <div class="row">              -->
+    <!-- <div class="card text-white bg-warning" >
         <div class="card-header">
             <h1>{{j.user}}</h1>
         <h4>{{j.job_title}}</h4>
@@ -18,44 +50,16 @@
         <h4>Stipend: {{j.job_stipend|safe}}</h4> 
         <br>
         <h4>Details: {{j.job_content|safe}}</h4>
-        <br>
-    <div class="container">
-        <div class="row">
-        
+        <br> -->
+    <!-- <div class="container">
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             
-            <p><label for="id_phone_no">Phone no: </label>
-            <input class="form-control" type="text" name="phone_no" maxlength="10" required="" id="id_phone_no"></p>
-        
-        
-            <p><label style="display: none;" for="id_intern_name">Intern name:</label> 
-            <input class="form-control" style="display: none;" type="text" name="intern_name" maxlength="200" required="" id="id_intern_name" value="{{user.first_name}} {{user.last_name}}"></p>
-        
-            
-            <p><label style="display: none;" for="id_company_name">Company name:</label> 
-            <input class="form-control" style="display: none;" type="text" name="company_name" maxlength="100" required="" id="id_company_name" value="{{j.user}}"></p>
-        
-            
             <p><label style="display: none;" for="id_job_title">Job title:</label> 
-            <input class="form-control" style="display: none;" name="job_title" id="id_job_title" value="{{j.job_title}}"></p>
-        
+            <input style="display: none;" name="job_title" id="id_job_title" value="{{j.job_title}}"></p> -->
             
-            <p><label style="display: none;" for="id_job_id">Job id:</label> 
-            <input class="form-control" style="display: none;" type="text" name="job_id" maxlength="100" required="" id="id_job_id" value="{{j.id}}"></p>
-    
             
-            <p><label for="id_hire">Why you should be hired?:</label> 
-            <input class="form-control" type="text" name="hire" maxlength="200" required="" id="id_hire"></p>
-        
-    
-            <p><label for="id_available">Are you available in that period:</label> 
-            <input class="form-control" type="text" name="available" maxlength="200" required="" id="id_available"></p>
-        
             
-            <p><label for="id_document">Upload Resume:</label> 
-            <input class="form-control" type="file" name="document" required="" id="id_document"></p>
-        
                 <!-- <p><label style="display: none;" for="id_intern_name">Intern name:</label> <input style="display: none;" type="text" name="intern_name" maxlength="200" required="" id="id_intern_name" value="{{user.username}}"></p>
                 <p><label style="display: none;" for="id_company_name">Company name:</label> <input style="display: none;" type="text" name="company_name" maxlength="100" required="" id="id_company_name" value="{{j.user}}"></p>
                 <p><label style="display: none;" for="id_job_title">job_title:</label> <input style="display: none;" type="text" name="job_title" maxlength="100" required="" id="id_job_title" value="{{j.job_title}}"></p>
@@ -63,14 +67,11 @@
                 <p><label for="id_phone_no">Phone no:</label> <input type="text" name="phone_no" maxlength="10" required="" id="id_phone_no"></p><p><label for="id_hire"> Why should you be hired for this internship?</label> <input type="text" name="hire" maxlength="200" required="" id="id_hire"></p>
                 <p><label for="id_available">Are you available for this month?</label> <input type="text" name="available" maxlength="200" required="" id="id_available"></p>
                 <p><label for="id_document">Resume Upload:</label> <input type="file"  name="document" required="" id="id_document"></p> -->
-                <input type="button" class="btn btn-primary" style="margin-top:5%;text-align: center"  value="Apply">
-                <!-- <input  type="submit"  value="apply"> -->
-            </div>
+                <!-- <input type="submit"  value="apply">
         </form>
-        </div>
-            </div>
     </div>
-</div>
+</div> -->
+
 
 {% elif user.is_employer %}
 <h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>
