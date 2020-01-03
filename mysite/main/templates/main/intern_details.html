@@ -20,11 +20,14 @@
         <!-- <h4>Resume: {{intern.document}}</h4> -->
         <br>
         <div class="container">
+            <a href="/choose/{{intern.id}}/approve/">Accept Request</a>
+            <a href="/choose/{{intern.id}}/reject/">Reject Request</a>
+            
            <!-- <form method="POST">
               {% csrf_token %}
               {{form.as_p}}   
              <input type="submit"  value="Submit"></form> -->
-            <form method="POST" role="form">
+            <!-- <form method="POST" role="form">
                     {% csrf_token %}
                    
                 <div class="form-group col-lg-12">    
@@ -55,7 +58,7 @@
   
                 <div class="form-group col-lg-12">
                         <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Submit</button>
-                        </div></form>  
+                        </div></form>   -->
         </div>
     </div>
 </div>

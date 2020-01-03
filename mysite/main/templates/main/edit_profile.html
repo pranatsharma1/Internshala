@@ -55,9 +55,9 @@
             <button style="background-color:#0356fc;  color:white" class="btn btn-outline-info" type="submit">Update</button> 
         </div>     
         </form>
-        {% for message in messages %}
+        <!-- {% for message in messages %}
             <p style="color:green;font-size:20px;text-align:center;margin-left:80px;">{{ message }}</p>
-        {% endfor %}
+        {% endfor %} -->
     </div>
 </div>
 {% elif user.is_employer %}
@@ -69,6 +69,7 @@
         </div>
 
         <div class="col-md-6">
+            <!-- {{form.as_p}} -->
         <form method="post">
                 {% csrf_token %}      
             <div class="form-group col-md-7">

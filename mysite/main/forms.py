@@ -25,7 +25,7 @@ class AcceptReject(ModelForm):
 class Apply_Job(ModelForm):
     class Meta:
           model=Intern
-          fields=('phone_no',"intern_name","company_name",'job_title',"job_id","hire","available","document")
+          fields=('phone_no',"intern_name","company_name",'job_title',"job_id","hire","available")
 
 class Job_Post(ModelForm):
     class Meta:
@@ -45,7 +45,9 @@ class NewUserForm1(UserCreationForm):
     class Meta:
           model=User
           
-          fields=("first_name","last_name","username","is_employer","email","city","image","password1","password2")
+        #   fields=("first_name","last_name","username","is_employer","email","city","image","password1","password2")
+          fields=("first_name","last_name","username","is_employer","email","password1","password2")
+
 
     def save(self,commit=True):
         user=super(NewUserForm1,self).save(commit=False)
@@ -63,7 +65,8 @@ class NewUserForm2(UserCreationForm):
 
     class Meta:
           model=User
-          fields=("first_name","last_name","username","is_student","email","image","college_name","city","year_of_study","basic_skills","password1","password2")
+        #   fields=("first_name","last_name","username","is_student","email","image","college_name","city","year_of_study","basic_skills","password1","password2")
+          fields=("first_name","last_name","username","is_student","email","college_name","year_of_study","password1","password2")
 
     def save(self,commit=True):
         user=super(NewUserForm2,self).save(commit=False)
@@ -89,8 +92,16 @@ class EditEmployerProfileForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = (
+        fields=(
+            "first_name",
+            "last_name",
             'email',
+            "city",
+            "image",
+            )
+
+        fields = (
+            
             'first_name',
             'last_name',
             'city',

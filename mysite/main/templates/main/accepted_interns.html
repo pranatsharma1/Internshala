@@ -4,11 +4,11 @@
 {% block content %}
 {% if user.is_employer %}
 <div class="row">
-<h1 style="text-align: center; color: cornflowerblue">Interns Applied for this company</h1><hr>
+<h1 style="text-align: center; color: cornflowerblue">Accepted Interns</h1><hr>
 
 {% for i in intern %}
-{% ifequal False i.is_accept %}
 {% ifequal False i.is_reject %}
+{% ifequal True i.is_accept %}
     <div class="row">
             <div class="col-sm-4"> 
                 <div class="card bg-light mb-3 border-secondary mb-3" style="margin-top:40px">

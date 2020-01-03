@@ -165,7 +165,7 @@
 
           <div class="form-group col-lg-8">
             <label for="id_first_name">First name:</label>
-            <input class="form-control" type="text" name="first_name" maxlength="30" id="id_first_name">
+            <input class="form-control" type="text" name="first_name" maxlength="30" autofocus=""  id="id_first_name">
           </div>
 
           <div class="form-group col-lg-8">
@@ -175,15 +175,14 @@
 
           <div class="form-group col-lg-8">
             <label for="id_username">Username:</label>
-            <input class="form-control" type="text" name="username" maxlength="150" autofocus="" required=""
-              id="id_username">
+            <input class="form-control" type="text" name="username" maxlength="150"required="" id="id_username">
           </div>
 
 
           <div class="form-group col-lg-8">
-            <label for="id_is_employer">Is employer:</label>
-            <div class="radio">
-              <label><input type="radio" name="is_employer" id="id_is_employer">Agree</label>
+            <!-- <label for="id_is_employer">Is employer:</label> -->
+            <div class="radio" style="display: none;" >
+              <label><input type="checkbox" name="is_employer" id="id_is_employer" checked>Agree</label>
             </div>
             <!-- <input class="form-control" type="checkbox" name="is_employer" required="" id="id_is_employer"> -->
           </div>
@@ -194,15 +193,15 @@
           </div>
 
 
-          <div class="form-group col-lg-8">
+          <!-- <div class="form-group col-lg-8">
             <label for="id_city">Main Office Location:</label>
             <input class="form-control" type="text" name="city" maxlength="150" id="id_city">
-          </div>
+          </div> -->
 
-          <div class="form-group col-lg-8">
+          <!-- <div class="form-group col-lg-8">
             <label for="id_image">Image:</label>
             <input class="form-control" type="file" name="image" accept="image/*" required="" id="id_image">
-          </div>
+          </div> -->
 
           <div class="form-group col-lg-8">
             <label for="id_password1">Password:</label>

@@ -216,7 +216,7 @@ def job_detail(request,job_id):
     job_id = Job.objects.get(pk=job_id)
 
     if request.method == 'POST':
-        form = Apply_Job(request.POST,request.FILES)
+        form = Apply_Job(request.POST)
         if form.is_valid():
             intern_profile=form.save(commit=False) 
             intern_profile.username=request.user
@@ -241,26 +241,41 @@ def job_status(request,intern_id):
 
 @login_required
 def intern_detail(request,intern_id):
-    intern_id = Intern.objects.get(pk=intern_id)
+    intern_id = Intern.objects.get(id=intern_id)
 
-    if request.method == 'POST':
-        form = AcceptReject(request.POST,request.FILES)
-        if form.is_valid():
-            intern_profile=form.save(commit=False) 
-            intern_profile.username=request.user
+    return render(request,"main/intern_details.html",{'intern':intern_id})
 
-            intern_profile.save()
-            username = form.cleaned_data.get('intern_profile.username')                     #getting the username from the form   
+class accept(View):
 
-            return redirect("main:homepage")
+    def get(self,request,intern_id):
+        print(intern_id)
+        intern=Intern.objects.get(id=intern_id)
 
-    form = AcceptReject()
-    return render(request,"main/intern_details.html",{'intern':intern_id,"form":form})
+        intern.is_accept=True
+        intern.is_reject=False
+
+        intern.save()
+
+        return redirect("main:employer")        
+
+class reject(View):
+
+    def get(self,request,intern_id):
+        intern=Intern.objects.get(id=intern_id)
+
+        intern.is_accept=False
+        intern.is_reject=True
+
+        intern.save()
+
+        return redirect("main:employer")    
 
 #---------------------------------------View for checking the status of applied internship-------------------------------#
 class myapplication(View):
     def get(self,request):
-       i=JobStatus.objects.filter(intern_name=request.user)
+       
+       i=Intern.objects.filter(username=request.user)
+
        return render(request=request,template_name="main/myapplication.html",context={"intern":i})
 
 
@@ -273,9 +288,33 @@ class interns_applied(View):
 
         #only details of those interns are passed to the template 
         #whose comany name equals to the username of the user currently logged in
-        i=Intern.objects.filter(company_name=request.user)   
-
+        i=Intern.objects.filter(company_name=request.user) 
+        # intern=Intern.objects.get(company_name=request.user)  
+        # a=intern.is_accept
+        # r=intern.is_reject
+        for k in i:
+            print(k.is_accept)
+            print(k.is_reject)
+            print("\n")
         return render(request=request,template_name="main/jobs_posted.html",context={"intern":i},)
+
+class accepted_interns(View):
+
+    def get(self,request):
+        i=Intern.objects.filter(company_name=request.user)
+        # intern=Intern.objects.get(company_name=request.user)  
+        # a=intern.is_accept
+        # r=intern.is_reject
+        return render(request=request,template_name="main/accepted_interns.html",context={"intern":i},)
+
+class rejected_interns(View):
+
+    def get(self,request):
+        i=Intern.objects.filter(company_name=request.user)
+        # intern=Intern.objects.get(company_name=request.user)  
+        # a=intern.is_accept
+        # r=intern.is_reject
+        return render(request=request,template_name="main/rejected_interns.html",context={"intern":i},)
 
 
 #------------------------------------------View for Editing the Internship-----------------------------------------------#
@@ -353,7 +392,7 @@ class internship_list(View):
 @login_required
 def edit_employer_profile(request):
     if request.method == 'POST':
-        form = EditEmployerProfileForm(request.POST, instance=request.user)
+        form = EditEmployerProfileForm(request.POST,request.FILES or None, instance=request.user)
 
         if form.is_valid():
             user=form.save()
@@ -431,10 +470,14 @@ class all_jobs(View):
 #-----------------------------------View to display the jobs posted by the company in Delhi-------------------------------#
 class jobs_in_Delhi(View):
     def get(self,request):
+        print(request.user)
+        i=Intern.objects.filter(username=request.user)
+        for k in i:
+            print(k.is_accept)
         d=Job.objects.filter(location='Delhi')
         return render(request=request,
                       template_name="main/jobs_list.html",
-                      context={"jobs":d},
+                      context={"jobs":d,"i":i},
                     )   
 
 #----------------------------------View to display the jobs posted by the company in Mumbai-------------------------------#

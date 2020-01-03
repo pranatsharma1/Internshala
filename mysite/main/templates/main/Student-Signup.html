@@ -132,12 +132,12 @@ overflow-x: hidden; ">
               <hr>
 
           <!--Backend wala form-->  
-          
+          <!-- {{form.as_p}} -->
                 <form method="POST" enctype="multipart/form-data" class="form-horizontal" role="form">
                     {% csrf_token %}
                       <div class="form-group col-lg-8">
                           <label for="id_first_name">First name:</label> 
-                          <input class="form-control" type="text" name="first_name" maxlength="30" id="id_first_name">
+                          <input class="form-control" type="text" name="first_name" maxlength="30" autofocus="" id="id_first_name">
                           </div>
     
                           <div class="form-group col-lg-8">
@@ -147,14 +147,14 @@ overflow-x: hidden; ">
     
                           <div class="form-group col-lg-8">
                           <label for="id_username">Username:</label>
-                          <input class="form-control" type="text" name="username" maxlength="150" autofocus="" required="" id="id_username">
+                          <input class="form-control" type="text" name="username" maxlength="150" required="" id="id_username">
                           </div>
     
     
                           <div class="form-group col-lg-8" >
-                            <label for="id_is_student">Is student:</label> 
-                            <div class="radio">
-                              <label><input type="radio"  name="is_student">Agree</label>
+                            <!-- <label for="id_is_student">Is student:</label>  -->
+                            <div class="radio" style="display: none;" >
+                              <label><input type="checkbox"  name="is_student" checked>Agree</label>
                             <!-- <input class="form-control" type="checkbox" name="is_student" required="" id="id_is_student"> -->
                           </div>
                         </div>
@@ -164,30 +164,39 @@ overflow-x: hidden; ">
                           <input class="form-control" type="email" name="email" required="" id="id_email">
                           </div>
     
-                          <div class="form-group col-lg-8">
+                          <!-- <div class="form-group col-lg-8">
                           <label for="id_image">Image:</label> 
                           <input class="form-control" type="file" name="image" accept="image/*" required="" id="id_image">
-                          </div>
+                          </div> -->
 
                           <div class="form-group col-lg-8">
                           <label for="id_college_name">College name:</label> 
                           <input class="form-control" type="text" name="college_name" maxlength="200" required="" id="id_college_name">
                           </div>
 
-                          <div class="form-group col-lg-8">
+                          <!-- <div class="form-group col-lg-8">
                           <label for="id_city">City:</label> 
                           <input class="form-control" type="text" name="city" maxlength="200" required="" id="id_city">
-                          </div>
+                          </div> -->
 
                           <div class="form-group col-lg-8">
                           <p><label for="id_year_of_study">Year of study:</label> 
-                          <input type="text" name="year_of_study" maxlength="200" required="" id="id_year_of_study"></p>
-                          </div>
 
-                          <div class="form-group col-lg-8">
+                          <select class="form-control" name="year_of_study" required="" id="id_year_of_study">
+
+                            <option value="1">1st</option>
+                          
+                            <option value="2">2nd</option>
+                          
+                            <option value="3">3rd</option>
+                          
+                            <option value="4">4th</option>
+                          
+                          </select></p></div>
+                          <!-- <div class="form-group col-lg-8">
                           <label for="id_basic_skills">Basic skills:</label> 
                           <textarea class="form-control" name="basic_skills"  required="" id="id_basic_skills"></textarea>
-                          </div>
+                          </div> -->
 
                           <div class="form-group col-lg-8">
                           <label for="id_password1">Password:</label> 

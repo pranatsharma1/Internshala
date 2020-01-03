@@ -41,6 +41,10 @@ urlpatterns = [
    path("edit_internship/<int:pk>/",views.edit_this_internship,name="edit_this_internship"),
    path("intern_detail/<int:intern_id>/",views.intern_detail,name="intern_detail"),
    path("job_status/<int:intern_id>/",views.job_status,name="job_status"),
+   path("choose/<int:intern_id>/approve/",views.accept.as_view(),name="accept"),
+   path("choose/<int:intern_id>/reject/",views.reject.as_view(),name="reject"),
+   path("accepted_interns/",views.accepted_interns.as_view(),name="accepted_interns"),
+   path("rejected_interns/",views.rejected_interns.as_view(),name="rejected_interns"),
 
 
    url(r'^$', views.homepage, name='homepage'),

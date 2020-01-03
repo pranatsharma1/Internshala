@@ -20,7 +20,7 @@ class User(AbstractUser):
     college_name=models.CharField(max_length=200,default="")
     basic_skills=models.TextField(default="")
     city=models.CharField(max_length=200,default="")
-    year_of_study=models.CharField(max_length=200,default="")
+    year_of_study=models.IntegerField(choices=((1,"first_year"),(2,"second_year"),(3,"third_year"),(4,"fourth_year")))
                             
 
 
@@ -54,7 +54,7 @@ class Intern(models.Model):
     phone_no=models.CharField(max_length=10)
     is_accept=models.BooleanField(default=False)
     is_reject=models.BooleanField(default=False)  
-
+    status=models.BooleanField(default=False)
     def __str__(self):
         return self.intern_name                                        
 
