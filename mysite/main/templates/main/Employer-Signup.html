@@ -1,7 +1,6 @@
 <!--Template for the signup page of Employer-->
 
 {% load static %}
-{% include 'main/includes/messaging.html' %}
 <!DOCTYPE HTML>
 <html style="width: 100%;
                                         height: 100%;
@@ -178,7 +177,6 @@
             <input class="form-control" type="text" name="username" maxlength="150"required="" id="id_username">
           </div>
 
-
           <div class="form-group col-lg-8">
             <!-- <label for="id_is_employer">Is employer:</label> -->
             <div class="radio" style="display: none;" >
@@ -190,33 +188,22 @@
           <div class="form-group col-lg-8">
             <label for="id_email">Email:</label>
             <input class="form-control" type="email" name="email" required="" id="id_email">
-          </div>
-
-
-          <!-- <div class="form-group col-lg-8">
-            <label for="id_city">Main Office Location:</label>
-            <input class="form-control" type="text" name="city" maxlength="150" id="id_city">
-          </div> -->
-
-          <!-- <div class="form-group col-lg-8">
-            <label for="id_image">Image:</label>
-            <input class="form-control" type="file" name="image" accept="image/*" required="" id="id_image">
-          </div> -->
+          </div>   
 
           <div class="form-group col-lg-8">
             <label for="id_password1">Password:</label>
             <input class="form-control" type="password" name="password1" required="" id="id_password1">
           </div>
 
+          
           <div class="form-group col-lg-8">
             <label for="id_password2">Password confirmation:</label>
             <input class="form-control" type="password" name="password2" required="" id="id_password2">
           </div>
-
+          
 
           <div class="form-group col-lg-8">
-            <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Sign
-              Up</button>
+            <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Sign Up</button>
           </div>
         </form>
 

@@ -34,8 +34,8 @@ overflow-x: hidden; ">
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu">
-                            <a href="/student_profile" class="dropdown-item"> {{user.first_name}} </a>
-                            <a href="/student_profile" class="dropdown-item"> {{user.email}} </a><hr>
+                            <a href="/student_profile" class="dropdown-item"> {{user.first_name}} </a><hr>
+                            <!-- <a href="/student_profile" class="dropdown-item"> {{user.email}} </a><hr> -->
                             <a href="/myapplication" class="dropdown-item">My Applications</a>
                             <a href="/profile/edit_student" class="dropdown-item"> Edit Profile </a>
                             <a href="/change-password" class="dropdown-item"> Change Password </a>
@@ -44,32 +44,40 @@ overflow-x: hidden; ">
                             <!-- <a href="#" class="dropdown-item"> logout </a> -->
                         </div>
                     </div>  
-                    <!-- <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Admin</a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a href="#" class="dropdown-item">Reports</a>
-                                <a href="#" class="dropdown-item">Settings</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#"class="dropdown-item">Logout</a>
-                            </div>
-                        </li>
-                    </ul> -->
-          
         </nav>
-        <!-- <img src="std-profile/StudentProfile.svg" class="rounded float-left" alt="..."> -->
+        
+        <div>
+            {% for message in messages %}
+               <div class="message">
+               <h4 style="text-align: center; color:slateblue;">{{ message }}</h4>
+               <a href="#" class="del-msg"></a>
+               </div>
+            {% endfor %}
+        </div>
+
         <div class="row">
           <div class="col-md-7">
            <object class="dash-img" type="image/svg+xml" data="{% static 'main/StudentProfile2.svg' %}">
            </object>
           </div>
           <div class="col-md-5 personal-info" style="padding-top:3%">
+            
             <h2 id="profile-head"style="color: cornflowerblue">Personal info</h2>
+            
             <hr>
+            {% if user.image %}
             <img src="/media/{{user.image}}" style="width: 50%; height:30%; border-radius: 25px"">
+            {% else %}
+            <img src="{% static 'main/student.png' %}" style="width: 50%; height:30%; border-radius: 25px">
+            {% endif %}
             <hr>
+            
             <h4>Name:</h4>
             <h5>{{user.first_name}} {{user.last_name}} </h5>
+            <hr>
+
+            <h4>Email:</h4>
+            <h5>{{user.email}}</h5>
             <hr>
 
             <h4>College:</h4>
@@ -80,7 +88,8 @@ overflow-x: hidden; ">
 
             <h4>Skills:</h4>
             <h5>{{user.basic_skills}}</h5><hr> 
-          </div>
+          
+           </div>
         </div>
 
         <div clas="apply-btn" style="margin-left: 45%;padding-top: 2%">
@@ -92,5 +101,19 @@ overflow-x: hidden; ">
         <h2 style="text-align:center">Click on <a style="color:crimson" href="/employer_profile">this</a> to go to back to employer's profile</h2>
         
         {% endif%}
+
     </body>
+    <script>
+        $(document).ready(function() {
+            // messages timeout for 10 sec 
+            setTimeout(function() {
+                $('.message').fadeOut('slow');
+            }, 1500); // <-- time in milliseconds, 1000 =  1 sec
+    
+            // delete message
+            $('.del-msg').live('click',function(){
+                $('.del-msg').parent().attr('style', 'display:none;');
+            })
+        });
+    </script>
 </html>

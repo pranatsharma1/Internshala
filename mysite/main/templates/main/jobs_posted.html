@@ -6,11 +6,12 @@
 <div class="row">
 <h1 style="text-align: center; color: cornflowerblue">Interns Applied for this company</h1><hr>
 
+<div class="row" style="padding-left: 2%;padding-right: 2%;padding-top: 0%;padding-bottom: 2%;">
+
 {% for i in intern %}
 {% ifequal False i.is_accept %}
 {% ifequal False i.is_reject %}
-    <div class="row">
-            <div class="col-sm-4"> 
+            <div class="col-sm-4" style="padding-left: 2%;padding-right: 2%;padding-top: 2%;padding-bottom: 2%;"> 
                 <div class="card bg-light mb-3 border-secondary mb-3" style="margin-top:40px">
                     <div class="card-body">
                     <h1 class="card-title" style="font-family: montserrat">{{i.intern_name}}</h1>

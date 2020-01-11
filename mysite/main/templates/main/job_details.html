@@ -3,9 +3,74 @@
 {% block content %}
 {% if user.is_student %}
 
+<h2 style="color: cornflowerblue">&nbsp&nbsp&nbsp&nbspApply for Internship</h2><hr>
 
+<div class="col-md-6" style="padding-left: 5%;padding-right: 5%;padding-bottom: 3%;">
 
-<div class="row">             
+    <div class="row">             
+        <div class="card text-white bg-warning" >
+            <div class="card-header">
+                <h1 style="color: purple;font-size:10vh">{{j.user}}</h1><hr>
+            <h3 style="color: purple;">{{j.job_title}}</h3>
+            <h3 style="color: purple;"><span style="color: black;">Location:</span> {{j.location}}</h3>
+            <h3 style="color: purple;"><span style="color: black;">Duration:</span> {{j.job_duration}} Months</h3>
+            <h3 style="color: purple;"><span style="color: black;">Stipend:</span> {{j.job_stipend|safe}} INR</h3>
+            <h3 style="color: purple;"><span style="color: black;">Details:</span> {{j.job_content|safe}}</h3>
+            <h5 style="color: purple;"><span style="color: black;">Date Posted:</span>{{j.job_published}}</h5>
+            </div>
+        </div>
+    </div>  
+</div>   
+
+<div class="col-md-6" style="padding-left: 5%;">
+    <form method="POST" enctype="multipart/form-data" class="form-horizontal" role="form">
+        <!-- {{form.as_p}} -->
+        {% csrf_token %}
+        <div class="form-group col-lg-8">
+            <label for="id_phone_no">Phone no: </label>
+            <input class="form-control" type="text" name="phone_no" maxlength="10" placeholder="Enter your 10-digit phone number" required="" id="id_phone_no">
+        </div>
+        
+        <label style="display: none;" for="id_college_name">College Name:</label>
+        <input class="form-control" style="display: none;" type="text" name="college_name" value="{{user.college_name}}" maxlength="200" required="" id="id_college_name"></p>
+
+        <label style="display: none;" for="id_basic_skills">Basic skills:</label style="display: none;"> 
+            <input class="form-control" style="display: none;" type="text" name="basic_skills" value="{{user.basic_skills}}" maxlength="200" required="" id="id_basic_skills">
+
+        <label style="display: none;" for="id_city">City:</label style="display: none;"> 
+        <input class="form-control" style="display: none;" type="text" name="city" value="{{user.city}}" maxlength="200" required="" id="id_city">
+        
+        <label style="display: none;" for="id_intern_name">Intern name:</label> 
+        <input class="form-control" style="display: none;" type="text" name="intern_name" maxlength="200" required="" id="id_intern_name" value="{{user.first_name}} {{user.last_name}}">
+
+        <label style="display: none;" for="id_company_name">Company name:</label> 
+        <input class="form-control" style="display: none;" type="text" name="company_name" maxlength="100" required="" id="id_company_name" value="{{j.user}}">
+            
+        <label style="display: none;" for="id_job_title">Job title:</label> 
+        <input class="form-control" style="display: none;" name="job_title" id="id_job_title" value="{{j.job_title}}">
+
+        <label style="display: none;" for="id_job_id">Job id:</label> 
+        <input class="form-control" style="display: none;" type="text" name="job_id" maxlength="100" required="" id="id_job_id" value="{{j.id}}">
+            
+        <div class="form-group col-lg-8">
+            <label for="id_hire">Why you should be hired?:</label> 
+            <input class="form-control" type="text" name="hire" maxlength="200" required="" id="id_hire">
+        </div>
+    
+        <div class="form-group col-lg-8">
+            <label for="id_available">Are you available in the given period? :</label> 
+            <input type="checkbox" name="available" id="id_available">
+        </div>
+
+        <div class="form-group col-lg-8">
+        <input type="submit" class="btn btn-primary" style="text-align: center"  value="Apply">
+        <a href="/student_profile/" style="background-color:red; color:white" class="btn btn-outline-info">Cancel</a>
+        </div>
+
+    </form>
+</div>
+
+<!-- <div class="row">             
     <div class="card text-white bg-warning" >
         <div class="card-header">
             <h1>{{j.user}}</h1>
@@ -18,8 +83,8 @@
         <h4>Stipend: {{j.job_stipend|safe}}</h4> 
         <br>
         <h4>Details: {{j.job_content|safe}}</h4>
-        <br>
-    <div class="container">
+        <br> -->
+    <!-- <div class="container">
         <div class="row">
         
         <form method="POST" enctype="multipart/form-data">
@@ -51,7 +116,7 @@
     
             <p><label for="id_available">Are you available in that period:</label> 
             <input class="form-control" type="text" name="available" maxlength="200" required="" id="id_available"></p>
-        
+         -->
             
             <!-- <p><label for="id_document">Upload Resume:</label> 
             <input class="form-control" type="file" name="document" required="" id="id_document"></p> -->
@@ -63,14 +128,14 @@
                 <p><label for="id_phone_no">Phone no:</label> <input type="text" name="phone_no" maxlength="10" required="" id="id_phone_no"></p><p><label for="id_hire"> Why should you be hired for this internship?</label> <input type="text" name="hire" maxlength="200" required="" id="id_hire"></p>
                 <p><label for="id_available">Are you available for this month?</label> <input type="text" name="available" maxlength="200" required="" id="id_available"></p>
                 <p><label for="id_document">Resume Upload:</label> <input type="file"  name="document" required="" id="id_document"></p> -->
-                <input type="submit" class="btn btn-primary" style="margin-top:5%;text-align: center"  value="Apply">
+                <!-- <input type="submit" class="btn btn-primary" style="margin-top:5%;text-align: center"  value="Apply"> -->
                 <!-- <input  type="submit"  value="apply"> -->
-            </div>
+            <!-- </div>
         </form>
         </div>
             </div>
     </div>
-</div>
+</div> -->
 
 {% elif user.is_employer %}
 <h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>

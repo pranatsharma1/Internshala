@@ -23,7 +23,7 @@ urlpatterns = [
 
    path("web_developer_internship/",web_developer_internship.as_view(),name="web_developer_internship"),
    path("android_developer_internship/",android_developer_internship.as_view(),name="android_developer_internship"),
-   path("photographer_internship/",photographer_internship.as_view(),name="photographer_internship"),
+   path("designing_internship/",designing_internship.as_view(),name="designing_internship"),
    
    path("apply/",views.apply_for_job,name="apply_for_job"),
 

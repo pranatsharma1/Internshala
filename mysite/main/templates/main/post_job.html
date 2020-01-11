@@ -24,20 +24,21 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item"> {{user.username}} </a>
-                        <a href="/profile/edit" class="dropdown-item"> Edit Profile </a>
-                        <a href="/change-password" class="dropdown-item"> Change Password </a>
-                        <a href="/internship/list" class="dropdown-item">Posted internships</a>
-                        <a href="/interns_applied" class="dropdown-item">Interns Applied</a>
-                        <a href="/internship/edit_all" class="dropdown-item">Edit all internship</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="/logout" class="dropdown-item"> Logout </a>
-                    </div>
+                      <a href="/employer_profile" class="dropdown-item"> {{user.username}} </a><hr>
+                      <a href="/profile/edit_employer" class="dropdown-item"> Edit Profile </a>
+                      <a href="/change-password" class="dropdown-item"> Change Password </a>
+                      <a href="/internship/list" class="dropdown-item">Posted internships</a>
+                      <a href="/interns_applied" class="dropdown-item">Interns Applied</a>
+                      <a href="/accepted_interns" class="dropdown-item">Accepted Interns</a>
+                      <a href="/rejected_interns" class="dropdown-item">Rejected Interns</a>
+                      <div class="dropdown-divider"></div>
+                      <a href="/logout" class="dropdown-item"> Logout </a>
+                  </div>
                 </div>  
                           
     </nav>
         <div class="container">
-                <h2 id="std-head" style="color: rgb(106, 209, 243); padding-left: 5%;padding-right: 2%"> Post a Internship </h2>
+                <h2 id="std-head" style="color: rgb(106, 209, 243); padding-left: 5%;padding-right: 2%"> Post an Internship </h2>
                   <hr>
                 <div class="row">
                   <!-- left column -->
@@ -50,14 +51,33 @@
                   
                   <div class="col-md-7 personal-info">              
                     <h4> Fill the Required Fields </h4>
-                    
+                    <!-- <form method="POST" class="form-horizontal" role="form">
+                    {{form.as_p}}
+                    {% csrf_token %}
+                    <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Submit</button>
+                            <a href="/internship/list"><input type="reset" class="btn btn-default" value="Cancel"></a> -->
                     <form method="POST" class="form-horizontal" role="form">
                         {% csrf_token %}
                       
                         <div class="form-group">
                           <label for="id_category" class="col-lg-3 control-label">Category:</label> 
                           <div class="col-lg-8">
-                          <input class="form-control" type="text" name="category" maxlength="200" required="" id="id_category">
+                          <select class="form-control" name="category" id="id_category">
+
+                            <option value="none" selected disabled hidden>Select an option </option>
+
+                            <option value="Web Development">Web Development</option>
+
+                            <option value="Android Development">Android Development</option>
+                          
+                            <option value="Designing">Designing</option>
+                          
+                            <option value="Photography">Photography</option>
+                          
+                            <option value="Video Editing">Video Editing</option>
+
+                          </select class="form-control">  
+
                         </div>
                         </div>
                   
@@ -67,44 +87,53 @@
                           <input class="form-control" type="text" name="job_title" maxlength="200" required="" id="id_job_title">
                         </div>
                          </div>
-                  
-                       <!-- <div class="form-group">
-                       <label for="id_id_job" class="col-lg-3 control-label">Id job:</label> 
-                       <div class="col-lg-8">
-                       <input class="form-control" type="text" name="id_job" maxlength="200" required="" id="id_id_job">
-                        </div>
-                      </div>
-                   -->
-                       <div class="form-group">
+
+                      <div class="form-group">
                        <label for="id_location" class="col-lg-3 control-label">Location:</label> 
                        <div class="col-lg-8">
-                       <input class="form-control" type="text" name="location" maxlength="200" required="" id="id_location">
+                        <select class="form-control" name="location" id="id_location">
+
+                          <option value="none" selected disabled hidden>Select an option </option>
+
+                          <option value="Delhi">Delhi</option>
+                        
+                          <option value="Bangalore">Bangalore</option>
+                        
+                          <option value="Chennai">Chennai</option>
+                        
+                          <option value="Mumbai">Mumbai</option>
+                        
+                          <option value="Ghaziabad">Ghaziabad</option>
+                        
+                        </select>
+
                       </div>
                     </div>
                   
                   
                        <div class="form-group">
-                       <label for="id_job_duration" class="col-lg-3 control-label">Job duration:</label> 
-                       <div class="col-lg-8"><input class="form-control" type="text" name="job_duration" maxlength="200" required="" id="id_job_duration">
+                       <label for="id_job_duration" class="col-lg-5 control-label">Job duration(in months):</label> 
+                       <div class="col-lg-8"><input class="form-control" type="number" min="1" value="1" name="job_duration" maxlength="200" required="" id="id_job_duration">
                       </div></div>
                   
                        <div class="form-group">
-                       <label for="id_job_content" class="col-lg-3 control-label">Job content:</label> 
+                       <label for="id_job_content" class="col-lg-4 control-label">Job content:</label> 
                        <div class="col-lg-8"><textarea class="form-control" name="job_content" required="" id="id_job_content"></textarea>
                       </div></div>
                   
                        <div class="form-group">
-                       <label for="id_job_stipend" class="col-lg-3 control-label">Job stipend:</label> 
-                       <div class="col-lg-8"><input class="form-control" type="text" name="job_stipend" maxlength="200" required="" id="id_job_stipend">
+                       <label for="id_job_stipend" class="col-lg-5 control-label">Job stipend(in INR):</label> 
+                       <div class="col-lg-8"><input class="form-control" type="number" min="0" value="0" name="job_stipend" maxlength="200" required="" id="id_job_stipend">
                       </div></div>
                   
                       <div class="form-group">
                           <label class="col-md-3 control-label"></label>
                           <div class="col-md-8">
                               <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Submit</button>
-                            <a href="/internship/list"><input type="reset" class="btn btn-default" value="Cancel"></a>
+                            <a href="/employer_profile/" style="background-color:red; color:white" class="btn btn-outline-info">Cancel</a>
                           </div>
                         </div>
+
                       </form>
             
                   </div>

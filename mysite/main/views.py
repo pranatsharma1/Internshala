@@ -140,7 +140,7 @@ def activate(request, uidb64, token):
 class homepage(View):
    def get(self,request):                                              
         return render(request=request,
-                    template_name="main/home.html",
+                      template_name="main/home.html",
                     )
 
 #------------------------------------------------View for Student Profile----------------------------------------------#
@@ -172,8 +172,8 @@ def post_a_job(request):
             job_profile = form.save(commit=False)  
             job_profile.user=request.user  
             job_profile.save()                                       #basically save the user(since user is a part of form,thus we save the form)
-            user = form.cleaned_data.get('job_title')                     #getting the username from the form   
-            messages.success(request, f"New Job created: {user}")    #displaying the message that new account has been created
+            title = form.cleaned_data.get('job_title')                     #getting the username from the form   
+            messages.success(request, f"New Job created: {title}")    #displaying the message that new account has been created
             
             return redirect("main:employer")
         
@@ -194,7 +194,7 @@ def apply_for_job(request):
             intern_profile.username=request.user
             intern_profile.save()
             
-            messages.success(request, f"{intern_profile.username} has succesully applied for this job")
+            messages.success(request,"You have succesully applied for this job")
 
             return redirect("main:student")
         else:                                                 #if form is not valid or not filled properly               
@@ -219,14 +219,9 @@ def job_detail(request,job_id):
         form = Apply_Job(request.POST)
         if form.is_valid():
             intern_profile=form.save(commit=False) 
-            intern_profile.username=request.user
-            #intern_profile.job_id=job_id
-            #intern_profile.company_name=job_id.user
-
             intern_profile.save()
-            username = form.cleaned_data.get('intern_profile.username')                     #getting the username from the form   
-
-            return redirect("main:homepage")
+            messages.success(request,"Successfully applied for the Internship")
+            return redirect("main:student")
 
     form = Apply_Job()
     return render(request,"main/job_details.html",{'j':job_id,"form":form})
@@ -289,31 +284,18 @@ class interns_applied(View):
         #only details of those interns are passed to the template 
         #whose comany name equals to the username of the user currently logged in
         i=Intern.objects.filter(company_name=request.user) 
-        # intern=Intern.objects.get(company_name=request.user)  
-        # a=intern.is_accept
-        # r=intern.is_reject
-        for k in i:
-            print(k.is_accept)
-            print(k.is_reject)
-            print("\n")
         return render(request=request,template_name="main/jobs_posted.html",context={"intern":i},)
 
 class accepted_interns(View):
 
     def get(self,request):
         i=Intern.objects.filter(company_name=request.user)
-        # intern=Intern.objects.get(company_name=request.user)  
-        # a=intern.is_accept
-        # r=intern.is_reject
         return render(request=request,template_name="main/accepted_interns.html",context={"intern":i},)
 
 class rejected_interns(View):
 
     def get(self,request):
         i=Intern.objects.filter(company_name=request.user)
-        # intern=Intern.objects.get(company_name=request.user)  
-        # a=intern.is_accept
-        # r=intern.is_reject
         return render(request=request,template_name="main/rejected_interns.html",context={"intern":i},)
 
 
@@ -327,6 +309,7 @@ def edit_this_internship(request,pk):
 
         if form.is_valid():
             job=form.save()
+            messages.success(request,"Internship Edited successfully!!")
             return redirect("main:internship_list")
 
     else:
@@ -339,7 +322,7 @@ def edit_this_internship(request,pk):
 class logout_request(View):
     def get(self,request):
        logout(request)
-       messages.info(request, "Logged out successfully!")
+    #    messages.info(request, "Logged out successfully!")
        return redirect("main:homepage") 
 
 #----------------------------------View for logging in the user in current session-----------------------------------#
@@ -361,7 +344,7 @@ class login_request(View):
             user = authenticate(username=username, password=password)        #authenticating the user i.e. username and passwords match simultaneously with a user's profile in database
             if user is not None:                                             #basically means "if user is true i.e. if user is successfully authenticated"
                 login(request, user)                                         #log the user into the session
-                messages.info(request, f"You are now logged in as {username}")    #display a message that user is logged in
+                # messages.info(request, f"You are now logged in as {username}")    #display a message that user is logged in
                 if user.is_student:
                   return redirect("main:student")
                 else:
@@ -392,10 +375,15 @@ class internship_list(View):
 @login_required
 def edit_employer_profile(request):
     if request.method == 'POST':
-        form = EditEmployerProfileForm(request.POST,request.FILES or None, instance=request.user)
+        form = EditEmployerProfileForm(request.POST,request.FILES or None,instance=request.user)
 
         if form.is_valid():
             user=form.save()
+            
+            if 'image' in request.FILES:                 #Editing the image
+                user.image=request.FILES['image']
+                user.save
+
             messages.success(request, 'Profile updated successfully!!')
             if user.is_student:
                 return redirect("main:student")
@@ -412,10 +400,17 @@ def edit_employer_profile(request):
 @login_required
 def edit_student_profile(request):
     if request.method == 'POST':
-        form = EditStudentProfileForm(request.POST, instance=request.user)
+        form = EditStudentProfileForm(request.POST,request.FILES or None, instance=request.user)
 
         if form.is_valid():
             user=form.save()
+
+            if 'image' in request.FILES:                 #Editing the image
+                user.image=request.FILES['image']
+                user.save
+            
+            messages.success(request, 'Profile updated successfully!!')
+
             if user.is_student:
                 return redirect("main:student")
             else:
@@ -437,11 +432,16 @@ def change_password(request):
         if form.is_valid():
             user=form.save()
             update_session_auth_hash(request, form.user)
+
+            messages.success(request, 'Password Changed Successfully!!')
+
             if user.is_student:
-              return redirect(reverse('main:student'))
+                return redirect(reverse('main:student'))
             else:
                 return redirect(reverse('main:employer'))
+
         else:
+            messages.success(request, 'Invaild Details. Re-enter the details !!')
             return redirect(reverse('main:change_password'))
     else:
         form = PasswordChangeForm(user=request.user)
@@ -470,14 +470,10 @@ class all_jobs(View):
 #-----------------------------------View to display the jobs posted by the company in Delhi-------------------------------#
 class jobs_in_Delhi(View):
     def get(self,request):
-        print(request.user)
-        i=Intern.objects.filter(username=request.user)
-        for k in i:
-            print(k.is_accept)
         d=Job.objects.filter(location='Delhi')
         return render(request=request,
                       template_name="main/jobs_list.html",
-                      context={"jobs":d,"i":i},
+                      context={"jobs":d},
                     )   
 
 #----------------------------------View to display the jobs posted by the company in Mumbai-------------------------------#
@@ -516,14 +512,17 @@ class android_developer_internship(View):
         return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})
 
 #--------------------------------------View to display the Photographer Internships---------------------------------------#
-class photographer_internship(View):
+class designing_internship(View):
     def get(self,request):
-        d=Job.objects.filter(category='Photography')
+        d=Job.objects.filter(category='Designing')
         return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})
 
-#--------------------------------------View to display the Video Editing Internships--------------------------------------#
-class video_editor_internship(View):
-    def get(self,request):
-        d=Job.objects.filter(category='Video Editing')
-        return render(request=request,template_name="main/jobs_list.html",context={"jobs":d})                        
 
+
+
+def pdf_view(request):
+    with open('/path/to/my/file.pdf', 'r') as pdf:
+        response = HttpResponse(pdf.read(), contenttype='application/pdf')
+        response['Content-Disposition'] = 'inline;filename=some_file.pdf'
+        return response
+    pdf.closed

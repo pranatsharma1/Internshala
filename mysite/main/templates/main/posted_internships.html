@@ -9,10 +9,10 @@
     <a href="/internship/post_a_job">New Internship!</a>
   </p> -->
 
+<div class="row" style="padding-left: 2%;padding-right: 2%;padding-top: 2%;padding-bottom: 2%;">
 {% for product in internship %}
              
-  <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-4" style="padding-left: 2%;padding-right: 2%;padding-top: 2%;padding-bottom: 2%;">
           <div class="card bg-light mb-3 border-secondary mb-3">
               <div class="card-body">
               <h2 class="card-title" style="font-family: montserrat">{{product.job_title}}</h2>
@@ -20,14 +20,13 @@
               <p class="card-text">Stipend: {{product.job_stipend|safe}}</p>
               <p class="card-text">Details: {{product.job_content|safe}}</p>
               <a href="/edit_internship/{{product.id}}/" class="btn btn-primary">Edit</a>
-              <!-- <a href="/edit_internship/{{product.id}}"><button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Edit</button></a> -->
-              <!-- <a href="#" class="btn btn-primary">Accept</a>
-              <a href="#" class="btn btn-default">Cancel</a> -->
               </div>
-          </div>
-      </div>
+           </div>
+      </div>     
+          {% endfor %}
+</div>
 
-{% endfor %}
+
 <!-- <a href="/internship/edit_all">Edit all internship</a> -->
 {% elif user.is_student %}
 <h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>

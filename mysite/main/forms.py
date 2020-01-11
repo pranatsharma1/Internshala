@@ -16,6 +16,7 @@ class SignupForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
+        
 
 class AcceptReject(ModelForm):
     class Meta:
@@ -25,7 +26,7 @@ class AcceptReject(ModelForm):
 class Apply_Job(ModelForm):
     class Meta:
           model=Intern
-          fields=('phone_no',"intern_name","company_name",'job_title',"job_id","hire","available")
+          fields=('phone_no','college_name','basic_skills','city',"intern_name","company_name",'job_title',"job_id","hire","available")
 
 class Job_Post(ModelForm):
     class Meta:
@@ -43,10 +44,16 @@ class NewUserForm1(UserCreationForm):
     
 
     class Meta:
-          model=User
-          
-        #   fields=("first_name","last_name","username","is_employer","email","city","image","password1","password2")
-          fields=("first_name","last_name","username","is_employer","email","password1","password2")
+        model=User
+        fields=("first_name","last_name","username","is_employer","email","password1","password2")
+
+        # def clean_email(self):
+        #     email = self.cleaned_data.get('email')
+        #     try:
+        #        User.objects.get(email=email)
+        #     except User.DoesNotExist:
+        #        return email
+        #     raise forms.ValidationError('This email address is already in use.')
 
 
     def save(self,commit=True):
@@ -61,11 +68,9 @@ class NewUserForm2(UserCreationForm):
     last_name=models.CharField(max_length=50)
     first_name=models.CharField(max_length=100)
     is_student=forms.BooleanField()
-    image=forms.ImageField()
 
     class Meta:
           model=User
-        #   fields=("first_name","last_name","username","is_student","email","image","college_name","city","year_of_study","basic_skills","password1","password2")
           fields=("first_name","last_name","username","is_student","email","college_name","year_of_study","password1","password2")
 
     def save(self,commit=True):
@@ -83,6 +88,7 @@ class EditStudentProfileForm(UserChangeForm):
             'email',
             'first_name',
             'last_name',
+            'image',
             'college_name',
             'basic_skills',
             'city',
@@ -96,16 +102,9 @@ class EditEmployerProfileForm(UserChangeForm):
             "first_name",
             "last_name",
             'email',
+            'image',
             "city",
-            "image",
             )
-
-        fields = (
-            
-            'first_name',
-            'last_name',
-            'city',
-        )        
 
 class EditInternship(ModelForm):
 

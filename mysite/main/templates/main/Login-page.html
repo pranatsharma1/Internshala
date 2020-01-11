@@ -27,12 +27,16 @@
              
              <div class="col-md-5" style="padding-top: 1%">
                 <h3 style="font-family:montserrat"> Get Started with <img width="25%" height="25%" style="padding-bottom:3%" src="{% static 'main/Logo.svg' %}"></h3>
+
+                
                 <form method="POST"class="form-horizontal" role="form" style="padding-top:5%">
+
                         {% csrf_token %}
                         <div class="form-group col-lg-8">
                         <label for="id_username">Username:</label> 
                         <input class="form-control" type="text" name="username" autofocus="" required="" id="id_username">
-                        </div>
+                        
+                    </div>
 
                         <div class="form-group col-lg-8">
                         <label for="id_password">Password:</label> 
@@ -41,6 +45,15 @@
 
                         <div class="form-group col-lg-8">
                         <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Login</button>
+                        </div>
+
+                        <div class="form-group col-lg-8">
+                            {% for message in messages %}
+                               <div class="message">
+                               <h4>{{ message }}</h4>
+                               <a href="#" class="del-msg"></a>
+                               </div>
+                            {% endfor %}
                         </div>
 
                         </form>
@@ -62,4 +75,18 @@
         </div>
         
 </body>
+
+<script>
+    $(document).ready(function() {
+        // messages timeout for 10 sec 
+        setTimeout(function() {
+            $('.message').fadeOut('slow');
+        }, 4000); // <-- time in milliseconds, 1000 =  1 sec
+
+        // delete message
+        $('.del-msg').live('click',function(){
+            $('.del-msg').parent().attr('style', 'display:none;');
+        })
+    });
+</script>
 </html>

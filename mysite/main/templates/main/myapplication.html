@@ -3,20 +3,23 @@
 {% block content %}
 {% if user.is_student %}
 <div class="row">
-<h1 style="text-align: center; color: cornflowerblue">My Applications</h1><hr>
+<h1 style="text-align: left; color: cornflowerblue">&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMy Applications</h1><hr>
+
+<div class="row" style="padding-left: 5%;">
+
 {% for j in intern %}
         <div class="row">
-           <div class="col-sm-4"> 
-              <div class="card bg-light mb-3 border-secondary mb-3" style="margin-top:40px">
+           <div class="col-sm-4" style="padding-left: 5%;padding-right: 5%; padding-top: 5%;padding-bottom: 5%;"> 
+              <div class="card bg-light mb-4 border-secondary mb-4">
                   <div class="card-body">
-                  <h2 class="card-title" style="font-family: nexa">{{j.job_title}}</h2>
-                  <h3 class="card-subtitle">Comapny Name: {{j.company_name}}</h3>              
+                  <h1 class="card-title" style="font-family: nexa;font: 3em sans-serif;">{{j.company_name}}</h1> 
+                  <h3 class="card-title">{{j.job_title}}</h3>              
                   {% if j.is_accept %}
-                  <h4>Status: Accepted</h4>
+                  <h2 style="color: blue;">Accepted</h2>
                   {% elif j.is_reject %}
-                  <h4>Status: Rejected</h4>
+                  <h2 style="color: red;">Rejected</h2>
                   {% else %}
-                  <h4>Status: Pending</h4>
+                  <h3>Status: Pending</h3>
                   {% endif %}
                   </div>
             </div>

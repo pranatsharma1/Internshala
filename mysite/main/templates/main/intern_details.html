@@ -3,66 +3,36 @@
 {% block content %}
 {% if user.is_employer %}
 
-<div class="row">             
-    <div class="card text-white bg-warning" >
-        <div class="card-header">
-            <h1>{{intern.intern_name}}</h1>
-            <h3>Applied for: {{intern.job_title}}</h3>
-            <h3>Availability: {{intern.available}}</h4>
-            <h3>Why should the intern be hired? :</h3>
-             <h4> {{intern.hire}}  </h4>
-            </h3>
-            <h3>Phone Number: {{intern.phone_no}}</h3>
-        <br>
+<div class="col-md-12" style="padding-left: 5%;padding-right: 5%;padding-bottom: 3%;">
 
-        
+    <div class="row">             
+        <div class="card text-white bg-warning" >
+                <div class="card-header">
+                    
+                    <h1 style="color: purple;font-size:10vh">{{intern.intern_name}}</h1><hr>
+                    <h3 style="color: purple;"><span style="color: black;">Applied for:</span> {{intern.job_title}}</h3>
+                    <h3 style="color: purple;"><span style="color: black;">City:</span> {{intern.city}}</h3>
+                    <h3 style="color: purple;"><span style="color: black;">Skills:</span> {{intern.basic_skills}}</h3>
+                    <h3 style="color: purple;"><span style="color: black;">College:</span> {{intern.college_name}}</h3>
+                    <h3 style="color: purple;"><span style="color: black;">Phone Number:</span> {{intern.phone_no}}</h3>
+                    <h3 style="color: purple;"><span style="color: black;">Why should the intern be hired? :</span>{{intern.hire}}</h3>
+                    <h3 style="color: purple;"><span style="color: black;">Availabile?:</span> {{intern.available}}</h3><br>
 
-        <!-- <h4>Resume: {{intern.document}}</h4> -->
-        <br>
-        <div class="container">
-            <a href="/choose/{{intern.id}}/approve/">Accept Request</a>
-            <a href="/choose/{{intern.id}}/reject/">Reject Request</a>
-            
-           <!-- <form method="POST">
-              {% csrf_token %}
-              {{form.as_p}}   
-             <input type="submit"  value="Submit"></form> -->
-            <!-- <form method="POST" role="form">
-                    {% csrf_token %}
-                   
-                <div class="form-group col-lg-12">    
-                <label for="id_is_accept">Accept:</label> 
-                <input class="form-control" type="checkbox" name="is_accept" id="id_is_accept">
+                    <a href="/choose/{{intern.id}}/approve/">
+                        <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">
+                            Accept
+                        </button>
+                    </a>
+                    <a href="/choose/{{intern.id}}/reject/">
+                        <button style="background-color:#fc0303; color:white" class="btn btn-outline-info" type="submit">
+                            Reject
+                        </button>
+                    </a>
                 </div>
-
-
-                <div class="form-group col-lg-12">
-                <label for="id_is_reject">Reject:</label> 
-                <input class="form-control" type="checkbox" name="is_reject" id="id_is_reject">
-                </div>
-  
-                <p><label style="display: none" for="id_intern_name">Intern name:</label> 
-                <input style="display: none" type="text" name="intern_name" maxlength="200" required="" id="id_intern_name" value="{{intern.username}}"></p>
-  
-                <p><label style="display: none" for="id_company_name">Company name:</label> 
-                <input style="display: none" type="text" name="company_name" maxlength="100" required="" id="id_company_name" value="{{user.username}}"></p>
-  
-                <p><label style="display: none" for="id_job_title">Job title:</label> 
-                <input style="display: none" type="text" name="job_title" maxlength="200" required="" id="id_job_title" value="{{intern.job_title}}"></p>
-  
-                <p><label style="display: none" for="id_hire">Hire:</label> 
-                <input style="display: none" type="text" name="hire" maxlength="200" required="" id="id_hire" value="{{intern.hire}}" ></p>
-  
-                <p><label style="display: none" for="id_available">Available:</label> 
-                <input style="display: none" type="text" name="available" maxlength="200" required="" id="id_available" value="{{intern.available}}"></p>   
-  
-                <div class="form-group col-lg-12">
-                        <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">Submit</button>
-                        </div></form>   -->
         </div>
-    </div>
-</div>
-
+    </div>  
+</div>         
+        
 {% elif user.is_student %}
 <h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>
 <h2 style="text-align:center">Click on <a style="color:crimson" href="/student_profile">this</a> to go to back to student's profile</h2>

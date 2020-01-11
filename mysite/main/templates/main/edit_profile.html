@@ -1,8 +1,10 @@
 {% extends 'main/header.html' %}
 
 {% block content %}
+{% load static %}
 <h2 style="color: cornflowerblue">&nbsp&nbsp&nbspEdit Profile</h2>
 <hr>
+
 {% if user.is_student %}
 <div style="display: inline-block;">
         <!-- <form method="post">
@@ -17,7 +19,7 @@
             </div>
 
             <div class="col-md-6">
-         <form method="post" class="form-horizontal" role="form" style="padding-top:2%">
+         <form method="post" class="form-horizontal" enctype="multipart/form-data" role="form" style="padding-top:2%">
                 {% csrf_token %}          
         <div class="form-group col-md-7">
             <label for="id_email">Email address:</label> 
@@ -36,41 +38,70 @@
 
         <div class="form-group col-md-7">
         <label for="id_college_name">College name:</label> 
-        <input class="form-control" type="text" name="college_name" value="Ajay Kumar Garg Engineering College,Ghaziabad" maxlength="200" required="" id="id_college_name"></p>
+        <input class="form-control" type="text" name="college_name" value="{{user.college_name}}" maxlength="200" required="" id="id_college_name"></p>
         </div>
 
         <div class="form-group col-md-7">
         <label for="id_basic_skills">Basic skills:</label> 
             <textarea class="form-control" name="basic_skills" cols="40" rows="10" required="" id="id_basic_skills">{{user.basic_skills}}</textarea>
         </div>
+
+        <div class="form-group col-md-7">
+        
+        <label for="id_image">Change Image:</label>
+        <input class="form-control" type="file" name="image" accept="image/*" id="id_image"></p>
+        </div>
+
         <div class="form-group col-md-7">
         <label for="id_city">City:</label> 
             <input class="form-control" type="text" name="city" value="{{user.city}}" maxlength="200" required="" id="id_city">
         </div>
         <div class="form-group col-md-7">    
         <label for="id_year_of_study">Year of study:</label> 
-            <input class="form-control" type="text" name="year_of_study" value="{{user.year_of_study}}" maxlength="200" required="" id="id_year_of_study">
+            
+        <!-- <input class="form-control" type="text" name="year_of_study" value="{{user.year_of_study}}" maxlength="200" required="" id="id_year_of_study"> -->
+        <select class="form-control" name="year_of_study" required="" id="id_year_of_study" value="{{user.year_of_study}}">
+
+            <option value="">{{user.year_of_study}}</option>
+
+            <option value="1">1st</option>
+          
+            <option value="2">2nd</option>
+          
+            <option value="3">3rd</option>
+          
+            <option value="4">4th</option>
+          
+        </select>
         </div>
-        <div class="form-group col-md-7">
+         <div class="form-group col-md-7">
             <button style="background-color:#0356fc;  color:white" class="btn btn-outline-info" type="submit">Update</button> 
+            <a href="/student_profile/" style="background-color:red; color:white" class="btn btn-outline-info">Cancel</a>
         </div>     
+        </div>
         </form>
         <!-- {% for message in messages %}
             <p style="color:green;font-size:20px;text-align:center;margin-left:80px;">{{ message }}</p>
         {% endfor %} -->
     </div>
 </div>
+
+
 {% elif user.is_employer %}
 <div class="container" style="display: inline-block;">
 
     <div class="row">
         <div class="col-md-6">
-        <img src="/media/{{user.image}}" style="width: 60%; height:25%; margin-left:100px;border-radius: 25px" ><hr>
+            {% if user.image %}
+            <img src="/media/{{user.image}}" style="width: 50%; height:30%; border-radius: 25px"">
+            {% else %}
+            <img src="{% static 'main/student.png' %}" style="width: 50%; height:40%; border-radius: 25px">
+            {% endif %} 
         </div>
 
         <div class="col-md-6">
             <!-- {{form.as_p}} -->
-        <form method="post">
+            <form method="post" class="form-horizontal" enctype="multipart/form-data" role="form" style="padding-top:2%">
                 {% csrf_token %}      
             <div class="form-group col-md-7">
                 <label for="id_email">Email address:</label> 
@@ -93,11 +124,19 @@
             </div>
 
             <div class="form-group col-md-7">
+                <label for="id_image">Change Image:</label>
+                <input class="form-control" type="file" name="image" accept="image/*" id="id_image"></p>
+            </div>
+
+            <div class="form-group col-md-7">
                 <button style="background-color:#0356fc;  color:white" class="btn btn-outline-info" type="submit">Update</button> 
+                <a href="/employer_profile/" style="background-color:red; color:white" class="btn btn-outline-info">Cancel</a>
             </div>     
             </form>
         </div>
         
     </div>
 {% endif %}
+
+
 {% endblock %}
