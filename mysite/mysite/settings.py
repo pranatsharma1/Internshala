@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+import django_heroku
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -149,17 +149,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 AUTH_USER_MODEL='main.User'                                       #using the user authentication model of main.User
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
@@ -169,3 +170,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'siinternpedia@gmail.com'
 EMAIL_HOST_PASSWORD = 'romanreigns@285'
 EMAIL_PORT = 587
+
+django_heroku.settings(locals())
