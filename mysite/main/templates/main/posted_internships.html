@@ -8,6 +8,14 @@
   <!-- <p>
     <a href="/internship/post_a_job">New Internship!</a>
   </p> -->
+  <div>
+    {% for message in messages %}
+       <div class="message">
+       <h3 style="text-align: center; color:slateblue;">{{ message }}</h3>
+       <a href="#" class="del-msg"></a>
+       </div>
+    {% endfor %}
+</div>
 
 <div class="row" style="padding-left: 2%;padding-right: 2%;padding-top: 2%;padding-bottom: 2%;">
 {% for product in internship %}
@@ -32,4 +40,17 @@
 <h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>
 <h2 style="text-align:center">Click on <a style="color:crimson" href="/student_profile">this</a> to go to back to student's profile</h2>
 {% endif %}  
+<script>
+  $(document).ready(function() {
+      // messages timeout for 10 sec 
+      setTimeout(function() {
+          $('.message').fadeOut('slow');
+      }, 1500); // <-- time in milliseconds, 1000 =  1 sec
+
+      // delete message
+      $('.del-msg').live('click',function(){
+          $('.del-msg').parent().attr('style', 'display:none;');
+      })
+  });
+</script> 
 {% endblock %}

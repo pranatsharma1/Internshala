@@ -26,7 +26,7 @@ class AcceptReject(ModelForm):
 class Apply_Job(ModelForm):
     class Meta:
           model=Intern
-          fields=('phone_no','college_name','basic_skills','city',"intern_name","company_name",'job_title',"job_id","hire","available")
+          fields=('phone_no','college_name','username','email','basic_skills','city',"intern_name","company_name",'job_title',"job_id","hire","available")
 
 class Job_Post(ModelForm):
     class Meta:
@@ -36,7 +36,7 @@ class Job_Post(ModelForm):
     def __init__(self,user,*args,**kwargs):
         super(Job_Post,self).__init__(*args,**kwargs)
 
-class NewUserForm1(UserCreationForm):
+class EmployerSignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=200, help_text='Required')
     last_name=models.CharField(max_length=50)
     first_name=models.CharField(max_length=100) 
@@ -45,25 +45,25 @@ class NewUserForm1(UserCreationForm):
 
     class Meta:
         model=User
-        fields=("first_name","last_name","username","is_employer","email","password1","password2")
+        fields=("company_name","username","is_employer","email","password1","password2")
 
-        # def clean_email(self):
-        #     email = self.cleaned_data.get('email')
-        #     try:
-        #        User.objects.get(email=email)
-        #     except User.DoesNotExist:
-        #        return email
-        #     raise forms.ValidationError('This email address is already in use.')
+        def clean_email(self):
+            email = self.cleaned_data.get('email')
+            try:
+               User.objects.get(email=email)
+            except User.DoesNotExist:
+               return email
+            raise forms.ValidationError('This email address is already in use.')
 
 
     def save(self,commit=True):
-        user=super(NewUserForm1,self).save(commit=False)
+        user=super(EmployerSignUpForm,self).save(commit=False)
         user.email=self.cleaned_data['email']
         if commit:
             user.save()
         return user    
 
-class NewUserForm2(UserCreationForm):
+class StudentSignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=200, help_text='Required')
     last_name=models.CharField(max_length=50)
     first_name=models.CharField(max_length=100)
@@ -73,8 +73,17 @@ class NewUserForm2(UserCreationForm):
           model=User
           fields=("first_name","last_name","username","is_student","email","college_name","year_of_study","password1","password2")
 
+    def clean_email(self):
+            email = self.cleaned_data.get('email')
+            try:
+               User.objects.get(email=email)
+            except User.DoesNotExist:
+               return email
+            raise forms.ValidationError('This email address is already in use.')
+
+
     def save(self,commit=True):
-        user=super(NewUserForm2,self).save(commit=False)
+        user=super(StudentSignUpForm,self).save(commit=False)
         user.email=self.cleaned_data['email']
         if commit:
             user.save()

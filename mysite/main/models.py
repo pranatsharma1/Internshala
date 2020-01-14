@@ -15,6 +15,8 @@ class User(AbstractUser):
     is_employer=models.BooleanField(default=False)                      #a boolean field to check whether the registered user is employer?
     is_student=models.BooleanField(default=False)                       #a boolean field to check whether the registered user is student?
     image=models.ImageField(upload_to='pics',default="")
+    
+    company_name=models.CharField(max_length=200,default="")
 
     # extra fields for student
     college_name=models.CharField(max_length=200,default="")
@@ -79,10 +81,8 @@ class Intern(models.Model):
     basic_skills=models.TextField(default="")
     city=models.CharField(max_length=200,default="")
     year_of_study=models.IntegerField(choices=((1,"first_year"),(2,"second_year"),(3,"third_year"),(4,"fourth_year")),default=1)
-
-
-    username=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)
-
+    email=models.EmailField(max_length=200,default="")
+    username=models.CharField(max_length=200,default="")
     job_title=models.CharField(max_length=200,default="")    
     job_id=models.CharField(max_length=100,default="")
     company_name=models.CharField(max_length=100,default="")

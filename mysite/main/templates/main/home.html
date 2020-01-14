@@ -52,20 +52,20 @@ overflow-x: hidden; ">
      
                      <div class="collapse navbar-collapse" id="myNavbar">
                        <ul class="nav navbar-nav navbar-right">
-
-                         <li><a href="/">Home</a></li>                           <!--Home Button-->
-
+                         {% if user.is_authenticated %}
+                         <li><a style="color: black;" href="/">Home</a></li>    <!--Username></li>                           <!--Home Button-->
+                         {% endif %}
 
                          {% if user.is_authenticated %}                              <!--When the user is logged in-->
 
                          {% if user.is_student %}                                    <!--If user is Student-->
-                         <li><a href="/student_profile">{{user.username|title}}-S</a></li>    <!--Username of Student-->
+                         <li><a style="color: black;" href="/student_profile">{{user.username|title}}-S</a></li>    <!--Username of Student-->
 
                          {% else %}                                                   <!--If user is Employer-->
-                         <li><a href="/employer_profile">{{user.username|title}}-E</a></li>   <!--Username of Employer-->
+                         <li><a style="color: black;" href="/employer_profile">{{user.username|title}}-E</a></li>   <!--Username of Employer-->
 
                          {% endif %}
-                         <li><a href="/logout">Logout</a></li>                            <!--Logout Option-->  
+                         <li><a style="color: black;" href="/logout">Logout</a></li>                            <!--Logout Option-->  
 
                        </ul>     
 
@@ -75,7 +75,7 @@ overflow-x: hidden; ">
                        <!--Registration Buttons-->
                        <ul class="nav navbar-nav navbar-right">
                          <li class="dropdown">
-                           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up <span class="caret"></span>
+                           <a  class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up <span class="caret"></span>
                            </a>
                            <ul class="dropdown-menu">
                                <!--Register as student -->
@@ -162,7 +162,7 @@ overflow-x: hidden; ">
                      <h3> Web Development </h3>
                     <a href="/android_developer_internship"><img src="{% static 'main/android1.svg' %}" width="50px" alt="" class="clip-circle"></a>
                      <h3> Android Development </h3>
-                    <a href="/photographer_internship"><img src="{% static 'main/home-img/design-internships.png' %}" width="50px" alt="" class="clip-circle"></a>
+                    <a href="/designing_internship"><img src="{% static 'main/home-img/design-internships.png' %}" width="50px" alt="" class="clip-circle"></a>
                      <h3> Designing </h3>
                     <a href="/all_jobs"><img src="{% static 'main/home-img/eng-internships.png' %}" width="50px" alt="" class="clip-circle"></a>
                      <h3> View All </h3>

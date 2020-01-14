@@ -44,14 +44,18 @@ overflow-x: hidden; ">
                     
                      <div class="collapse navbar-collapse" id="myNavbar">
                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="/">Home</a></li>
+                        
+                        {% if user.is_authenticated %}
+                        <li><a style="color: black;" href="/">Home</a style="color: black;"></li>
+                        {% endif %}
+                            
                         {% if user.is_authenticated %}            <!--When the user is logged in-->
                            {% if user.is_student %}
-                            <li><a href="/student_profile">{{user.username|title}}-S</a></li>
+                            <li><a style="color: black;" href="/student_profile">{{user.username|title}}-S</a></li>
                            {% else %} 
-                           <li><a href="/employer_profile">{{user.username|title}}-E</a></li>
+                           <li><a style="color: black;" href="/employer_profile">{{user.username|title}}-E</a style="color: black;"></li>
                            {% endif %}
-                         <li><a href="/logout">Logout</a></li>
+                         <li><a style="color: black;" href="/logout">Logout</a style="color: black;"></li>
                        </ul>     
                        {% else %}             <!--When the user is not logged in-->
 

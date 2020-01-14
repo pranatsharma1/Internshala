@@ -11,7 +11,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm ,Pass
 from django.contrib.auth import logout, authenticate, login, get_user_model
 from django.contrib import messages
 from django.contrib.auth.models import User
-
+from django.core.mail import send_mail
+from django.conf import settings
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
@@ -34,7 +35,7 @@ User=get_user_model()
 
 #-------------------------------------------View for Signup Page of Employer----------------------------------------------#
 class register_as_employer(View):
-    form_class=NewUserForm1
+    form_class=EmployerSignUpForm
     initial={'key':'value'}
     template_name="main/Employer-Signup.html"
 
@@ -76,7 +77,7 @@ class register_as_employer(View):
 #-------------------------------------------View for Signup Page of Student----------------------------------------------#
 
 class register_as_student(View):
-    form_class=NewUserForm2
+    form_class=StudentSignUpForm
     initial={'key':'value'}
     template_name="main/Student-Signup.html"
 
@@ -248,9 +249,15 @@ class accept(View):
 
         intern.is_accept=True
         intern.is_reject=False
-
+        
+        subject= 'Application Accepted'
+        message='Hello '+ intern.intern_name+', Your application for '+ intern.job_title+' has been accepted by '+request.user.username
+        from_email = settings.EMAIL_HOST_USER
+        to_email=[intern.email]
+       
+        send_mail(subject,message,from_email,to_email,fail_silently=False,)
         intern.save()
-
+        
         return redirect("main:employer")        
 
 class reject(View):
@@ -261,6 +268,12 @@ class reject(View):
         intern.is_accept=False
         intern.is_reject=True
 
+        subject= 'Application Rejected'
+        message='Hello '+ intern.intern_name+', Sorry your application for '+ intern.job_title+' has been rejected by '+request.user.username
+        from_email = settings.EMAIL_HOST_USER
+        to_email=[intern.email]
+       
+        send_mail(subject,message,from_email,to_email,fail_silently=False,)
         intern.save()
 
         return redirect("main:employer")    
@@ -284,7 +297,7 @@ class interns_applied(View):
         #only details of those interns are passed to the template 
         #whose comany name equals to the username of the user currently logged in
         i=Intern.objects.filter(company_name=request.user) 
-        return render(request=request,template_name="main/jobs_posted.html",context={"intern":i},)
+        return render(request=request,template_name="main/interns_applied.html",context={"intern":i},)
 
 class accepted_interns(View):
 
@@ -344,7 +357,7 @@ class login_request(View):
             user = authenticate(username=username, password=password)        #authenticating the user i.e. username and passwords match simultaneously with a user's profile in database
             if user is not None:                                             #basically means "if user is true i.e. if user is successfully authenticated"
                 login(request, user)                                         #log the user into the session
-                # messages.info(request, f"You are now logged in as {username}")    #display a message that user is logged in
+                
                 if user.is_student:
                   return redirect("main:student")
                 else:
