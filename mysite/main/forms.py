@@ -10,53 +10,33 @@ from django.db import models
 
 User=get_user_model()
 
- 
+
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=200, help_text='Required')
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
-        
 
-class AcceptReject(ModelForm):
-    class Meta:
-        model=JobStatus
-        fields=("is_accept","is_reject","intern_name","company_name",'job_title',"hire","available",)
-
-class Apply_Job(ModelForm):
-    class Meta:
-          model=Intern
-          fields=('phone_no','college_name','username','email','basic_skills','city',"intern_name","company_name",'job_title',"job_id","hire","available")
-
-class Job_Post(ModelForm):
-    class Meta:
-          model=Job
-          fields=("category","job_title","location","job_duration","job_content","job_stipend")
-    
-    def __init__(self,user,*args,**kwargs):
-        super(Job_Post,self).__init__(*args,**kwargs)
 
 class EmployerSignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=200, help_text='Required')
-    last_name=models.CharField(max_length=50)
-    first_name=models.CharField(max_length=100) 
-    is_employer=forms.BooleanField()
     
-
     class Meta:
         model=User
         fields=("company_name","username","is_employer","email","password1","password2")
 
-        def clean_email(self):
-            email = self.cleaned_data.get('email')
-            try:
-               User.objects.get(email=email)
-            except User.DoesNotExist:
-               return email
-            raise forms.ValidationError('This email address is already in use.')
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        try:
+            User.objects.get(email=email)
+        except User.DoesNotExist:
+            print("hello")
+            return email
+        raise forms.ValidationError('This email address is already in use.')
 
 
     def save(self,commit=True):
+        print("hello")
         user=super(EmployerSignUpForm,self).save(commit=False)
         user.email=self.cleaned_data['email']
         if commit:
@@ -88,6 +68,29 @@ class StudentSignUpForm(UserCreationForm):
         if commit:
             user.save()
         return user   
+
+
+class Job_Post(ModelForm):
+    class Meta:
+          model=Job
+          fields=("category","job_title","location","job_duration","job_content","job_stipend")
+    
+    def __init__(self,user,*args,**kwargs):
+        super(Job_Post,self).__init__(*args,**kwargs)
+
+
+class Apply_Job(ModelForm):
+    class Meta:
+          model=Intern
+          fields=('phone_no','college_name','username','email','basic_skills','city',"intern_name","company_name",'job_title',"job_id","hire","available")
+
+
+class AcceptReject(ModelForm):
+    class Meta:
+        model=JobStatus
+        fields=("is_accept","is_reject","intern_name","company_name",'job_title',"hire","available",)
+
+
 
 class EditStudentProfileForm(UserChangeForm):
 

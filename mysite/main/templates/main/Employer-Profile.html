@@ -76,10 +76,10 @@ overflow-x: hidden; ">
 
             <h4> Email: </h4> 
             <h5> {{user.email}} </h5><hr>
-
+            {% if user.city %}
             <h4> Main Office Location: </h4> 
             <h5> {{user.city}} </h5><hr>
-          
+            {% endif %}
           </div>
         </div>
         

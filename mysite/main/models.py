@@ -10,10 +10,9 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-#user model for Employer and Student
-class User(AbstractUser):      
-    is_employer=models.BooleanField(default=False)                      #a boolean field to check whether the registered user is employer?
-    is_student=models.BooleanField(default=False)                       #a boolean field to check whether the registered user is student?
+class User(AbstractUser):   
+    is_employer=models.BooleanField(default=False)                      
+    is_student=models.BooleanField(default=False)                     
     image=models.ImageField(upload_to='pics',default="")
     
     company_name=models.CharField(max_length=200,default="")
@@ -38,7 +37,6 @@ class category(models.Model):
 
 
 
-# model for Job
 class Job(models.Model): 
 
     Category_Choices=[
@@ -57,20 +55,17 @@ class Job(models.Model):
         ('Ghaziabad','Ghaziabad'),
     ]
 
-    job_title= models.CharField(max_length=200)                     #field: Title of Job. Ex: Front End Developer etc.
-    category=models.CharField(max_length=200,choices=Category_Choices,default="")            #Category of Job. Ex: Web Development,Android Development
-    location=models.CharField(max_length=200,choices=Location_Choices,default="")            #location of Job. Ex: Delhi,Mumbai,Bangalore,etc.
-    job_duration=models.IntegerField(default=1)                                        #field1: Job Title
-    job_content= models.TextField()                                                      #field2: Job Content
-    job_published= models.DateTimeField("date published",default= datetime.now())        #Date and time of Job Published
-    job_stipend=models.IntegerField(default=0)                                         #Stipend of Job
-    user=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)    #Username of Company who has posted the job
+    job_title= models.CharField(max_length=200)                    
+    category=models.CharField(max_length=200,choices=Category_Choices,default="")            
+    location=models.CharField(max_length=200,choices=Location_Choices,default="")            
+    job_duration=models.IntegerField(default=1)                                       
+    job_content= models.TextField()                                                      
+    job_published= models.DateTimeField("date published",default= datetime.now())        
+    job_stipend=models.IntegerField(default=0)                                         
+    user=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)    
     
-
-                        #https://www.quora.com/What-does-def-str__-self-method-does-in-Django
-
-    def __str__(self):              #__str__(self): is used to define how you want to provide string output of your class.
-        return self.job_title       #display the job title as heading for the objects of Job model
+    def __str__(self):             
+        return self.job_title      
 
 
 class Intern(models.Model):

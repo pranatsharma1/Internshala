@@ -53,13 +53,9 @@
                     <h4> Fill the Required Fields </h4>
                     
                     <form method="POST" class="form-horizontal" role="form">
-                      <!-- {{form.as_p}} -->
                       {% csrf_token %}
 
-                    
-
-
-                        <div class="form-group">
+                          <div class="form-group">
                           <label for="id_category" class="col-lg-3 control-label">Category:</label> 
                           <div class="col-lg-8">
                           <select class="form-control" name="category" id="id_category">

@@ -41,7 +41,6 @@ overflow-x: hidden; ">
                             <a href="/change-password" class="dropdown-item"> Change Password </a>
                             <div class="dropdown-divider"></div>
                             <a href="/logout" class="dropdown-item">Logout</a>
-                            <!-- <a href="#" class="dropdown-item"> logout </a> -->
                         </div>
                     </div>  
         </nav>
@@ -82,18 +81,21 @@ overflow-x: hidden; ">
 
             <h4>College:</h4>
             <h5>{{user.college_name}}</h5><hr>
-
+            
+            {% if user.city %}
             <h4>City:</h4>
             <h5> {{user.city}}</h5><hr>
-
+            {% endif %}
+             
+            {% if user.basic_skills %}
             <h4>Skills:</h4>
             <h5>{{user.basic_skills}}</h5><hr> 
-          
+            {% endif %}
            </div>
         </div>
 
         <div clas="apply-btn" style="margin-left: 45%;padding-top: 2%">
-          <button class="button"><span><a href="/filter_internship">Apply for Internship</a></span></button>
+          <button class="button"><span><a href="/filter_internship" style="color: black">Apply for Internship</a></span></button>
         </div>
 
         {% elif user.is_employer %}

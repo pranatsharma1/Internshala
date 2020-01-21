@@ -108,8 +108,6 @@
       </div>
 
       <div class="col-sm-4 ">
-        <!-- <div class="signup-text-center"> -->
-        <!-- style="margin-left:25%" -->
 
         <!--Post Internship Design-->
         <img src="{% static 'main/emp-profile/Post-icon.svg' %}" width="45%" height="45%">
@@ -121,19 +119,18 @@
       </div>
 
       <div class="col-sm-4 ">
-        <!-- <div class="signup-text-center"> -->
-        <!-- style="margin-left:50%" -->
+        
         <!--Hire Intern Design-->
         <img src="{% static 'main/emp-profile/Hire-icon.svg' %}" width="50%" height="50%" style="padding-bottom: 5px">
         <div class="icon-text">
           <h4> HIRE THE BEST </h4>
           <h5 style="font-size: 15px;color:darkgray ">Screen and hire at your fingertips</h5>
         </div>
-        <!-- </div> -->
+        
       </div>
 
     </div>
-    <!-- div close row-1  -->
+  
 
     <!--The Design and Form Section-->
     <div class="row">
@@ -160,17 +157,22 @@
 
         <form method="POST" role="form" enctype="multipart/form-data" class="form-horizontal">
           {% csrf_token %}
+<!-- {{form.as_p}} -->
 
+          <!-- <div class="form-group col-lg-8">
+            <label for="id_first_name">First Name:</label>
+            <input class="form-control" type="text" name="first_name" maxlength="30" autofocus=""  id="id_first_name">
+          </div>
+
+          <div class="form-group col-lg-8">
+            <label for="id_last_name">Last Name:</label>
+            <input class="form-control" type="text" name="last_name" maxlength="30" autofocus=""  id="id_last_name">
+          </div> -->
 
           <div class="form-group col-lg-8">
             <label for="id_company_name">Company Name:</label>
             <input class="form-control" type="text" name="company_name" maxlength="30" autofocus=""  id="id_company_name">
           </div>
-
-          <!-- <div class="form-group col-lg-8">
-            <label for="id_last_name">Last name:</label>
-            <input class="form-control" type="text" name="last_name" maxlength="150" id="id_last_name">
-          </div> -->
 
           <div class="form-group col-lg-8">
             <label for="id_username">Username:</label>
@@ -178,11 +180,9 @@
           </div>
 
           <div class="form-group col-lg-8">
-            <!-- <label for="id_is_employer">Is employer:</label> -->
             <div class="radio" style="display: none;" >
               <label><input type="checkbox" name="is_employer" id="id_is_employer" checked>Agree</label>
             </div>
-            <!-- <input class="form-control" type="checkbox" name="is_employer" required="" id="id_is_employer"> -->
           </div>
 
           <div class="form-group col-lg-8">
@@ -207,7 +207,7 @@
           </div>
         </form>
 
-        <div class="form-group col-lg-8">
+        <!-- <div class="form-group col-lg-8">
           If you already have an account <a href="/login" target="blank"><strong>login</strong></a> instead.
         </div>
         {% for message in messages %}
@@ -216,7 +216,7 @@
         <a href="#" class="del-msg"></a>
         </div>
      {% endfor %} 
-      </div>
+      </div> -->
 
 
 
@@ -249,7 +249,7 @@
   </div>
 </body>
 
-<script>
+<!-- <script>
   $(document).ready(function() {
       // messages timeout for 10 sec 
       setTimeout(function() {
@@ -261,5 +261,5 @@
           $('.del-msg').parent().attr('style', 'display:none;');
       })
   });
-</script>
+</script> -->
 </html>

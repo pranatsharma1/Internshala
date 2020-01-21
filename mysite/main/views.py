@@ -21,7 +21,6 @@ from django.urls import reverse
 
 
 from django.http import HttpResponse
-from .forms import SignupForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
@@ -30,7 +29,6 @@ from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 
 User=get_user_model()
-
 
 
 #-------------------------------------------View for Signup Page of Employer----------------------------------------------#
@@ -45,9 +43,8 @@ class register_as_employer(View):
     
     def post(self,request):
         form=self.form_class(request.POST or None,request.FILES or None)
-        if form.is_valid():                                                     #if the form filled is valid
-            user = form.save()                                           #basically save the user(since user is a part of form,thus we save the form)
-            username = form.cleaned_data.get('username')                     #getting the username from the form   
+        if form.is_valid():                                                     
+            user = form.save()                                           
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
@@ -65,9 +62,10 @@ class register_as_employer(View):
             email.send()
             return HttpResponse('Please confirm your email address to complete the registration') 
         
-        else:                                                 #if form is not valid or not filled properly               
+        else:                                                               
             for msg in form.error_messages:                   
-                messages.error(request, f"{msg}: {form.error_messages[msg]}")   #displaying the error messages
+                print(msg)
+                messages.error(request, f"{msg}: {form.error_messages[msg]}")   
 
             form=self.form_class(initial=self.initial)
             return render(request ,self.template_name,{'form':form})
@@ -89,7 +87,7 @@ class register_as_student(View):
         form=self.form_class(request.POST or None,request.FILES or None)
         if form.is_valid():
             user = form.save()
-            username = form.cleaned_data.get('username')
+            # username = form.cleaned_data.get('username')
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
@@ -167,14 +165,14 @@ class employer_profile(View):
 
 
 def post_a_job(request):                                      
-    if request.method == "POST":                                                #if user hits the sign up button
-        form = Job_Post(request.user,request.POST)                                #mapping the submitted form to user creation form
-        if form.is_valid():                                                     #if the form filled is valid
+    if request.method == "POST":                                                
+        form = Job_Post(request.user,request.POST)                                
+        if form.is_valid():                                                     
             job_profile = form.save(commit=False)  
             job_profile.user=request.user  
-            job_profile.save()                                       #basically save the user(since user is a part of form,thus we save the form)
-            title = form.cleaned_data.get('job_title')                     #getting the username from the form   
-            messages.success(request, f"New Job created: {title}")    #displaying the message that new account has been created
+            job_profile.save()                                       
+            title = form.cleaned_data.get('job_title')                     
+            messages.success(request, f"New Job created: {title}")   
             
             return redirect("main:employer")
         
@@ -198,7 +196,7 @@ def apply_for_job(request):
             messages.success(request,"You have succesully applied for this job")
 
             return redirect("main:student")
-        else:                                                 #if form is not valid or not filled properly               
+        else:                                                                
            
             return render(request = request,
                           template_name = "main/apply_for_job.html",
@@ -293,11 +291,8 @@ class myapplication(View):
 class interns_applied(View):
 
     def get(self,request):
-
-        #only details of those interns are passed to the template 
-        #whose comany name equals to the username of the user currently logged in
         i=Intern.objects.filter(company_name=request.user) 
-        return render(request=request,template_name="main/interns_applied.html",context={"intern":i},)
+        return render(request=request,template_name="main/interns_applied.html",context={"intern":i},)        
 
 class accepted_interns(View):
 
@@ -335,7 +330,6 @@ def edit_this_internship(request,pk):
 class logout_request(View):
     def get(self,request):
        logout(request)
-    #    messages.info(request, "Logged out successfully!")
        return redirect("main:homepage") 
 
 #----------------------------------View for logging in the user in current session-----------------------------------#
@@ -351,24 +345,31 @@ class login_request(View):
     
     def post(self,request):
         form=self.form_class(request=request,data=request.POST)
-        if form.is_valid():                                                  #if the form is valid
-            username = form.cleaned_data.get('username')                     #saving the username form the form
-            password = form.cleaned_data.get('password')                     #saving the password from the form
-            user = authenticate(username=username, password=password)        #authenticating the user i.e. username and passwords match simultaneously with a user's profile in database
-            if user is not None:                                             #basically means "if user is true i.e. if user is successfully authenticated"
-                login(request, user)                                         #log the user into the session
+        if form.is_valid():                                                  
+            username = form.cleaned_data.get('username')                     
+            password = form.cleaned_data.get('password')                     
+            user = authenticate(username=username, password=password)        
+            if user is not None:                                             
+                login(request, user)                                         
                 
                 if user.is_student:
                   return redirect("main:student")
                 else:
                   return redirect("main:employer")                               
-            else:                                                            #if it fails to authenticate
-                messages.error(request, "Invalid username or password.")     #display an error message
+            else:                                                            
+                messages.error(request, "Invalid username or password.")     
                 form=self.form_class(initial=self.initial)
                 return render(request ,self.template_name,{'form':form})
         
-        else:                                                                #if the form is not valid
-            messages.error(request, "Invalid username or password.")         #display the error message
+        else:
+            username = form.cleaned_data.get('username')                     
+            password = form.cleaned_data.get('password')                     
+            # user = authenticate(username=username, password=password)
+            user=User.objects.get(username=username)
+            if user.is_active is False:
+                messages.error(request,"Verify your Email First")
+            else:                                                                    
+                messages.error(request, "Invalid username or password.")         
             
             form=self.form_class(initial=self.initial)
             return render(request ,self.template_name,{'form':form})
@@ -393,7 +394,7 @@ def edit_employer_profile(request):
         if form.is_valid():
             user=form.save()
             
-            if 'image' in request.FILES:                 #Editing the image
+            if 'image' in request.FILES:                 
                 user.image=request.FILES['image']
                 user.save
 
@@ -418,7 +419,7 @@ def edit_student_profile(request):
         if form.is_valid():
             user=form.save()
 
-            if 'image' in request.FILES:                 #Editing the image
+            if 'image' in request.FILES:                 
                 user.image=request.FILES['image']
                 user.save
             

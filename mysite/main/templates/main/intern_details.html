@@ -19,6 +19,9 @@
                     <h3 style="color: purple;"><span style="color: black;">Why should the intern be hired? :</span>{{intern.hire}}</h3>
                     <h3 style="color: purple;"><span style="color: black;">Availabile?:</span> {{intern.available}}</h3><br>
 
+                    {% ifequal False i.is_accept %}
+                    {% ifequal False i.is_reject %}
+
                     <a href="/choose/{{intern.id}}/approve/">
                         <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">
                             Accept
@@ -29,6 +32,8 @@
                             Reject
                         </button>
                     </a>
+                   {% endifequal %}
+                   {% endifequal %}
                 </div>
         </div>
     </div>  
