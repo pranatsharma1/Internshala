@@ -365,10 +365,11 @@ class login_request(View):
             username = form.cleaned_data.get('username')                     
             password = form.cleaned_data.get('password')                     
             # user = authenticate(username=username, password=password)
-            user=User.objects.get(username=username)
-            if user.is_active is False:
-                messages.error(request,"Verify your Email First")
-            else:                                                                    
+            try:
+                user=User.objects.get(username=username)
+                if user.is_active is False:
+                    messages.error(request,"Verify your Email First")
+            except:                                                                    
                 messages.error(request, "Invalid username or password.")         
             
             form=self.form_class(initial=self.initial)
