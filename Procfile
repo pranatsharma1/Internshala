@@ -1,3 +1,3 @@
 web:python manage.py runserver
-web: gunicorn main.wsgi --log-file -
+web: gunicorn mysite.wsgi --log-file -
 heroku ps:scale web=1
