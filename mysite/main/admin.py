@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Job,Intern,JobStatus
 # from .models import Job,profile,skillcategory,postjob,internship
-from tinymce.widgets import TinyMCE
+# from tinymce.widgets import TinyMCE
 from django.db import models
 from .models import User
 from django.contrib.auth.admin import UserAdmin
@@ -15,10 +15,7 @@ class JobAdmin(admin.ModelAdmin):
         ("Stipend",{"fields":["job_stipend"] }),
         ("Content", {"fields": ["job_content"]}),
     ]
-    
-    formfield_overrides = {
-        models.TextField: {'widget': TinyMCE()}
-    }
+
 
 admin.site.register(User)                                   #registering the User in Admin
 admin.site.register(Intern)
