@@ -165,7 +165,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'siinternpedia@gmail.com'
