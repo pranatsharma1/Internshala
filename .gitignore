@@ -1,0 +1,8 @@
+mysite/.idea/
+mysite/.vscode
+mysite/__pycache__/
+*.pyc
+mysite/db.sqlite
+mysite/db.sqlite3
+mysite/db.sqlite3
+mysite/env/
