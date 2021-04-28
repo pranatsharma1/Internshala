@@ -44,6 +44,10 @@ The working of the app will be as follows :
 
 ![Image](/screenshots/post_an_internship.png)
 
+### Details of the student
+
+![Image](/screenshots/student_details.png)
+
 ### Accepted Interns
 
 ![Image](/screenshots/accepted_interns.png)
