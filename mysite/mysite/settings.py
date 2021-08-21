@@ -167,8 +167,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'onlineauction.si18@gmail.com'
-EMAIL_HOST_PASSWORD = 'onlineauction18'
+EMAIL_HOST_USER = 'sihealthy0@gmail.com'
+EMAIL_HOST_PASSWORD = 'ritik0912'
+# EMAIL_HOST_USER = 'onlineauction.si18@gmail.com'
+# EMAIL_HOST_PASSWORD = 'onlineauction18'
 # EMAIL_HOST_USER = 'siinternpedia@gmail.com'
 # EMAIL_HOST_PASSWORD = 'romanreigns@285'
 EMAIL_PORT = 587
