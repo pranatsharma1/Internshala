@@ -25,7 +25,7 @@ SECRET_KEY = 'e_-g7xv=)xpq%-@zi9@mjh7!$5z!nx9e1s6%6g#2)gbp#!%4!v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['internpedia.herokuapp.com']
+ALLOWED_HOSTS = ['*','internpedia.herokuapp.com']
 TINYMCE_DEFAULT_CONFIG = {
     'height': 360,
     'width': 1120,
