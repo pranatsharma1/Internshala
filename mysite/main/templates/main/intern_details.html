@@ -1,7 +1,8 @@
 <!--Template to show the Internships posted by the Employer-->
 {% extends 'main/header.html' %}
+{% load static %}
 {% block content %}
-{% if user.is_employer %}
+{% if user.is_company %}
 
 <div class="col-md-12" style="padding-left: 5%;padding-right: 5%;padding-bottom: 3%;">
 
@@ -9,24 +10,27 @@
         <div class="card text-white bg-warning" >
                 <div class="card-header">
                     
-                    <h1 style="color: purple;font-size:10vh">{{intern.intern_name}}</h1><hr>
-                    <h3 style="color: purple;"><span style="color: black;">Email: </span>{{intern.email}}</h3>
-                    <h3 style="color: purple;"><span style="color: black;">Applied for:</span> {{intern.job_title}}</h3>
-                    <h3 style="color: purple;"><span style="color: black;">City:</span> {{intern.city}}</h3>
-                    <h3 style="color: purple;"><span style="color: black;">Skills:</span> {{intern.basic_skills}}</h3>
-                    <h3 style="color: purple;"><span style="color: black;">College:</span> {{intern.college_name}}</h3>
-                    <h3 style="color: purple;"><span style="color: black;">Phone Number:</span> {{intern.phone_no}}</h3>
-                    <h3 style="color: purple;"><span style="color: black;">Why should the intern be hired? :</span>{{intern.hire}}</h3>
-                    <h3 style="color: purple;"><span style="color: black;">Availabile?:</span> {{intern.available}}</h3><br>
-
+                    {% if applicant.intern.image %}
+                        <img src="/media/{{applicant.intern.image}}" style="width: 30%; height:45%; border-radius: 25px"">
+                    {% else %}
+                        <img src="{% static 'main/student.png' %}" style="width: 30%; height:45%; border-radius: 25px">
+                    {% endif %}
                     
-
-                    <a href="/choose/{{intern.id}}/approve/">
+                    <h1 style="color: purple;font-size:10vh">{{applicant.intern.user.first_name}} {{applicant.intern.user.last_name}}</h1><hr>
+                    <h3 style="color: purple;"><span style="color: black;">Email: </span>{{applicant.intern.user.email}}</h3>
+                    <h3 style="color: purple;"><span style="color: black;">Applied for: </span>{{applicant.job.company.user.name}} | {{applicant.job.job_title}}</h3>
+                    <h3 style="color: purple;"><span style="color: black;">City: </span>{{applicant.intern.city}}</h3>
+                    <h3 style="color: purple;"><span style="color: black;">Skills: </span>{{applicant.intern.basic_skills}}</h3>
+                    <h3 style="color: purple;"><span style="color: black;">College: </span>{{applicant.intern.college_name}}</h3>
+                    <h3 style="color: purple;"><span style="color: black;">Phone Number: </span>{{applicant.intern.phone_no}}</h3>
+                    <h3 style="color: purple;"><span style="color: black;">Why should the intern be hired?: </span>{{applicant.hire}}</h3>
+                    <h3 style="color: purple;"><span style="color: black;">Availabile?: </span>{{applicant.available}}</h3><br>
+                    <a href="/choose/{{applicant.id}}/approve/">
                         <button style="background-color:#0356fc; color:white" class="btn btn-outline-info" type="submit">
                             Accept
                         </button>
                     </a>
-                    <a href="/choose/{{intern.id}}/reject/">
+                    <a href="/choose/{{applicant.id}}/reject/">
                         <button style="background-color:#fc0303; color:white" class="btn btn-outline-info" type="submit">
                             Reject
                         </button>

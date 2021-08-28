@@ -35,7 +35,6 @@ overflow-x: hidden; ">
                         </button>
                         <div class="dropdown-menu">
                             <a href="/student_profile" class="dropdown-item"> {{user.first_name}} </a><hr>
-                            <!-- <a href="/student_profile" class="dropdown-item"> {{user.email}} </a><hr> -->
                             <a href="/myapplication" class="dropdown-item">My Applications</a>
                             <a href="/profile/edit_student" class="dropdown-item"> Edit Profile </a>
                             <a href="/change-password" class="dropdown-item"> Change Password </a>
@@ -64,8 +63,8 @@ overflow-x: hidden; ">
             <h2 id="profile-head"style="color: cornflowerblue">Personal info</h2>
             
             <hr>
-            {% if user.image %}
-            <img src="/media/{{user.image}}" style="width: 50%; height:30%; border-radius: 25px"">
+            {% if student.image %}
+            <img src="/media/{{student.image}}" style="width: 50%; height:30%; border-radius: 25px"">
             {% else %}
             <img src="{% static 'main/student.png' %}" style="width: 50%; height:30%; border-radius: 25px">
             {% endif %}
@@ -79,21 +78,23 @@ overflow-x: hidden; ">
             <h5>{{user.email}}</h5>
             <hr>
 
+            {% if student.college_name %}
             <h4>College:</h4>
-            <h5>{{user.college_name}}</h5><hr>
-            
-            {% if user.city %}
+            <h5>{{student.college_name}}</h5><hr>
+            {% endif %}
+
+            {% if student.city %}
             <h4>City:</h4>
-            <h5> {{user.city}}</h5><hr>
+            <h5> {{student.city}}</h5><hr>
             {% endif %}
              
-            {% if user.basic_skills %}
+            {% if student.basic_skills %}
             <h4>Skills:</h4>
-            <h5>{{user.basic_skills}}</h5><hr> 
+            <h5>{{student.basic_skills}}</h5><hr> 
             {% endif %}
            </div>
         </div>
-
+        
         <div clas="apply-btn" style="margin-left: 45%;padding-top: 2%">
           <button class="button"><span><a href="/filter_internship" style="color: black">Apply for Internship</a></span></button>
         </div>

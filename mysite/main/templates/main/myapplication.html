@@ -7,16 +7,16 @@
 
 <div class="row" style="padding-left: 5%;">
 
-{% for j in intern %}
+{% for i in application %}
         <div class="row">
            <div class="col-sm-4" style="padding-left: 5%;padding-right: 5%; padding-top: 5%;padding-bottom: 5%;"> 
               <div class="card bg-light mb-4 border-secondary mb-4">
                   <div class="card-body">
-                  <h1 class="card-title" style="font-family: nexa;font: 3em sans-serif;">{{j.company_name}}</h1> 
-                  <h3 class="card-title">{{j.job_title}}</h3>              
-                  {% if j.is_accept %}
+                  <h1 class="card-title" style="font-family: nexa;font: 3em sans-serif;">{{i.job.company.user.name}}</h1> 
+                  <h3 class="card-title">{{i.job.job_title}}</h3>              
+                  {% if i.is_accept %}
                   <h2 style="color: blue;">Accepted</h2>
-                  {% elif j.is_reject %}
+                  {% elif i.is_reject %}
                   <h2 style="color: red;">Rejected</h2>
                   {% else %}
                   <h3>Status: Pending</h3>
@@ -27,9 +27,9 @@
         
 
 {% endfor %}
-{% elif user.is_employer %}
+{% elif user.is_company %}
 <h1 style="text-align: center;color: crimson">XX--You can't access this page--XX</h1>
-<h2 style="text-align:center">Click on <a style="color:crimson" href="/employer_profile">this</a> to go to back to employer's profile</h2>
+<h2 style="text-align:center">Click on <a style="color:crimson" href="/company_profile">this</a> to go to back to company's profile</h2>
 
 {% endif %}
 

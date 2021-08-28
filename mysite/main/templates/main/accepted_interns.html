@@ -2,23 +2,21 @@
 
 
 {% block content %}
-{% if user.is_employer %}
+{% if user.is_company %}
 <div class="row">
 <h1 style="text-align: center; color: cornflowerblue">Accepted Interns</h1><hr>
 
 <div class="row" style="padding-left: 2%;padding-right: 2%;padding-top: 2%;padding-bottom: 2%;">
-{% for i in intern %}
+{% for i in application %}
 {% ifequal False i.is_reject %}
 {% ifequal True i.is_accept %}
             <div class="col-sm-4"> 
                 <div class="card bg-light mb-3 border-secondary mb-3" style="margin-top:40px">
                     <div class="card-body">
-                    <h1 class="card-title" style="font-family: montserrat">{{i.intern_name}}</h1>
-                    <h2 class="card-subtitle">{{i.username}}</h2>              
-                    <p class="card-text">Applied for: {{i.job_title}}</p>
-                    <!-- <p class="card-text">Details: {{product.job_content|safe}}</p> -->
-                    <a href="/intern_detail/{{i.id}}" class="btn btn-primary">Details</a>
-                    <!-- <a href="#" class="btn btn-default">Cancel</a> -->
+                    <h1 class="card-title" style="font-family: montserrat">{{i.intern.user.first_name}} {{i.intern.user.last_name}}</h1>
+                    <h3 class="card-subtitle">{{i.intern.user.email}}</h3>              
+                    <h3 class="card-text">Applied for: {{i.job.job_title}}</h3>
+                    <a href="/application_detail/{{i.id}}" class="btn btn-primary">Details</a>
                 </div>
             </div>
     </div>

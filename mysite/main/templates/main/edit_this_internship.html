@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    {% if user.is_employer %}
+    {% if user.is_company %}
     <nav class="navbar navbar-light" style="background-color:#DCDCDC;">
            <a class="navbar-brand" href="HomePage.html"> 
             <img width="200px" height="35px" src="{% static 'main/Logo.svg' %}" alt="">
@@ -24,8 +24,8 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu">
-                      <a href="/employer_profile" class="dropdown-item"> {{user.username}} </a><hr>
-                      <a href="/profile/edit_employer" class="dropdown-item"> Edit Profile </a>
+                      <a href="/company_profile" class="dropdown-item"> {{user.name}} </a><hr>
+                      <a href="/profile/edit_company" class="dropdown-item"> Edit Profile </a>
                       <a href="/change-password" class="dropdown-item"> Change Password </a>
                       <a href="/internship/list" class="dropdown-item">Posted internships</a>
                       <a href="/interns_applied" class="dropdown-item">Interns Applied</a>
@@ -61,17 +61,11 @@
                           <select class="form-control" name="category" id="id_category">
                             
 
-                            <option value="{{i.category}}">{{i.category}}</option>
+                            <option value="{{i.category}}" selected disabled hidden> {{i.category}} </option>
 
-                            <option value="Web Development">Web Development</option>
-
-                            <option value="Android Development">Android Development</option>
-                          
-                            <option value="Designing">Designing</option>
-                          
-                            <option value="Photography">Photography</option>
-                          
-                            <option value="Video Editing">Video Editing</option>
+                            {% for cat in categories %}
+                              <option value = "{{cat.id}}">{{cat.category_name}}</option>
+                            {% endfor %}
 
                           </select class="form-control">  
                         </div>
@@ -89,24 +83,18 @@
                           <div class="col-lg-8">
                            <select class="form-control" name="location" id="id_location">
 
-                             <option value="{{i.location}}">{{i.location}}</option> 
+                            <option value="{{i.location}}" selected disabled hidden>{{i.location}}</option>
 
-                             <option value="Delhi">Delhi</option>
-                           
-                             <option value="Bangalore">Bangalore</option>
-                           
-                             <option value="Chennai">Chennai</option>
-                           
-                             <option value="Mumbai">Mumbai</option>
-                           
-                             <option value="Ghaziabad">Ghaziabad</option>
+                            {% for loc in locations %}
+                              <option value = "{{loc.id}}">{{loc.location_name}}</option>
+                            {% endfor %}
                            
                            </select>
                           </div>
                        </div>
                   
                         <div class="form-group">
-                          <label for="id_job_duration" class="col-lg-3 control-label">Job duration:</label> 
+                          <label for="id_job_duration" class="col-lg-3 control-label">Job duration(in months):</label> 
                           <div class="col-lg-8">
                             <input class="form-control" type="number" min="1" name="job_duration" maxlength="200" required="" id="id_job_duration" value="{{i.job_duration}}">
                           </div>
@@ -120,7 +108,7 @@
                         </div>
                   
                         <div class="form-group">
-                        <label for="id_job_stipend" class="col-lg-3 control-label">Job stipend:</label> 
+                        <label for="id_job_stipend" class="col-lg-3 control-label">Job stipend(in INR):</label> 
                         <div class="col-lg-8">
                             <input class="form-control" type="number" min="0" name="job_stipend" maxlength="200" required="" id="id_job_stipend" value="{{i.job_stipend}}">
                         </div></div>

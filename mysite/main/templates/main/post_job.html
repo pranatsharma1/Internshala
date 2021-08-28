@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    {% if user.is_employer %}
+    {% if user.is_company %}
     <nav class="navbar navbar-light" style="background-color:#DCDCDC;">
            <a class="navbar-brand" href="HomePage.html"> 
             <img width="200px" height="35px" src="{% static 'main/Logo.svg' %}" alt="">
@@ -24,8 +24,8 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu">
-                      <a href="/employer_profile" class="dropdown-item"> {{user.username}} </a><hr>
-                      <a href="/profile/edit_employer" class="dropdown-item"> Edit Profile </a>
+                      <a href="/company_profile" class="dropdown-item"> {{user.name}} </a><hr>
+                      <a href="/profile/edit_company" class="dropdown-item"> Edit Profile </a>
                       <a href="/change-password" class="dropdown-item"> Change Password </a>
                       <a href="/internship/list" class="dropdown-item">Posted internships</a>
                       <a href="/interns_applied" class="dropdown-item">Interns Applied</a>
@@ -54,36 +54,35 @@
             
                     <form method="POST" class="form-horizontal" role="form">
                         {% csrf_token %}
-                      
+                        
+
+                        <!-- Categories -->
+
                         <div class="form-group">
                           <label for="id_category" class="col-lg-3 control-label">Category:</label> 
                           <div class="col-lg-8">
+                            
                           <select class="form-control" name="category" id="id_category">
-
+                            
                             <option value="none" selected disabled hidden>Select an option </option>
 
-                            <option value="Web Development">Web Development</option>
-
-                            <option value="Android Development">Android Development</option>
-                          
-                            <option value="Designing">Designing</option>
-                          
-                            <option value="Photography">Photography</option>
-                          
-                            <option value="Video Editing">Video Editing</option>
+                            {% for cat in categories %}
+                              <option value = "{{cat.id}}">{{cat.category_name}}</option>
+                            {% endfor %}
 
                           </select class="form-control">  
 
                         </div>
                         </div>
-                  
+                        
+                        <!-- Job Title -->
                         <div class="form-group">
                          <label for="id_job_title" class="col-lg-3 control-label">Job title:</label> 
                         <div class="col-lg-8">
                           <input class="form-control" type="text" name="job_title" maxlength="200" required="" id="id_job_title">
                         </div>
                          </div>
-
+                      
                       <div class="form-group">
                        <label for="id_location" class="col-lg-3 control-label">Location:</label> 
                        <div class="col-lg-8">
@@ -91,15 +90,9 @@
 
                           <option value="none" selected disabled hidden>Select an option </option>
 
-                          <option value="Delhi">Delhi</option>
-                        
-                          <option value="Bangalore">Bangalore</option>
-                        
-                          <option value="Chennai">Chennai</option>
-                        
-                          <option value="Mumbai">Mumbai</option>
-                        
-                          <option value="Ghaziabad">Ghaziabad</option>
+                          {% for loc in locations %}
+                            <option value = "{{loc.id}}">{{loc.location_name}}</option>
+                          {% endfor %}
                         
                         </select>
 

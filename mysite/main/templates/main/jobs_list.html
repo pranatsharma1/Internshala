@@ -14,15 +14,15 @@
 <div class="row" style="padding-left: 2%;padding-right: 2%;padding-top: 2%;padding-bottom: 2%;">
     
 {% for j in jobs %}
-    
+
             <div class="col-sm-4"style="padding-left: 2%;padding-right: 2%; padding-top: 2%;padding-bottom: 2%;"> 
                <div class="card bg-light mb-3 border-secondary mb-3">
                    <div class="card-body">
-                   <h2 class="card-title" style="font-family: nexa;font-size:7vh;">{{j.user}}</h2>
+                   <h2 class="card-title" style="font-family: nexa;font-size:7vh;">{{j.company.user.name}}</h2>
                    <h3 style="color: rgb(2, 41, 114)" class="card-subtitle">{{j.job_title}}</h3> 
                    <h4 style="color: rgb(0, 55, 158)" class="card-subtitle">{{j.location}}</h4>  
                    {% if user.is_authenticated %}
-                   <a href="/job_detail/{{j.id}}">
+                   <a href="/internship_detail/{{j.id}}">
                    <button style="background-color:#1245aa; color:white" class="btn btn-primary" type="submit">
                     View Details</button>
                    </a>

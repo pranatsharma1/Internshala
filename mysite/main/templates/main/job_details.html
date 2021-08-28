@@ -10,13 +10,13 @@
     <div class="row">             
         <div class="card text-white bg-warning" >
             <div class="card-header">
-                <h1 style="color: purple;font-size:10vh">{{j.user}}</h1><hr>
-            <h3 style="color: purple;">{{j.job_title}}</h3>
-            <h3 style="color: purple;"><span style="color: black;">Location:</span> {{j.location}}</h3>
-            <h3 style="color: purple;"><span style="color: black;">Duration:</span> {{j.job_duration}} Months</h3>
-            <h3 style="color: purple;"><span style="color: black;">Stipend:</span> {{j.job_stipend|safe}} INR</h3>
-            <h3 style="color: purple;"><span style="color: black;">Details:</span> {{j.job_content|safe}}</h3>
-            <h5 style="color: purple;"><span style="color: black;">Date Posted:</span>{{j.job_published}}</h5>
+                <h1 style="color: purple">{{job.company}}</h6><hr>
+            <h3 style="color: purple;"><span style="color: black;">Title:</span> {{job.job_title}}</h3>
+            <h3 style="color: purple;"><span style="color: black;">Location:</span> {{job.location}}</h3>
+            <h3 style="color: purple;"><span style="color: black;">Duration:</span> {{job.job_duration}} Months</h3>
+            <h3 style="color: purple;"><span style="color: black;">Stipend:</span> {{job.job_stipend|safe}} INR</h3>
+            <h3 style="color: purple;"><span style="color: black;">Details:</span> {{job.job_content|safe}}</h3>
+            <h5 style="color: purple;"><span style="color: black;">Date Posted:</span>{{job.job_published}}</h5>
             </div>
         </div>
     </div>  
@@ -26,35 +26,32 @@
     <form method="POST" enctype="multipart/form-data" class="form-horizontal" role="form">
         <!-- {{form.as_p}} -->
         {% csrf_token %}
+
+        <div class="form-group col-lg-8">
+            <label for="id_intern_name">Name:</label> 
+            <input class="form-control" type="text" name="intern_name" maxlength="200" required="" id="id_intern_name" value="{{student.user.first_name}} {{student.user.last_name}}" readonly></p>
+        </div>
+
+        <div class="form-group col-lg-8">
+            <label for="id_email">Email:</label> 
+            <input class="form-control" type="text" name="email" maxlength="200" required="" id="id_email" value="{{student.user.email}}" readonly></p>
+        </div>
+
         <div class="form-group col-lg-8">
             <label for="id_phone_no">Phone no: </label>
-            <input class="form-control" type="text" name="phone_no" maxlength="10" placeholder="Enter your 10-digit phone number" required="" id="id_phone_no">
+            <input class="form-control" type="text" name="phone_no" maxlength="10" placeholder="Enter your 10-digit phone number" id = "id_phone_no" value = "{{student.phone_no}}" required="" id="id_phone_no" readonly></p>
         </div>
-        
-        <label style="display: none;" for="id_college_name">College Name:</label>
-        <input class="form-control" style="display: none;" type="text" name="college_name" value="{{user.college_name}}" maxlength="200" required="" id="id_college_name"></p>
 
-        <label style="display: none;" for="id_basic_skills">Basic skills:</label> 
-            <input class="form-control" style="display: none;" type="text" name="basic_skills" value="{{user.basic_skills}}" maxlength="200" required="" id="id_basic_skills">
-    
-        <input class="form-control" style="display: none;" type="text" name="username" value="{{user.username}}" maxlength="200" required="" id="id_username">    
-        <input class="form-control" style="display: none;" type="text" name="email" value="{{user.email}}" maxlength="200" required="" id="id_email">
- 
-        <label style="display: none;" for="id_city">City:</label>
-        <input class="form-control" style="display: none;" type="text" name="city" value="{{user.city}}" maxlength="200" required="" id="id_city">
-        
-        <label style="display: none;" for="id_intern_name">Intern name:</label> 
-        <input class="form-control" style="display: none;" type="text" name="intern_name" maxlength="200" required="" id="id_intern_name" value="{{user.first_name}} {{user.last_name}}">
+        <div class="form-group col-lg-8">
+            <label for="id_college_name">College:</label> 
+            <input class="form-control" type="text" name="college_name" maxlength="200" required="" id="id_college_name" value="{{student.college_name}}" readonly></p>
+        </div>
 
-        <label style="display: none;" for="id_company_name">Company name:</label> 
-        <input class="form-control" style="display: none;" type="text" name="company_name" maxlength="100" required="" id="id_company_name" value="{{j.user}}">
-            
-        <label style="display: none;" for="id_job_title">Job title:</label> 
-        <input class="form-control" style="display: none;" name="job_title" id="id_job_title" value="{{j.job_title}}">
+        <div class="form-group col-lg-8">
+            <label for="id_basic_skills">Skills:</label> 
+            <input class="form-control" type="text" name="basic_skills" maxlength="200" required="" id="id_basic_skills" value="{{student.basic_skills}}" readonly></p>
+        </div>
 
-        <label style="display: none;" for="id_job_id">Job id:</label> 
-        <input class="form-control" style="display: none;" type="text" name="job_id" maxlength="100" required="" id="id_job_id" value="{{j.id}}">
-            
         <div class="form-group col-lg-8">
             <label for="id_hire">Why you should be hired?:</label> 
             <input class="form-control" type="text" name="hire" maxlength="200" required="" id="id_hire">

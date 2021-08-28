@@ -58,9 +58,9 @@
           <!--When the user is logged in-->
 
           {% if user.is_student %}
-          <li><a href="/student_profile">{{user.username|title}}</a></li>
+          <li><a href="/student_profile">{{user.first_name|title}}</a></li>
           {% if user.is_employer %}
-          <li><a href="/employer_profile">{{user.username|title}}</a></li>
+          <li><a href="/company_profile">{{user.name|title}}</a></li>
           {% endif %}
           {% endif %}
           <li><a href="/logout">Logout</a></li>
@@ -78,7 +78,7 @@
 
             <ul class="dropdown-menu">
               <li><a href="/register_as_student" class="dropdown-item"> Student </a></li>
-              <li><a href="/register_as_employer" class="dropdown-item"> Employer </a></li>
+              <li><a href="/register_as_company" class="dropdown-item"> Company </a></li>
             </ul>
           </li>
 
@@ -157,32 +157,10 @@
 
         <form method="POST" role="form" enctype="multipart/form-data" class="form-horizontal">
           {% csrf_token %}
-<!-- {{form.as_p}} -->
-
-          <!-- <div class="form-group col-lg-8">
-            <label for="id_first_name">First Name:</label>
-            <input class="form-control" type="text" name="first_name" maxlength="30" autofocus=""  id="id_first_name">
-          </div>
 
           <div class="form-group col-lg-8">
-            <label for="id_last_name">Last Name:</label>
-            <input class="form-control" type="text" name="last_name" maxlength="30" autofocus=""  id="id_last_name">
-          </div> -->
-
-          <div class="form-group col-lg-8">
-            <label for="id_company_name">Company Name:</label>
-            <input class="form-control" type="text" name="company_name" maxlength="30" autofocus=""  id="id_company_name">
-          </div>
-
-          <div class="form-group col-lg-8">
-            <label for="id_username">Username:</label>
-            <input class="form-control" type="text" name="username" maxlength="150"required="" id="id_username">
-          </div>
-
-          <div class="form-group col-lg-8">
-            <div class="radio" style="display: none;" >
-              <label><input type="checkbox" name="is_employer" id="id_is_employer" checked>Agree</label>
-            </div>
+            <label for="id_name">Company Name:</label>
+            <input class="form-control" type="text" name="name" maxlength="30" autofocus=""  id="id_name">
           </div>
 
           <div class="form-group col-lg-8">
@@ -192,13 +170,13 @@
 
           <div class="form-group col-lg-8">
             <label for="id_password1">Password:</label>
-            <input class="form-control" type="password" name="password1" required="" id="id_password1">
+            <input class="form-control" type="password" name="password" required="" id="id_password">
           </div>
 
           
           <div class="form-group col-lg-8">
             <label for="id_password2">Password confirmation:</label>
-            <input class="form-control" type="password" name="password2" required="" id="id_password2">
+            <input class="form-control" type="password" name="confirm_password" required="" id="id_confirm_password">
           </div>
           
 
@@ -207,59 +185,9 @@
           </div>
         </form>
 
-        <!-- <div class="form-group col-lg-8">
-          If you already have an account <a href="/login" target="blank"><strong>login</strong></a> instead.
-        </div>
-        {% for message in messages %}
-        <div class="message">
-        <h4>{{ message }}</h4>
-        <a href="#" class="del-msg"></a>
-        </div>
-     {% endfor %} 
-      </div> -->
-
-
-
-      <!--Vibhu wala form-->
-      <!-- <form class="form-horizontal" role="form">
-                                                          <div class="form-group col-lg-8">
-                                                            <label class="">Official Email ID:</label>
-                                                            <input class="form-control" type="text" placeholder="name@email.com">
-                                                            
-                                                          </div>
-                                                          <div class="form-group col-lg-8">
-                                                              <label>Password:</label>
-                                                              <input class="form-control" type="text" placeholder="minimum 6 character">
-                                                              
-                                                          </div>
-                                                          <div class="form-group col-lg-8">
-                                                              <label>Username:</label>
-                                                              <input class="form-control" type="text" placeholder="">
-                                                          </div>
-                                        
-                                                          <div class="form-group col-lg-8">
-                                                          <input type="button" class="btn btn-primary" style="align-content: center;" value="Sign Up">
-                                                          </div>
-                                                      </form> -->
-
     </div>
 
   </div>
-  <!-- div close row-2 -->
   </div>
 </body>
-
-<!-- <script>
-  $(document).ready(function() {
-      // messages timeout for 10 sec 
-      setTimeout(function() {
-          $('.message').fadeOut('slow');
-      }, 4000); // <-- time in milliseconds, 1000 =  1 sec
-
-      // delete message
-      $('.del-msg').live('click',function(){
-          $('.del-msg').parent().attr('style', 'display:none;');
-      })
-  });
-</script> -->
 </html>

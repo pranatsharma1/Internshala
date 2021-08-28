@@ -6,7 +6,7 @@ height: 100%;
 margin: 0px;
 padding: 0px;
 overflow-x: hidden; ">
-    <title> Employer Profile </title>
+    <title> Company Profile </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -21,7 +21,7 @@ height: 100%;
 margin: 0px;
 padding: 0px;
 overflow-x: hidden; ">
-    {% if user.is_employer %}
+    {% if user.is_company %}
         <nav class="navbar navbar-light" style="background-color:#DCDCDC;">
                <a class="navbar-brand" href="/"> 
                 <img width="200px" height="35px" src="{% static 'main/Logo.svg' %}" alt="">
@@ -32,8 +32,8 @@ overflow-x: hidden; ">
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu">
-                            <a href="/employer_profile" class="dropdown-item"> {{user.username}} </a><hr>
-                            <a href="/profile/edit_employer" class="dropdown-item"> Edit Profile </a>
+                            <a href="/company_profile" class="dropdown-item"> {{user.name}} </a><hr>
+                            <a href="/profile/edit_company" class="dropdown-item"> Edit Profile </a>
                             <a href="/change-password" class="dropdown-item"> Change Password </a>
                             <a href="/internship/list" class="dropdown-item">Posted internships</a>
                             <a href="/interns_applied" class="dropdown-item">Interns Applied</a>
@@ -62,23 +62,23 @@ overflow-x: hidden; ">
 
           <div class="col-md-5 personal-info" style="padding-top:2%;padding-left: 5%;">
 
-            <h2 id="profile-head"style="color: cornflowerblue">Employer info</h2>
+            <h2 id="profile-head"style="color: cornflowerblue">Company info</h2>
             
             <hr>
-            {% if user.image %}
-            <img src="/media/{{user.image}}" style="align-content: center;width: 50%; height:30%; border-radius: 25px"">
+            {% if company.image %}
+            <img src="/media/{{company.image}}" style="align-content: center;width: 50%; height:30%; border-radius: 25px"">
             {% else %}
             <img src="{% static 'main/student.png' %}" style="width: 50%; height:40%; border-radius: 25px">
             {% endif %}
             <hr>
             <h4> Company Name: </h4>
-            <h5> {{user.username}} </h5><hr>
+            <h5> {{user.name}} </h5><hr>
 
             <h4> Email: </h4> 
             <h5> {{user.email}} </h5><hr>
-            {% if user.city %}
+            {% if company.head_office_location %}
             <h4> Main Office Location: </h4> 
-            <h5> {{user.city}} </h5><hr>
+            <h5> {{company.head_office_location}} </h5><hr>
             {% endif %}
           </div>
         </div>

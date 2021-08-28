@@ -6,98 +6,145 @@
 from django.db import models
 from django.forms import ModelForm
 from datetime import datetime
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 # Create your models here.
+class UserManager(BaseUserManager):
+    def create_user(self, email, password = None):
 
-class User(AbstractUser):   
-    is_employer=models.BooleanField(default=False)                      
-    is_student=models.BooleanField(default=False)                     
-    image=models.ImageField(upload_to='pics',default="")
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        if not password:
+            raise ValueError('Users must have an email password')
+
+        user = self.model(
+            email=self.normalize_email(email),
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_staffuser(self, email, password):
+        user = self.create_user(
+            email,
+            password=password,
+        )
+        user.staff = True
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password):
+        user = self.create_user(
+            email,
+            password=password,
+        )
+        user.staff = True
+        user.admin = True
+        user.active = True
+        user.save(using=self._db)
+        return user
+
+class User(AbstractUser):
+    username = models.CharField(max_length = 200, default = "", unique = False, blank = True)
+    name = models.CharField(max_length = 200, default = "", null = False)
+    email = models.EmailField(verbose_name = 'email address', max_length = 200, unique = True)
+    confirm_password = models.CharField(max_length = 200, default = "", null = False)
+
+    is_company = models.BooleanField(default = False)
+    is_student = models.BooleanField(default = False)
     
-    company_name=models.CharField(max_length=200,default="")
+    active = models.BooleanField(default = False)
+    staff = models.BooleanField(default = False)
+    admin = models.BooleanField(default = False)
 
-    # extra fields for student
-    college_name=models.CharField(max_length=200,default="")
-    basic_skills=models.TextField(default="")
-    city=models.CharField(max_length=200,default="")
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = UserManager()
+    
+    def get_full_name(self):
+        return self.first_name + " " + self.last_name
+
+    def get_short_name(self):
+        return self.first_name
+
+    def __str__(self):          
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        return True
+
+    def has_module_perms(self, app_label):
+        return True
+
+    @property
+    def is_staff(self):
+        return self.staff
+
+    @property
+    def is_admin(self):
+        return self.admin
+
+    @property
+    def is_active(self):
+        return self.active
+
+class Company(models.Model):
+    user = models.OneToOneField(User, on_delete = models.CASCADE, null = False)
+    head_office_location = models.CharField(max_length = 200, default = "", blank = True)
+    image = models.ImageField(upload_to = 'pics', default = "", blank = True)
+
+    def __str__(self):
+        return self.user.name
+
+class Student(models.Model):
+    user = models.OneToOneField(User, on_delete = models.CASCADE, null = False)
+    phone_no = models.CharField(max_length=10)
+    college_name = models.CharField(max_length = 200, default = "")
+    image = models.ImageField(upload_to = 'pics', default = "", blank = True)
+    basic_skills = models.TextField(default = "")
+    city = models.CharField(max_length = 200, default = "")
     year_of_study=models.IntegerField(choices=((1,"first_year"),(2,"second_year"),(3,"third_year"),(4,"fourth_year")),default=1)
 
+    def __str__(self):
+        return self.user.first_name + " " + self.user.last_name + " | " + self.user.email
 
+class Category(models.Model):
+    category_name = models.CharField(max_length=200, default ="")
 
-class category(models.Model):
-    CHOICES=[
-        ('Web Development','Web Development'),
-        ('Android Development','Android Development'),
-        ('Designing','Designing'),
-        ('Photography','Photography'),
-        ('Video Editing','Video Editing')
-    ]
-    category_name=models.CharField(max_length=2,choices=CHOICES,)
+    def __str__(self):
+        return self.category_name
 
-
+class Location(models.Model):
+    location_name = models.CharField(max_length = 200, default = "")
+    
+    def __str__(self):
+        return self.location_name
 
 class Job(models.Model): 
+    job_title = models.CharField(max_length=200)                    
+    category = models.ForeignKey(Category, default = 1, on_delete = models.SET_DEFAULT, null = True)
+    location = models.ForeignKey(Location, default = 1, on_delete = models.SET_DEFAULT, null = True)
+    job_duration = models.IntegerField(default=1)                                       
+    job_content = models.TextField()                                                      
+    job_published = models.DateTimeField("date published",default= datetime.now())        
+    job_stipend = models.IntegerField(default=0)                                         
+    company = models.ForeignKey(Company,default=2,on_delete=models.SET_DEFAULT,null=True)    
 
-    Category_Choices=[
-        ('Web Development','Web Development'),
-        ('Android Development','Android Development'),
-        ('Designing','Designing'),
-        ('Photography','Photography'),
-        ('Video Editing','Video Editing')
-    ]
-    
-    Location_Choices=[
-        ('Delhi','Delhi'),
-        ('Bangalore','Bangalore'),
-        ('Chennai','Chennai'),
-        ('Mumbai','Mumbai'),
-        ('Ghaziabad','Ghaziabad'),
-    ]
-
-    job_title= models.CharField(max_length=200)                    
-    category=models.CharField(max_length=200,choices=Category_Choices,default="")            
-    location=models.CharField(max_length=200,choices=Location_Choices,default="")            
-    job_duration=models.IntegerField(default=1)                                       
-    job_content= models.TextField()                                                      
-    job_published= models.DateTimeField("date published",default= datetime.now())        
-    job_stipend=models.IntegerField(default=0)                                         
-    user=models.ForeignKey(User,default=2,on_delete=models.SET_DEFAULT,null=True)    
-    
     def __str__(self):             
         return self.job_title      
 
-
-class Intern(models.Model):
-    intern_name=models.CharField(max_length=200,default="")  
-    hire =models.CharField(max_length=200,default="")  
-    available =models.BooleanField(default=False)
-    college_name=models.CharField(max_length=200,default="")
-    basic_skills=models.TextField(default="")
-    city=models.CharField(max_length=200,default="")
-    year_of_study=models.IntegerField(choices=((1,"first_year"),(2,"second_year"),(3,"third_year"),(4,"fourth_year")),default=1)
-    email=models.EmailField(max_length=200,default="")
-    username=models.CharField(max_length=200,default="")
-    job_title=models.CharField(max_length=200,default="")    
-    job_id=models.CharField(max_length=100,default="")
-    company_name=models.CharField(max_length=100,default="")
+class Application(models.Model):
+    intern = models.ForeignKey(Student, on_delete = models.CASCADE, null = False)
+    job = models.ForeignKey(Job, on_delete = models.CASCADE, null = False)
+    hire = models.CharField(max_length=200,default="")  
+    available = models.BooleanField(default=False)
     document = models.FileField(upload_to='documents/')
-    phone_no=models.CharField(max_length=10)
-    is_accept=models.BooleanField(default=False)
-    is_reject=models.BooleanField(default=False)  
-    status=models.BooleanField(default=False)
+    is_accept = models.BooleanField(default=False)
+    is_reject = models.BooleanField(default=False)  
+    
     def __str__(self):
-        return self.intern_name                                        
-
-class JobStatus(models.Model):
-    is_accept=models.BooleanField(default=False)
-    is_reject=models.BooleanField(default=False)
-    intern_name=models.CharField(max_length=200,default="")                    
-    company_name=models.CharField(max_length=100,default="")                                             
-    hire =models.CharField(max_length=200,default="")  
-    available =models.CharField(max_length=200,default="")                                         
-    job_title=models.CharField(max_length=200,default="")                                                                                  
-                                             
-    def __str__(self):
-        return self.intern_name                                         
+        return self.intern.user.first_name + " " + self.intern.user.last_name + " | " + self.job.company.user.name                                       
     

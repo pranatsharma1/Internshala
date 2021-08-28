@@ -51,9 +51,9 @@ overflow-x: hidden; ">
                             
                         {% if user.is_authenticated %}            <!--When the user is logged in-->
                            {% if user.is_student %}
-                            <li><a style="color: black;" href="/student_profile">{{user.username|title}}-S</a></li>
+                            <li><a style="color: black;" href="/student_profile">{{user.first_name|title}}-S</a></li>
                            {% else %} 
-                           <li><a style="color: black;" href="/employer_profile">{{user.username|title}}-E</a style="color: black;"></li>
+                           <li><a style="color: black;" href="/company_profile">{{user.name|title}}-E</a style="color: black;"></li>
                            {% endif %}
                          <li><a style="color: black;" href="/logout">Logout</a style="color: black;"></li>
                        </ul>     
@@ -67,7 +67,7 @@ overflow-x: hidden; ">
                            </a>
                            <ul class="dropdown-menu">
                                <li><a href="/register_as_student" class="dropdown-item"> Student </a></li>
-                               <li><a href="/register_as_employer" class="dropdown-item"> Employer </a></li>
+                               <li><a href="/register_as_company" class="dropdown-item"> Company </a></li>
                            </ul>
                          </li>
 

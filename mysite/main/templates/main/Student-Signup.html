@@ -50,9 +50,9 @@ overflow-x: hidden; ">
                     <li><a href="/">Home</a></li>
                 {% if user.is_authenticated %}            <!--When the user is logged in-->
                 {% if user.is_student %}
-                <li><a href="/student_profile">{{user.username|title}}</a></li>
+                <li><a href="/student_profile">{{user.first_name|title}}</a></li>
                {% else %} 
-               <li><a href="/employer_profile">{{user.username|title}}</a></li>
+               <li><a href="/company_profile">{{user.name|title}}</a></li>
                {% endif %}
                     <li><a href="/logout">Logout</a></li>
                </ul>     
@@ -66,7 +66,7 @@ overflow-x: hidden; ">
                    </a>
                    <ul class="dropdown-menu">
                        <li><a href="/register_as_student" class="dropdown-item"> Student </a></li>
-                       <li><a href="/register_as_employer" class="dropdown-item"> Employer </a></li>
+                       <li><a href="/register_as_company" class="dropdown-item"> Company </a></li>
                    </ul>
                  </li>
 
@@ -145,30 +145,13 @@ overflow-x: hidden; ">
                           </div>
     
                           <div class="form-group col-lg-8">
-                          <label for="id_username">Username:</label>
-                          <input class="form-control" type="text" name="username" maxlength="150" required="" id="id_username">
-                          </div>
-    
-    
-                          <div class="form-group col-lg-8" >
-                            <div class="radio" style="display: none;" >
-                              <label><input type="checkbox"  name="is_student" checked>Agree</label>
-                          </div>
-                        </div>
-    
-                          <div class="form-group col-lg-8">
                           <label for="id_email">Email:</label> 
                           <input class="form-control" type="email" name="email" required="" id="id_email">
                           </div>
 
                           <div class="form-group col-lg-8">
-                          <label for="id_college_name">College name:</label> 
-                          <input class="form-control" type="text" name="college_name" maxlength="200" required="" id="id_college_name">
-                          </div>
-
-                          <div class="form-group col-lg-8">
                           <p><label for="id_year_of_study">Year of study:</label> 
-
+                          
                           <select class="form-control" name="year_of_study" required="" id="id_year_of_study">
 
                             <option value="1">1st</option>
@@ -182,13 +165,13 @@ overflow-x: hidden; ">
                           </select></p></div>
 
                           <div class="form-group col-lg-8">
-                          <label for="id_password1">Password:</label> 
-                          <input class="form-control" type="password" name="password1" required="" id="id_password1">
+                          <label for="id_password">Password:</label> 
+                          <input class="form-control" type="password" name="password" required="" id="id_password">
                           </div>
     
                           <div class="form-group col-lg-8">
-                          <label for="id_password2">Password confirmation:</label> 
-                          <input class="form-control" type="password" name="password2" required="" id="id_password2">
+                          <label for="id_confirm_password">Password confirmation:</label> 
+                          <input class="form-control" type="password" name="confirm_password" required="" id="id_confirm_password">
                           </div>
   
     
