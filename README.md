@@ -72,7 +72,7 @@ The working of the app will be as follows :
 
 ### Accepted Applications
 
-![Image](/screenshots/list_of_accepted_applications.png)
+![Image](/screenshots/List_of_accepted_applications.png)
 
 
 ### Student Profile
