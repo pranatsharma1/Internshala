@@ -1,4 +1,4 @@
-## Internshala
+## Internpedia
 A Web app which basically acts as an interface for companies looking for interns and students seeking for internship.
 It is build on Django Framework.
 
@@ -27,44 +27,71 @@ The working of the app will be as follows :
 
 ### Employer Authentication
 
-![Image](/screenshots/register_as_employer1.png)
-![Image](/screenshots/register_as_employer2.png)
+![Image](/screenshots/register_as_company1.png)
+![Image](/screenshots/register_as_company2.png)
 
 ### Student Authentication
 
 ![Image](/screenshots/register_as_student1.png)
 ![Image](/screenshots/register_as_student2.png)
 
+### Login
+
+![Image](/screenshots/login.png)
+
+### Change Password
+
+![Image](/screenshots/change_password.png)
+
 ### Company Profile
 
 ![Image](/screenshots/company_profile1.png)
 ![Image](/screenshots/company_profile2.png)
 
-### Posting an internshhip
+### Edit Company Profile
 
-![Image](/screenshots/post_an_internship.png)
+![Image](/screenshots/edit_company_profile.png)
 
-### Details of the student
+### Post an Internshhip
 
-![Image](/screenshots/student_details.png)
+![Image](/screenshots/post_an_internship1.png)
+![Image](/screenshots/post_an_internship2.png)
 
-### Accepted Interns
+### List of Posted Internships
 
-![Image](/screenshots/accepted_interns.png)
+![Image](/screenshots/posted_internships.png)
+
+### Edit an Internship
+
+![Image](/screenshots/edit_an_internship.png)
+
+### Details of an Applicant
+
+![Image](/screenshots/details_of_an_application1.png)
+![Image](/screenshots/details_of_an_application2.png)
+
+### Accepted Applications
+
+![Image](/screenshots/list_of_accepted_applications.png)
 
 
 ### Student Profile
 
-![Image](/screenshots/student_profile.png)
+![Image](/screenshots/student_profile1.png)
+![Image](/screenshots/student_profile2.png)
 
-### Applying for Internship
+### Edit Student Profile
+![Image](/screenshots/edit_student_profile.png)
 
+### Apply for Internship
+
+![Image](/screenshots/filter_internships.png)
+![Image](/screenshots/list_of_internships.png)
 ![Image](/screenshots/apply_for_internship.png)
-![Image](/screenshots/applying_for_internship.png)
 
 ### Internship Status
 
-![Image](/screenshots/internship_status.png)
+![Image](/screenshots/application_status.png)
 
 
 

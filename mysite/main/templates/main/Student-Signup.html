@@ -38,7 +38,7 @@ overflow-x: hidden; ">
                  <span class="icon-bar" style="background-color:rgb(142, 199, 248)"></span>                        
                </button>
                <div style="padding-top:0px;padding-bottom:60px">
-                <a class="navbar-brand" href="https://internshala.com/" target="_blank">
+                <a class="navbar-brand" href="/" target="_blank">
                    <img width="200px" height="35px" src="{% static 'main/Logo.svg' %}" alt="">
                </a> 
                </div>
@@ -50,9 +50,9 @@ overflow-x: hidden; ">
                     <li><a href="/">Home</a></li>
                 {% if user.is_authenticated %}            <!--When the user is logged in-->
                 {% if user.is_student %}
-                <li><a href="/student_profile">{{user.first_name|title}}</a></li>
+                <li><a href="/student_profile">{{user.first_name|title}} - S</a></li>
                {% else %} 
-               <li><a href="/company_profile">{{user.name|title}}</a></li>
+               <li><a href="/company_profile">{{user.name|title}} - E</a></li>
                {% endif %}
                     <li><a href="/logout">Logout</a></li>
                </ul>     
@@ -150,25 +150,10 @@ overflow-x: hidden; ">
                           </div>
 
                           <div class="form-group col-lg-8">
-                          <p><label for="id_year_of_study">Year of study:</label> 
-                          
-                          <select class="form-control" name="year_of_study" required="" id="id_year_of_study">
-
-                            <option value="1">1st</option>
-                          
-                            <option value="2">2nd</option>
-                          
-                            <option value="3">3rd</option>
-                          
-                            <option value="4">4th</option>
-                          
-                          </select></p></div>
-
-                          <div class="form-group col-lg-8">
                           <label for="id_password">Password:</label> 
                           <input class="form-control" type="password" name="password" required="" id="id_password">
                           </div>
-    
+                          
                           <div class="form-group col-lg-8">
                           <label for="id_confirm_password">Password confirmation:</label> 
                           <input class="form-control" type="password" name="confirm_password" required="" id="id_confirm_password">

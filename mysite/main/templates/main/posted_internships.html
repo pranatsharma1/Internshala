@@ -20,10 +20,10 @@
       <div class="col-sm-4" style="padding-left: 2%;padding-right: 2%;padding-top: 2%;padding-bottom: 2%;">
           <div class="card bg-light mb-3 border-secondary mb-3">
               <div class="card-body">
-              <h1 class="card-title" style="font-family: montserrat">{{product.job_title}}</h1>
+              <h1 class="card-title" style="font-family: montserrat">{{product.role}}</h1>
               <h3 class="card-subtitle">Location:  {{product.location}}</h3>              
-              <h3 class="card-text">Stipend: {{product.job_stipend|safe}} INR</h3>
-              <h3 class="card-text">Details: {{product.job_content|safe}}</h3>
+              <h3 class="card-text">Stipend: {{product.stipend|safe}} INR</h3>
+              <h3 class="card-text">Description: {{product.content|safe}}</h3>
               <a href="/edit_internship/{{product.id}}/" class="btn btn-primary">Edit</a> <a style="background-color:#fc0303; color:white" href="/delete_internship/{{product.id}}/" class = "btn btn-primary">Delete</a>
               </div>
            </div>

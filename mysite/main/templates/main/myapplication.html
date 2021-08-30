@@ -5,15 +5,18 @@
 <div class="row">
 <h1 style="text-align: left; color: cornflowerblue">&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMy Applications</h1><hr>
 
-<div class="row" style="padding-left: 5%;">
+<div class="row" style="padding-left: 2%;">
 
 {% for i in application %}
-        <div class="row">
-           <div class="col-sm-4" style="padding-left: 5%;padding-right: 5%; padding-top: 5%;padding-bottom: 5%;"> 
+
+        <!-- <div class="row"> -->
+           <div class="col-sm-4" style="padding-left: 2%;padding-right: 2%; padding-top: 2%;padding-bottom: 2%;"> 
               <div class="card bg-light mb-4 border-secondary mb-4">
                   <div class="card-body">
-                  <h1 class="card-title" style="font-family: nexa;font: 3em sans-serif;">{{i.job.company.user.name}}</h1> 
-                  <h3 class="card-title">{{i.job.job_title}}</h3>              
+                  <h1 class="card-title" style="font-family: montserrat">Company : {{i.internship.company.user.name}}</h1> 
+                  <h3 class = "card-title">Category : {{i.internship.category}}</h3>
+                  <h3 class="card-title">Role : {{i.internship.role}}</h3> 
+                  <h3 class="card-title">Location : {{i.internship.location}}</h3>              
                   {% if i.is_accept %}
                   <h2 style="color: blue;">Accepted</h2>
                   {% elif i.is_reject %}

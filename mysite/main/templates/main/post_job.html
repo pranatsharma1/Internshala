@@ -15,7 +15,7 @@
 <body>
     {% if user.is_company %}
     <nav class="navbar navbar-light" style="background-color:#DCDCDC;">
-           <a class="navbar-brand" href="HomePage.html"> 
+           <a class="navbar-brand" href="/"> 
             <img width="200px" height="35px" src="{% static 'main/Logo.svg' %}" alt="">
             </a>
                 <div class="btn-group">
@@ -27,7 +27,7 @@
                       <a href="/company_profile" class="dropdown-item"> {{user.name}} </a><hr>
                       <a href="/profile/edit_company" class="dropdown-item"> Edit Profile </a>
                       <a href="/change-password" class="dropdown-item"> Change Password </a>
-                      <a href="/internship/list" class="dropdown-item">Posted internships</a>
+                      <a href="/internships_posted" class="dropdown-item">Posted internships</a>
                       <a href="/interns_applied" class="dropdown-item">Interns Applied</a>
                       <a href="/accepted_interns" class="dropdown-item">Accepted Interns</a>
                       <a href="/rejected_interns" class="dropdown-item">Rejected Interns</a>
@@ -54,7 +54,6 @@
             
                     <form method="POST" class="form-horizontal" role="form">
                         {% csrf_token %}
-                        
 
                         <!-- Categories -->
 
@@ -77,9 +76,9 @@
                         
                         <!-- Job Title -->
                         <div class="form-group">
-                         <label for="id_job_title" class="col-lg-3 control-label">Job title:</label> 
+                         <label for="id_role" class="col-lg-3 control-label">Role:</label> 
                         <div class="col-lg-8">
-                          <input class="form-control" type="text" name="job_title" maxlength="200" required="" id="id_job_title">
+                          <input class="form-control" type="text" name="role" maxlength="200" required="" id="id_role">
                         </div>
                          </div>
                       
@@ -101,18 +100,21 @@
                   
                   
                        <div class="form-group">
-                       <label for="id_job_duration" class="col-lg-5 control-label">Job duration(in months):</label> 
-                       <div class="col-lg-8"><input class="form-control" type="number" min="1" value="1" name="job_duration" maxlength="200" required="" id="id_job_duration">
+                       <label for="id_duration" class="col-lg-5 control-label">Duration(in months):</label> 
+                       <div class="col-lg-8"><input class="form-control" type="number" min="1" value="1" name="duration" maxlength="200" required="" id="job_duration">
                       </div></div>
                   
                        <div class="form-group">
-                       <label for="id_job_content" class="col-lg-4 control-label">Job content:</label> 
-                       <div class="col-lg-8"><textarea class="form-control" name="job_content" required="" id="id_job_content"></textarea>
+                       <label for="id_content" class="col-lg-4 control-label">Description:</label> 
+                       <div class="col-lg-8">
+                        <textarea class="form-control" name="content" cols="40" rows="10" required="" id="id_content">
+
+                        </textarea>
                       </div></div>
-                  
+                      
                        <div class="form-group">
-                       <label for="id_job_stipend" class="col-lg-5 control-label">Job stipend(in INR):</label> 
-                       <div class="col-lg-8"><input class="form-control" type="number" min="0" value="0" name="job_stipend" maxlength="200" required="" id="id_job_stipend">
+                       <label for="id_stipend" class="col-lg-5 control-label">Stipend(in INR):</label> 
+                       <div class="col-lg-8"><input class="form-control" type="number" min="0" value="0" name="stipend" maxlength="200" required="" id="job_stipend">
                       </div></div>
                   
                       <div class="form-group">

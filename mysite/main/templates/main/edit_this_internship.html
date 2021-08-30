@@ -59,65 +59,58 @@
                           <label for="id_category" class="col-lg-3 control-label">Category:</label> 
                           <div class="col-lg-8">
                           <select class="form-control" name="category" id="id_category">
-                            
-
                             <option value="{{i.category}}" selected disabled hidden> {{i.category}} </option>
-
                             {% for cat in categories %}
                               <option value = "{{cat.id}}">{{cat.category_name}}</option>
                             {% endfor %}
-
                           </select class="form-control">  
                         </div>
                         </div>
                   
                         <div class="form-group">
-                          <label for="id_job_title" class="col-lg-3 control-label">Job title:</label> 
+                          <label for="id_role" class="col-lg-3 control-label">Role:</label> 
                           <div class="col-lg-8">
-                            <input class="form-control" type="text" name="job_title" maxlength="200" required="" id="id_job_title" value="{{i.job_title}}">
-                          </div>
-                        </div>
-                  
-                        <div class="form-group">
-                          <label for="id_location" class="col-lg-3 control-label">Location:</label> 
-                          <div class="col-lg-8">
-                           <select class="form-control" name="location" id="id_location">
-
-                            <option value="{{i.location}}" selected disabled hidden>{{i.location}}</option>
-
-                            {% for loc in locations %}
-                              <option value = "{{loc.id}}">{{loc.location_name}}</option>
-                            {% endfor %}
-                           
-                           </select>
-                          </div>
-                       </div>
-                  
-                        <div class="form-group">
-                          <label for="id_job_duration" class="col-lg-3 control-label">Job duration(in months):</label> 
-                          <div class="col-lg-8">
-                            <input class="form-control" type="number" min="1" name="job_duration" maxlength="200" required="" id="id_job_duration" value="{{i.job_duration}}">
+                            <input class="form-control" type="text" name="role" maxlength="200" required="" id="id_role" value="{{i.role}}">
                           </div>
                         </div>
                         
                         <div class="form-group">
-                        <label for="id_job_content" class="col-lg-3 control-label">Job content:</label>
+                          <label for="id_location" class="col-lg-5 control-label">Location:</label> 
+                          <div class="col-lg-8">
+                           <select class="form-control" name="location" id="id_location">
+                            <option value="{{i.location}}" selected disabled hidden>{{i.location}}</option>
+                            {% for loc in locations %}
+                              <option value = "{{loc.id}}">{{loc.location_name}}</option>
+                            {% endfor %}
+                           </select>
+                          </div>
+                       </div>
+                       
+                        <div class="form-group">
+                          <label for="id_duration" class="col-lg-5 control-label">Duration(in months):</label> 
+                          <div class="col-lg-8">
+                            <input class="form-control" type="number" min="1" name="duration" maxlength="200" required="" id="id_duration" value="{{i.duration}}">
+                          </div>
+                        </div>
+                        
+                        <div class="form-group">
+                        <label for="id_content" class="col-lg-4 control-label">Description:</label>
                         <div class="col-lg-8">
-                        <textarea class="form-control" name="job_content" cols="40" rows="10" required="" id="id_job_content">{{i.job_content}}
+                        <textarea class="form-control" name="content" cols="40" rows="10" required="" id="id_content">{{i.content}}
                         </textarea></div>
                         </div>
                   
                         <div class="form-group">
-                        <label for="id_job_stipend" class="col-lg-3 control-label">Job stipend(in INR):</label> 
+                        <label for="id_stipend" class="col-lg-5 control-label">Stipend(in INR):</label> 
                         <div class="col-lg-8">
-                            <input class="form-control" type="number" min="0" name="job_stipend" maxlength="200" required="" id="id_job_stipend" value="{{i.job_stipend}}">
+                            <input class="form-control" type="number" min="0" name="stipend" maxlength="200" required="" id="id_stipend" value="{{i.stipend}}">
                         </div></div>
                        
                       <div class="form-group">
                           <label class="col-md-3 control-label"></label>
                           <div class="col-md-8">
                             <button style="background-color:#0356fc;  color:white" class="btn btn-outline-info" type="submit">Update</button>
-                            <a href="/internship/list" style="background-color:red; color:white" class="btn btn-outline-info">Cancel</a>
+                            <a href="/internships_posted" style="background-color:red; color:white" class="btn btn-outline-info">Cancel</a>
                           </div>
                         </div>
                         

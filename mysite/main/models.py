@@ -61,7 +61,7 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-
+    
     objects = UserManager()
     
     def get_full_name(self):
@@ -102,10 +102,10 @@ class Company(models.Model):
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, null = False)
     phone_no = models.CharField(max_length=10)
-    college_name = models.CharField(max_length = 200, default = "")
+    college_name = models.CharField(max_length = 200, default = "", blank = True)
     image = models.ImageField(upload_to = 'pics', default = "", blank = True)
-    basic_skills = models.TextField(default = "")
-    city = models.CharField(max_length = 200, default = "")
+    basic_skills = models.TextField(default = "", blank = True)
+    city = models.CharField(max_length = 200, default = "", blank = True)
     year_of_study=models.IntegerField(choices=((1,"first_year"),(2,"second_year"),(3,"third_year"),(4,"fourth_year")),default=1)
 
     def __str__(self):
@@ -123,28 +123,28 @@ class Location(models.Model):
     def __str__(self):
         return self.location_name
 
-class Job(models.Model): 
-    job_title = models.CharField(max_length=200)                    
+class Internship(models.Model): 
+    role = models.CharField(max_length=200)                    
     category = models.ForeignKey(Category, default = 1, on_delete = models.SET_DEFAULT, null = True)
     location = models.ForeignKey(Location, default = 1, on_delete = models.SET_DEFAULT, null = True)
-    job_duration = models.IntegerField(default=1)                                       
-    job_content = models.TextField()                                                      
-    job_published = models.DateTimeField("date published",default= datetime.now())        
-    job_stipend = models.IntegerField(default=0)                                         
+    duration = models.IntegerField(default = 1)                                       
+    content = models.TextField()                                                      
+    date_published = models.DateTimeField("date published",default= datetime.now())        
+    stipend = models.IntegerField(default = 0)                                         
     company = models.ForeignKey(Company,default=2,on_delete=models.SET_DEFAULT,null=True)    
 
     def __str__(self):             
-        return self.job_title      
+        return self.role      
 
 class Application(models.Model):
-    intern = models.ForeignKey(Student, on_delete = models.CASCADE, null = False)
-    job = models.ForeignKey(Job, on_delete = models.CASCADE, null = False)
-    hire = models.CharField(max_length=200,default="")  
+    student = models.ForeignKey(Student, on_delete = models.CASCADE, null = False)
+    internship = models.ForeignKey(Internship, on_delete = models.CASCADE, null = False)
+    cover_letter = models.TextField()  
     available = models.BooleanField(default=False)
-    document = models.FileField(upload_to='documents/')
+    resume = models.FileField(upload_to='documents/', blank = True)
     is_accept = models.BooleanField(default=False)
     is_reject = models.BooleanField(default=False)  
     
     def __str__(self):
-        return self.intern.user.first_name + " " + self.intern.user.last_name + " | " + self.job.company.user.name                                       
+        return self.student.user.first_name + " " + self.student.user.last_name + " | " + self.internship.company.user.name                                       
     

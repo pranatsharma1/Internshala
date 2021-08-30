@@ -10,13 +10,13 @@
     <div class="row">             
         <div class="card text-white bg-warning" >
             <div class="card-header">
-                <h1 style="color: purple">{{job.company}}</h6><hr>
-            <h3 style="color: purple;"><span style="color: black;">Title:</span> {{job.job_title}}</h3>
-            <h3 style="color: purple;"><span style="color: black;">Location:</span> {{job.location}}</h3>
-            <h3 style="color: purple;"><span style="color: black;">Duration:</span> {{job.job_duration}} Months</h3>
-            <h3 style="color: purple;"><span style="color: black;">Stipend:</span> {{job.job_stipend|safe}} INR</h3>
-            <h3 style="color: purple;"><span style="color: black;">Details:</span> {{job.job_content|safe}}</h3>
-            <h5 style="color: purple;"><span style="color: black;">Date Posted:</span>{{job.job_published}}</h5>
+                <h1 style="color: purple">{{internship.company}}</h6><hr>
+            <h3 style="color: purple;"><span style="color: black;">Title:</span> {{internship.role}}</h3>
+            <h3 style="color: purple;"><span style="color: black;">Location:</span> {{internship.location}}</h3>
+            <h3 style="color: purple;"><span style="color: black;">Duration:</span> {{internship.duration}} Months</h3>
+            <h3 style="color: purple;"><span style="color: black;">Stipend:</span> {{internship.stipend|safe}} INR</h3>
+            <h3 style="color: purple;"><span style="color: black;">Details:</span> {{internship.content|safe}}</h3>
+            <h5 style="color: purple;"><span style="color: black;">Date Posted:</span>{{internship.date_published}}</h5>
             </div>
         </div>
     </div>  
@@ -24,7 +24,6 @@
 
 <div class="col-md-6" style="padding-left: 5%;">
     <form method="POST" enctype="multipart/form-data" class="form-horizontal" role="form">
-        <!-- {{form.as_p}} -->
         {% csrf_token %}
 
         <div class="form-group col-lg-8">
@@ -53,10 +52,15 @@
         </div>
 
         <div class="form-group col-lg-8">
-            <label for="id_hire">Why you should be hired?:</label> 
-            <input class="form-control" type="text" name="hire" maxlength="200" required="" id="id_hire">
+            <label for="id_resume">Resume (In PDF format):</label>
+            <input class="form-control" type="file" name="resume" accept="application/pdf" id="id_resume"></p>
         </div>
-    
+
+        <div class="form-group col-lg-8">
+            <label for="id_cover_letter">Cover Letter:</label> 
+            <input class="form-control" type="text" name="cover_letter" maxlength="200" required="" id="id_cover_letter">
+        </div>
+        
         <div class="form-group col-lg-8">
             <label for="id_available">Are you available in the given period? :</label> 
             <input type="checkbox" name="available" id="id_available">

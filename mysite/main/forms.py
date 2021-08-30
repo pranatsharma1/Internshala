@@ -36,7 +36,7 @@ class CompanySignUpForm(ModelForm):
 
     def save(self,commit=True):
         print("hello")
-        user=super(EmployerSignUpForm,self).save(commit=False)
+        user=super(CompanySignUpForm,self).save(commit=False)
         user.email=self.cleaned_data['email']
         if commit:
             user.save()
@@ -68,19 +68,19 @@ class StudentSignUpForm(ModelForm):
         return user   
 
 
-class Job_Post(ModelForm):
+class Internship_Post(ModelForm):
     class Meta:
-          model=Job
-          fields=("category","job_title","location","job_duration","job_content","job_stipend")
+          model = Internship
+          fields=("category","role","location","duration","content","stipend")
         
     def __init__(self,user,*args,**kwargs):
-        super(Job_Post,self).__init__(*args,**kwargs)
+        super(Internship_Post,self).__init__(*args,**kwargs)
 
 
-class Apply_Job(ModelForm):
+class Apply_Internship(ModelForm):
     class Meta:
           model = Application
-          fields=("hire","available")
+          fields=("resume", "cover_letter","available")
 
 
 class AcceptReject(ModelForm):
@@ -113,5 +113,5 @@ class EditEmployerProfileForm(UserChangeForm):
 class EditInternship(ModelForm):
 
     class Meta:
-        model=Job
-        fields=("category","job_title","location","job_duration","job_content","job_stipend")
+        model = Internship
+        fields=("category","role","location","duration","content","stipend")
