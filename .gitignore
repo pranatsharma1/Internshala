@@ -6,3 +6,5 @@ mysite/db.sqlite
 mysite/db.sqlite3
 mysite/db.sqlite3
 mysite/env/
+venv/
+.idea/
